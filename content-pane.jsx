@@ -279,7 +279,7 @@ function SectionJoin({ idx, ctaText }) {
           </div>
           <div className="ch-register-actions ch-field--wide">
             <button type="submit" className="ch-btn ch-btn--neon" disabled={sending}>
-              <span>{sending ? "שולח..." : (ctaText || "להרשמה ליום הפתוח")}</span>
+              <span>{sending ? "שולח..." : (ctaText || "להרשמה לערב חשיפה")}</span>
               <span className="ch-btn__arrow">←</span>
             </button>
             <a className="ch-btn ch-btn--ghost" href="mailto:info@chamama.org">

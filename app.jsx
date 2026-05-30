@@ -29,7 +29,7 @@ const SITE = {
   vislayout:    "framed",
   splitRatio:   "50/50",
   visualBg:     "dark-green",
-  ctaText:      "להרשמה ליום הפתוח",
+  ctaText:      "להרשמה לערב חשיפה",
   ctaHref:      "#join",
   sectionOrder: ["hero", "freedom", "anchors", "daily", "projects", "parents", "join"],
 };
