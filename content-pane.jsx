@@ -234,7 +234,7 @@ function SectionJoin({ idx, ctaText }) {
   }
   return (
     <section className="ch-section ch-section--dark" id="join" data-idx={idx} data-screen-label={`${String(idx + 1).padStart(2, '0')} Join`}>
-      <p className="ch-eyebrow ch-reveal">הצטרפות · יום פתוח 22 במרץ</p>
+      <p className="ch-eyebrow ch-reveal">הצטרפות · ערב חשיפה 22 במרץ</p>
       <h2 className="ch-h2 ch-reveal ch-reveal--d1">בואו <span className="neon">להכיר</span>.</h2>
       <p className="ch-lead ch-reveal ch-reveal--d2">
         הדרך הכי טובה להבין את החממה היא לבוא ולשבת. שעת היכרות — עם ההורים, עם החניך, ועם השאלות הקשות.
