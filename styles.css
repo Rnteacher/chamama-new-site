@@ -1,0 +1,1213 @@
+/* ──────────────────────────────────────────────────────────
+   Chamama Homepage — split-scroll
+   Hebrew-first / RTL · content scrolls free · visual snaps
+   ────────────────────────────────────────────────────────── */
+
+:root {
+  /* Brand — calm "institutional-alternative" palette (default).
+     Neon is a spice, not a base color. */
+  --ch-green-dark:  #244C42;   /* deep greenhouse green — primary */
+  --ch-green-mid:   #4E7B68;   /* soft greenhouse green */
+  --ch-green-light: #6E9C88;
+  --ch-green-neon:  #7CFF4F;   /* THE accent — used sparingly */
+  --ch-sand:        #D8CFBF;   /* stone / sand */
+  --ch-terra:       #B95A3D;   /* warm clay accent */
+  --ch-bluegrey:    #586F7C;   /* calm info / balance */
+  --ch-bg:          #F4F0E7;   /* warm paper */
+  --ch-bg-alt:      #ECE5D6;   /* zebra band */
+  --ch-surface:     #FBF8F1;   /* cards on light */
+  --ch-ink:         #171717;   /* soft black */
+  --ch-ink-soft:    #4a4a4a;
+
+  /* beam / pattern intensity (raised in neon palette) */
+  --ch-beam-op: 0.26;
+  --ch-pattern-op: 0.08;
+
+  /* Dynamic (driven by Tweaks) */
+  --ch-vis-bg: #1B3A33;       /* deep green default */
+  --ch-vis-ink: #F4F0E7;
+  --ch-vis-muted: rgba(244,240,231,0.6);
+  --ch-vis-rule: rgba(124,255,79,0.10);
+  --ch-split-left: 1fr;       /* content side */
+  --ch-split-right: 1fr;      /* visual side */
+}
+
+/* ── Palette: dramatic neon variant (Tweak) ── */
+body[data-palette="neon"] {
+  --ch-green-dark:  #2c5f50;
+  --ch-green-neon:  #64ff00;
+  --ch-bg:          #f1efe8;
+  --ch-bg-alt:      #e8e4d8;
+  --ch-surface:     #f2efe8;
+  --ch-vis-bg:      #0e1f1a;
+  --ch-vis-rule:    rgba(100,255,0,0.08);
+  --ch-beam-op:     0.62;
+  --ch-pattern-op:  0.16;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--ch-vis-bg);
+  color: var(--ch-ink);
+  font-family: "Open Sans", "Heebo", system-ui, sans-serif;
+  font-size: 17px;
+  line-height: 1.65;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+.display { font-family: "FbElectron Condensed", "Frank Ruhl Libre", system-ui, sans-serif; font-weight: 900; letter-spacing: -0.005em; }
+
+/* ──────────────── Top progress bar ──────────────── */
+.ch-progress {
+  position: fixed; inset: 0 0 auto 0; height: 3px;
+  background: rgba(255,255,255,0.06); z-index: 100;
+}
+.ch-progress__bar {
+  height: 100%; width: 0%; background: var(--ch-green-neon);
+  box-shadow: 0 0 14px rgba(100,255,0,0.7);
+  transition: width 80ms linear;
+}
+
+/* ──────────────── Header ──────────────── */
+.ch-header {
+  position: fixed; inset: 0 0 auto 0; z-index: 60;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 24px;
+  padding: 16px 28px;
+  pointer-events: none;
+}
+.ch-header > * { pointer-events: auto; }
+.ch-header__brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+.ch-header__brand-logo { height: 52px; width: auto; display: block; }
+.ch-header__brand-emblem { height: 34px; width: 34px; }
+.ch-header__brand-text {
+  font-family: "FbElectron Condensed", system-ui, sans-serif;
+  font-weight: 900; font-size: 22px; color: var(--ch-vis-ink); letter-spacing: 0.01em;
+  text-shadow: 0 0 20px rgba(0,0,0,0.4);
+}
+.ch-header__nav {
+  display: flex; gap: 4px; justify-self: center;
+  background: rgba(14,31,26,0.4);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 0;
+  padding: 4px;
+}
+.ch-header__link {
+  position: relative;
+  color: rgba(241,239,232,0.7);
+  text-decoration: none;
+  font: 500 13px/1 "Open Sans", sans-serif;
+  padding: 10px 16px;
+  letter-spacing: 0.02em;
+  transition: color 200ms;
+  cursor: pointer;
+}
+.ch-header__link::after {
+  content: ""; position: absolute; inset-inline: 16px; bottom: 6px;
+  height: 2px; background: var(--ch-green-neon); transform: scaleX(0); transform-origin: center;
+  transition: transform 240ms cubic-bezier(0.2,0.7,0.2,1);
+}
+.ch-header__link:hover { color: var(--ch-vis-ink); }
+.ch-header__link:hover::after, .ch-header__link.is-active::after { transform: scaleX(1); }
+.ch-header__link.is-active { color: var(--ch-green-neon); }
+.ch-header__cta {
+  font: 700 12px/1 "Open Sans", sans-serif;
+  letter-spacing: 0.06em;
+  padding: 13px 20px;
+  background: var(--ch-green-neon); color: var(--ch-ink); text-decoration: none;
+  border: 0; cursor: pointer;
+  transition: transform 180ms, background 180ms, color 180ms;
+}
+.ch-header__cta:hover { background: var(--ch-vis-ink); color: var(--ch-green-neon); }
+
+/* ──────────────── Two-pane split-scroll ──────────────── */
+.ch-stage {
+  display: grid;
+  grid-template-columns: var(--ch-split-right) var(--ch-split-left);
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  direction: rtl;
+}
+.ch-pane {
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+}
+
+/* Right pane (visual / brand) */
+.ch-pane--visual {
+  background: var(--ch-vis-bg);
+  color: var(--ch-vis-ink);
+  position: relative;
+  overflow: hidden;
+  border-inline-start: 1px solid var(--ch-vis-rule);
+  transition: background 600ms ease;
+}
+
+/* Left pane (text / content) — actually scrollable */
+.ch-pane--content {
+  background: var(--ch-bg);
+  color: var(--ch-ink);
+  overflow-y: auto;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(44,95,80,0.25) transparent;
+}
+.ch-pane--content::-webkit-scrollbar { width: 6px; }
+.ch-pane--content::-webkit-scrollbar-thumb { background: rgba(44,95,80,0.25); }
+
+@media (max-width: 960px) {
+  .ch-stage { grid-template-columns: 1fr; }
+  .ch-pane--visual { display: none; }
+  .ch-pane--content { height: 100vh; }
+}
+
+/* Section counter badge */
+.ch-counter {
+  position: fixed; bottom: 22px; inset-inline-start: 22px; z-index: 70;
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 10px 16px;
+  background: rgba(14,31,26,0.85);
+  border: 1px solid rgba(100,255,0,0.3);
+  color: var(--ch-vis-ink);
+  font-family: "FbElectron Condensed", sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.ch-counter__dot {
+  width: 6px; height: 6px; background: var(--ch-green-neon); border-radius: 50%;
+  box-shadow: 0 0 10px var(--ch-green-neon);
+  animation: ch-pulse 1.6s ease-in-out infinite;
+}
+.ch-counter__num { color: var(--ch-green-neon); font-weight: 900; font-size: 14px; }
+.ch-counter__sep { opacity: 0.4; }
+@keyframes ch-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.6); }
+}
+
+/* Scroll hint (visible at top) */
+.ch-scroll-hint {
+  position: fixed; bottom: 22px; inset-inline-end: 22px; z-index: 70;
+  display: inline-flex; align-items: center; gap: 12px;
+  font-family: "FbElectron Condensed", sans-serif;
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(26,26,26,0.5);
+  transition: opacity 300ms;
+}
+.ch-scroll-hint__line {
+  display: inline-block;
+  width: 40px; height: 1px;
+  background: currentColor;
+  animation: ch-line-pulse 2s ease-in-out infinite;
+}
+@keyframes ch-line-pulse {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+
+/* ──────────────── Visual pane (stack of panels, translated by activeIdx) ──────────────── */
+.ch-vis-stack {
+  position: absolute; inset: 0;
+  transition: transform 800ms cubic-bezier(0.55, 0.05, 0.25, 1);
+  will-change: transform;
+}
+.ch-vis-stack > * {
+  height: 100vh;
+  width: 100%;
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+  border-bottom: 1px solid var(--ch-vis-rule);
+}
+
+/* Beam: signature radial light, used on multiple panels */
+.ch-beam {
+  position: absolute; inset: 0;
+  pointer-events: none;
+  background-image: url("assets/brand/beam.png");
+  background-repeat: no-repeat;
+  background-position: top right;
+  background-size: 100% auto;
+  opacity: var(--ch-beam-op, 0.3);
+  mix-blend-mode: screen;
+  animation: ch-beam-drift 18s ease-in-out infinite;
+}
+@keyframes ch-beam-drift {
+  0%, 100% { transform: translate(0,0) scale(1); }
+  50%      { transform: translate(-2%,1%) scale(1.06); }
+}
+.ch-beam--soft { opacity: calc(var(--ch-beam-op, 0.3) * 0.6); }
+.ch-beam--flip { transform: scaleX(-1); transform-origin: center; }
+
+/* Big background number (in visual panel) */
+.ch-vis-num {
+  position: absolute;
+  font-family: "FbElectron Condensed", system-ui, sans-serif;
+  font-weight: 900;
+  font-size: clamp(220px, 32vw, 460px);
+  line-height: 0.85;
+  color: rgba(100,255,0,0.05);
+  -webkit-text-stroke: 2px rgba(100,255,0,0.4);
+  letter-spacing: -0.04em;
+  user-select: none;
+  pointer-events: none;
+}
+.ch-vis-caption {
+  position: absolute;
+  bottom: 32px; inset-inline-end: 36px;
+  font-family: "FbElectron Condensed", system-ui, sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  color: var(--ch-vis-muted);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  display: flex; align-items: center; gap: 10px;
+}
+.ch-vis-caption__dot {
+  width: 4px; height: 4px; background: var(--ch-green-neon); border-radius: 50%;
+}
+
+.ch-vis-pattern {
+  position: absolute; inset: 0;
+  background-repeat: repeat;
+  background-size: 360px;
+  opacity: var(--ch-pattern-op, 0.1);
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+.ch-vis-pattern--p1 { background-image: url("assets/brand/pattern-1.png"); }
+.ch-vis-pattern--p2 { background-image: url("assets/brand/pattern-2.png"); }
+.ch-vis-pattern--p3 { background-image: url("assets/brand/pattern-3.png"); }
+.ch-vis-pattern--p4 { background-image: url("assets/brand/pattern-4.png"); }
+
+/* ─── Panel A: hero emblem ─── */
+.ch-vis-emblem {
+  position: relative;
+  width: min(72%, 580px);
+  aspect-ratio: 1;
+  background-image: url("assets/logos/emblem-neon-green.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  filter: drop-shadow(0 0 80px rgba(100,255,0,0.5));
+  animation: ch-emblem-bob 8s ease-in-out infinite;
+  z-index: 2;
+}
+@keyframes ch-emblem-bob {
+  0%, 100% { transform: translateY(0) rotate(-1.5deg) scale(1); }
+  50%      { transform: translateY(-14px) rotate(1.5deg) scale(1.02); }
+}
+.ch-vis-emblem--lg {
+  width: min(86%, 720px);
+  filter: drop-shadow(0 0 120px rgba(100,255,0,0.7));
+  animation: ch-emblem-spin 60s linear infinite;
+}
+@keyframes ch-emblem-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ─── Panel B: method principles (visual side — three big numbers) ─── */
+.ch-vis-method {
+  position: relative; z-index: 2;
+  display: grid; gap: 28px;
+  width: min(80%, 540px);
+}
+.ch-vis-method-row {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 24px;
+  align-items: baseline;
+  padding-bottom: 22px;
+  border-bottom: 1px solid rgba(100,255,0,0.15);
+}
+.ch-vis-method-row:last-child { border-bottom: 0; }
+.ch-vis-method-num {
+  font-family: "FbElectron Condensed", sans-serif;
+  font-weight: 900;
+  font-size: 96px;
+  line-height: 0.85;
+  color: var(--ch-green-neon);
+  letter-spacing: -0.03em;
+  text-shadow: 0 0 36px rgba(100,255,0,0.5);
+}
+.ch-vis-method-label {
+  font-family: "FbElectron Condensed", sans-serif;
+  font-weight: 900;
+  font-size: 22px;
+  color: var(--ch-vis-ink);
+  letter-spacing: 0.02em;
+}
+.ch-vis-method-sub {
+  font: 500 12px/1.5 "Open Sans", sans-serif;
+  color: var(--ch-vis-muted);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+/* ─── Panel C: four anchors icons ─── */
+.ch-vis-icons {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  width: min(78%, 540px);
+  position: relative; z-index: 2;
+}
+.ch-vis-icon {
+  display: flex; flex-direction: column; align-items: center; gap: 16px;
+  padding: 36px 20px;
+  background: rgba(100,255,0,0.04);
+  border: 1px solid rgba(100,255,0,0.18);
+  transition: background 240ms, transform 240ms, border-color 240ms;
+}
+.ch-vis-icon:hover {
+  background: rgba(100,255,0,0.12);
+  border-color: rgba(100,255,0,0.5);
+  transform: translateY(-4px);
+}
+.ch-vis-icon img { height: 80px; width: auto; }
+.ch-vis-icon__label {
+  font-family: "FbElectron Condensed", sans-serif;
+  font-weight: 900;
+  font-size: 18px;
+  color: var(--ch-vis-ink);
+  letter-spacing: 0.04em;
+}
+.ch-vis-icon__id {
+  font: 500 10px/1 "Open Sans", sans-serif;
+  color: var(--ch-green-neon);
+  letter-spacing: 0.2em;
+  margin-top: -8px;
+}
+
+/* ─── Panel D: voices/quote mark ─── */
+.ch-vis-quote {
+  position: relative; z-index: 2;
+  width: min(72%, 540px);
+  text-align: center;
+}
+.ch-vis-quote__mark {
+  font-family: "FbElectron Condensed", sans-serif;
+  font-weight: 900;
+  font-size: clamp(180px, 26vw, 320px);
+  line-height: 0.6;
+  color: var(--ch-green-neon);
+  text-shadow: 0 0 60px rgba(100,255,0,0.6);
+  display: block;
+  user-select: none;
+}
+.ch-vis-quote__text {
+  font-family: "FbElectron Condensed", sans-serif;
+  font-weight: 900;
+  font-size: clamp(28px, 3.4vw, 42px);
+  line-height: 1.1;
+  color: var(--ch-vis-ink);
+  margin: -36px 0 24px;
+  letter-spacing: -0.005em;
+}
+.ch-vis-quote__by {
+  font: 500 12px/1 "Open Sans", sans-serif;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ch-vis-muted);
+}
+
+/* ─── Panel E: stat / projects ─── */
+.ch-vis-stat {
+  position: relative; z-index: 2;
+  text-align: center;
+}
+.ch-vis-stat__num {
+  font-family: "FbElectron Condensed", sans-serif;
+  font-weight: 900;
+  font-size: clamp(180px, 28vw, 360px);
+  line-height: 1;
+  color: var(--ch-green-neon);
+  letter-spacing: -0.05em;
+  text-shadow: 0 0 80px rgba(100,255,0,0.6);
+  animation: ch-stat-pulse 3.6s ease-in-out infinite;
+}
+@keyframes ch-stat-pulse {
+  0%, 100% { text-shadow: 0 0 80px rgba(100,255,0,0.6); }
+  50%      { text-shadow: 0 0 120px rgba(100,255,0,0.9); }
+}
+.ch-vis-stat__label {
+  font-family: "FbElectron Condensed", sans-serif;
+  font-weight: 900;
+  font-size: 20px;
+  color: var(--ch-vis-ink);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-top: 12px;
+}
+.ch-vis-stat__sub {
+  font: 500 13px/1.4 "Open Sans", sans-serif;
+  color: var(--ch-vis-muted);
+  letter-spacing: 0.04em;
+  margin-top: 8px;
+  max-width: 36ch;
+  margin-inline: auto;
+}
+
+/* Characters silhouette */
+.ch-vis-characters {
+  width: min(86%, 720px);
+  height: auto;
+  filter: drop-shadow(0 0 60px rgba(100,255,0,0.4));
+  position: relative; z-index: 2;
+}
+
+/* ─── Panel F: register / open day ─── */
+.ch-vis-register {
+  position: relative; z-index: 2;
+  text-align: center;
+  width: min(80%, 560px);
+}
+.ch-vis-register__date {
+  display: inline-flex; flex-direction: column; align-items: center;
+  padding: 32px 56px;
+  background: rgba(100,255,0,0.06);
+  border: 2px solid var(--ch-green-neon);
+  margin-bottom: 36px;
+  box-shadow: 0 0 60px rgba(100,255,0,0.3), 8px 8px 0 var(--ch-green-neon);
+}
+.ch-vis-register__day {
+  font-family: "FbElectron Condensed", sans-serif;
+  font-weight: 900;
+  font-size: 120px;
+  line-height: 0.85;
+  color: var(--ch-green-neon);
+  letter-spacing: -0.04em;
+}
+.ch-vis-register__month {
+  font-family: "FbElectron Condensed", sans-serif;
+  font-weight: 900;
+  font-size: 24px;
+  color: var(--ch-vis-ink);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  margin-top: 6px;
+}
+.ch-vis-register__time {
+  font: 500 14px/1 "Open Sans", sans-serif;
+  color: var(--ch-vis-muted);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-top: 12px;
+}
+.ch-vis-register__h {
+  font-family: "FbElectron Condensed", sans-serif;
+  font-weight: 900;
+  font-size: 56px;
+  line-height: 1;
+  color: var(--ch-vis-ink);
+  letter-spacing: -0.005em;
+  margin: 0 0 18px;
+}
+.ch-vis-register__h .neon { color: var(--ch-green-neon); }
+.ch-vis-register__p {
+  font: 400 16px/1.6 "Open Sans", sans-serif;
+  color: var(--ch-vis-muted);
+  margin: 0;
+}
+
+/* ──────────────── Content pane (left) ──────────────── */
+.ch-content { padding: 0; }
+.ch-section {
+  position: relative;
+  min-height: 100vh;
+  padding: 132px 72px 96px;
+  display: flex; flex-direction: column; justify-content: center;
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+}
+.ch-section--alt { background: var(--ch-bg-alt); }
+.ch-section--dark { background: #0e1f1a; color: var(--ch-vis-ink); border-bottom-color: rgba(100,255,0,0.08); }
+.ch-section--dark .ch-eyebrow { color: rgba(100,255,0,0.85); }
+.ch-section--dark .ch-eyebrow::before { background: var(--ch-green-neon); }
+.ch-section--dark .ch-h2 { color: var(--ch-vis-ink); }
+.ch-section--dark .ch-lead { color: rgba(241,239,232,0.78); }
+
+@media (max-width: 1200px) {
+  .ch-section { padding: 108px 48px 80px; }
+}
+
+.ch-eyebrow {
+  font-family: "FbElectron Condensed", sans-serif;
+  font-weight: 900;
+  font-size: 13px;
+  color: var(--ch-green-dark);
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  margin: 0 0 22px;
+  display: inline-flex; align-items: center; gap: 14px;
+}
+.ch-eyebrow::before {
+  content: ""; width: 40px; height: 3px; background: var(--ch-green-neon);
+  display: inline-block;
+}
+
+.ch-h1 {
+  font-family: "FbElectron Condensed", system-ui, sans-serif;
+  font-weight: 900;
+  font-size: clamp(64px, 8vw, 120px);
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  color: var(--ch-ink);
+  margin: 0 0 32px;
+  max-width: 13ch;
+}
+.ch-h2 {
+  font-family: "FbElectron Condensed", system-ui, sans-serif;
+  font-weight: 900;
+  font-size: clamp(54px, 6.4vw, 92px);
+  line-height: 0.95;
+  letter-spacing: -0.015em;
+  color: var(--ch-ink);
+  margin: 0 0 26px;
+  max-width: 14ch;
+}
+.ch-h1 .neon, .ch-h2 .neon {
+  color: var(--ch-green-dark);
+  position: relative;
+  display: inline-block;
+  z-index: 0;
+}
+.ch-h1 .neon::after, .ch-h2 .neon::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 0.04em;
+  height: 0.12em;
+  background: var(--ch-green-neon);
+  z-index: -1;
+  transform: none;
+}
+/* Neon palette restores the chunky highlight block */
+body[data-palette="neon"] .ch-h1 .neon, body[data-palette="neon"] .ch-h2 .neon { color: var(--ch-green-dark); }
+body[data-palette="neon"] .ch-h1 .neon::after, body[data-palette="neon"] .ch-h2 .neon::after {
+  left: -3%; right: -3%; bottom: 6%; height: 18%; transform: skewY(-2deg);
+}
+.ch-section--dark .ch-h1 .neon, .ch-section--dark .ch-h2 .neon { color: var(--ch-green-neon); }
+.ch-section--dark .ch-h1 .neon::after, .ch-section--dark .ch-h2 .neon::after { display: none; }
+
+.ch-lead {
+  font-family: "Open Sans", "Heebo", sans-serif;
+  font-size: 21px;
+  line-height: 1.65;
+  color: var(--ch-ink);
+  margin: 0 0 36px;
+  max-width: 52ch;
+  font-weight: 400;
+  text-wrap: pretty;
+}
+
+/* Reveal-on-scroll */
+.ch-reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 720ms cubic-bezier(0.2,0.7,0.2,1), transform 720ms cubic-bezier(0.2,0.7,0.2,1);
+}
+.ch-reveal.in {
+  opacity: 1;
+  transform: translateY(0);
+}
+.ch-reveal--d1.in { transition-delay: 80ms; }
+.ch-reveal--d2.in { transition-delay: 180ms; }
+.ch-reveal--d3.in { transition-delay: 300ms; }
+.ch-reveal--d4.in { transition-delay: 420ms; }
+.ch-reveal--right { transform: translateX(36px); }
+.ch-reveal--right.in { transform: translateX(0); }
+
+/* ──────────────── CTA buttons ──────────────── */
+.ch-btn {
+  display: inline-flex; align-items: center; gap: 14px;
+  padding: 18px 28px;
+  font-family: "FbElectron Condensed", sans-serif;
+  font-weight: 900;
+  font-size: 18px;
+  letter-spacing: 0.04em;
+  background: var(--ch-ink);
+  color: var(--ch-bg);
+  border: 0;
+  cursor: pointer;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  transition: transform 240ms cubic-bezier(0.2,0.7,0.2,1);
+}
+.ch-btn::before {
+  content: ""; position: absolute; inset: 0;
+  background: var(--ch-green-neon);
+  transform: translateY(100%);
+  transition: transform 280ms cubic-bezier(0.2,0.7,0.2,1);
+  z-index: 0;
+}
+.ch-btn:hover::before { transform: translateY(0); }
+.ch-btn:hover { color: var(--ch-ink); transform: translateY(-2px); }
+.ch-btn > * { position: relative; z-index: 1; }
+.ch-btn__arrow { font-size: 22px; line-height: 1; }
+.ch-btn--neon { background: var(--ch-green-neon); color: var(--ch-ink); }
+.ch-btn--neon::before { background: var(--ch-ink); }
+.ch-btn--neon:hover { color: var(--ch-green-neon); }
+.ch-btn--ghost {
+  background: transparent;
+  color: var(--ch-ink);
+  border: 2px solid var(--ch-ink);
+  padding: 16px 26px;
+}
+.ch-section--dark .ch-btn--ghost { color: var(--ch-vis-ink); border-color: var(--ch-vis-ink); }
+.ch-btn--ghost::before { background: var(--ch-ink); }
+.ch-btn--ghost:hover { color: var(--ch-bg); }
+.ch-section--dark .ch-btn--ghost::before { background: var(--ch-green-neon); }
+.ch-section--dark .ch-btn--ghost:hover { color: var(--ch-ink); }
+
+/* Buttons row */
+.ch-btn-row { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+
+/* ──────────────── Principle cards ──────────────── */
+.ch-principles {
+  display: grid;
+  gap: 16px;
+  margin-top: 12px;
+}
+.ch-principle {
+  position: relative;
+  padding: 26px 30px;
+  border: 1px solid rgba(0,0,0,0.10);
+  background: var(--ch-surface);
+  cursor: default;
+  transition: background 220ms, transform 220ms, border-color 220ms, box-shadow 220ms;
+  box-shadow: 4px 4px 0 var(--ch-ink);
+}
+.ch-principle::before {
+  content: ""; position: absolute; inset-inline-start: 0; top: 0; bottom: 0;
+  width: 5px; background: var(--ch-green-dark);
+  transition: background 220ms;
+}
+.ch-principle:hover {
+  background: #fff;
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--ch-ink);
+}
+[dir="rtl"] .ch-principle:hover {
+  transform: translate(2px, -2px);
+}
+.ch-principle:hover::before { background: var(--ch-green-neon); }
+.ch-principle__num {
+  font-family: "FbElectron Condensed", sans-serif;
+  font-weight: 500; font-size: 12px;
+  color: var(--ch-green-dark); letter-spacing: 0.18em;
+  margin: 0 0 6px;
+  text-transform: uppercase;
+}
+.ch-principle__h {
+  font-family: "FbElectron Condensed", sans-serif;
+  font-weight: 900; font-size: 28px;
+  color: var(--ch-ink);
+  margin: 0 0 10px;
+}
+.ch-principle__p { font-size: 16px; line-height: 1.6; color: var(--ch-ink-soft); margin: 0; }
+
+/* ──────────────── Anchors (4 values) ──────────────── */
+.ch-anchors {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 12px;
+}
+.ch-anchor {
+  position: relative;
+  padding: 28px 24px;
+  border: 1px solid rgba(0,0,0,0.10);
+  background: var(--ch-surface);
+  box-shadow: 4px 4px 0 var(--ch-ink);
+  transition: transform 220ms, box-shadow 220ms;
+}
+.ch-anchor:hover { transform: translate(2px, -2px); box-shadow: 6px 6px 0 var(--ch-green-neon); }
+.ch-anchor__icon {
+  width: 56px; height: 56px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 18px;
+}
+.ch-anchor__icon img { height: 100%; width: auto; }
+.ch-anchor__num {
+  position: absolute;
+  top: 18px; inset-inline-end: 22px;
+  font-family: "FbElectron Condensed", sans-serif;
+  font-weight: 900;
+  font-size: 13px;
+  color: rgba(0,0,0,0.25);
+  letter-spacing: 0.12em;
+}
+.ch-anchor__h {
+  font-family: "FbElectron Condensed", sans-serif;
+  font-weight: 900; font-size: 24px;
+  color: var(--ch-ink);
+  margin: 0 0 8px;
+}
+.ch-anchor__p { font-size: 14.5px; line-height: 1.55; color: var(--ch-ink-soft); margin: 0; }
+
+@media (max-width: 1100px) { .ch-anchors { grid-template-columns: 1fr; } }
+
+/* ──────────────── Voices (quotes) ──────────────── */
+.ch-voices {
+  display: grid;
+  gap: 24px;
+  margin-top: 12px;
+}
+.ch-voice {
+  position: relative;
+  padding: 28px 32px 28px 36px;
+  border-inline-start: 4px solid var(--ch-green-mid);
+  background: rgba(255,255,255,0.04);
+  transition: border-color 220ms, background 220ms;
+}
+.ch-section--dark .ch-voice { background: rgba(255,255,255,0.04); }
+.ch-section:not(.ch-section--dark) .ch-voice { background: var(--ch-surface); border-color: var(--ch-green-mid); }
+.ch-voice:hover { border-color: var(--ch-green-neon); }
+.ch-voice__text {
+  font-family: "FbElectron Condensed", sans-serif;
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 1.25;
+  color: inherit;
+  margin: 0 0 14px;
+  letter-spacing: -0.005em;
+}
+.ch-voice__by {
+  font: 500 12px/1 "Open Sans", sans-serif;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ch-ink-soft);
+  font-style: normal;
+}
+.ch-section--dark .ch-voice__by { color: rgba(241,239,232,0.55); }
+
+/* ──────────────── Projects ──────────────── */
+.ch-projects {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+  margin-top: 12px;
+}
+.ch-project {
+  display: grid;
+  grid-template-columns: 72px 1fr auto;
+  align-items: center;
+  gap: 24px;
+  padding: 24px 28px;
+  background: var(--ch-surface);
+  border: 1px solid rgba(0,0,0,0.08);
+  text-decoration: none; color: inherit;
+  transition: background 220ms, border-color 220ms, transform 220ms;
+  cursor: pointer;
+  box-shadow: 4px 4px 0 var(--ch-ink);
+}
+.ch-section--dark .ch-project { background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.08); box-shadow: 4px 4px 0 var(--ch-green-neon); }
+.ch-project:hover { background: var(--ch-green-neon); border-color: var(--ch-green-neon); transform: translate(2px,-2px); }
+.ch-project:hover * { color: var(--ch-ink) !important; }
+.ch-project__num {
+  font-family: "FbElectron Condensed", sans-serif;
+  font-weight: 900; font-size: 44px;
+  color: var(--ch-green-dark);
+  letter-spacing: -0.03em;
+  transition: color 220ms;
+}
+.ch-section--dark .ch-project__num { color: var(--ch-green-neon); }
+.ch-project__h {
+  font-family: "FbElectron Condensed", sans-serif;
+  font-weight: 900; font-size: 24px;
+  color: var(--ch-ink);
+  margin: 0 0 4px;
+  transition: color 220ms;
+}
+.ch-section--dark .ch-project__h { color: var(--ch-vis-ink); }
+.ch-project__p { font-size: 14px; line-height: 1.5; color: var(--ch-ink-soft); margin: 0; transition: color 220ms; }
+.ch-section--dark .ch-project__p { color: rgba(241,239,232,0.65); }
+.ch-project__tag {
+  font: 700 11px/1 "Open Sans", sans-serif;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: 6px 10px;
+  background: rgba(0,0,0,0.06);
+  color: var(--ch-ink);
+}
+.ch-section--dark .ch-project__tag { background: rgba(100,255,0,0.18); color: var(--ch-green-neon); }
+
+/* ──────────────── Register form ──────────────── */
+.ch-register-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 8px;
+}
+.ch-field {
+  display: flex; flex-direction: column; gap: 6px;
+  position: relative;
+}
+.ch-field--wide { grid-column: 1 / -1; }
+.ch-field__label {
+  font-family: "FbElectron Condensed", sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ch-vis-muted);
+}
+.ch-field input, .ch-field select {
+  width: 100%;
+  padding: 14px 16px;
+  font: 400 16px/1.4 "Open Sans", sans-serif;
+  background: rgba(255,255,255,0.04);
+  color: var(--ch-vis-ink);
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 0;
+  transition: border-color 200ms, background 200ms;
+  direction: rtl;
+}
+.ch-field input::placeholder { color: rgba(241,239,232,0.35); }
+.ch-field input:focus, .ch-field select:focus {
+  outline: none;
+  border-color: var(--ch-green-neon);
+  background: rgba(100,255,0,0.06);
+}
+.ch-register-actions {
+  display: flex; gap: 14px; align-items: center;
+  margin-top: 18px; flex-wrap: wrap;
+}
+.ch-register-note {
+  font: 400 13px/1.55 "Open Sans", sans-serif;
+  color: rgba(241,239,232,0.55);
+  margin-top: 24px;
+  max-width: 52ch;
+}
+.ch-register-success {
+  margin-top: 24px;
+  padding: 24px 28px;
+  background: rgba(100,255,0,0.10);
+  border: 2px solid var(--ch-green-neon);
+  box-shadow: 6px 6px 0 var(--ch-green-neon);
+}
+.ch-register-success__h {
+  font-family: "FbElectron Condensed", sans-serif;
+  font-weight: 900;
+  font-size: 32px;
+  color: var(--ch-green-neon);
+  margin: 0 0 8px;
+}
+.ch-register-success__p {
+  font: 400 15px/1.55 "Open Sans", sans-serif;
+  color: rgba(241,239,232,0.8);
+  margin: 0;
+}
+
+/* Footer mini-strip (inside last section) */
+.ch-footer-strip {
+  margin-top: 96px;
+  padding-top: 32px;
+  border-top: 1px solid rgba(241,239,232,0.1);
+  display: flex; flex-wrap: wrap; gap: 28px;
+  font: 500 12px/1.4 "Open Sans", sans-serif;
+  letter-spacing: 0.04em;
+  color: rgba(241,239,232,0.55);
+}
+.ch-footer-strip a { color: inherit; text-decoration: none; border-bottom: 1px solid rgba(241,239,232,0.18); padding-bottom: 1px; transition: color 200ms, border-color 200ms; }
+.ch-footer-strip a:hover { color: var(--ch-green-neon); border-color: var(--ch-green-neon); }
+.ch-footer-partners { display: flex; align-items: center; gap: 10px; margin-inline-start: auto; }
+.ch-footer-partners img { height: 30px; width: auto; display: block; background: #fff; border-radius: 6px; padding: 5px 8px; }
+
+/* Visual-bg variants — applied via .ch-stage data attr */
+.ch-stage[data-visbg="dark-green"]  { --ch-vis-bg: #0e1f1a; --ch-vis-ink: #f1efe8; --ch-vis-muted: rgba(241,239,232,0.55); --ch-vis-rule: rgba(100,255,0,0.08); }
+.ch-stage[data-visbg="black"]       { --ch-vis-bg: #0a0a0a; --ch-vis-ink: #f1efe8; --ch-vis-muted: rgba(241,239,232,0.5);  --ch-vis-rule: rgba(100,255,0,0.1); }
+.ch-stage[data-visbg="white"]       { --ch-vis-bg: #ffffff; --ch-vis-ink: #1a1a1a; --ch-vis-muted: rgba(26,26,26,0.55);    --ch-vis-rule: rgba(44,95,80,0.16); }
+.ch-stage[data-visbg="white"] .ch-vis-icon { background: rgba(44,95,80,0.04); border-color: rgba(44,95,80,0.18); }
+.ch-stage[data-visbg="white"] .ch-vis-icon:hover { background: rgba(44,95,80,0.10); border-color: var(--ch-green-dark); }
+.ch-stage[data-visbg="white"] .ch-vis-icon__id { color: var(--ch-green-dark); }
+.ch-stage[data-visbg="white"] .ch-vis-quote__mark,
+.ch-stage[data-visbg="white"] .ch-vis-method-num,
+.ch-stage[data-visbg="white"] .ch-vis-stat__num,
+.ch-stage[data-visbg="white"] .ch-vis-register__day { color: var(--ch-green-dark); text-shadow: 0 0 60px rgba(44,95,80,0.3); }
+.ch-stage[data-visbg="white"] .ch-vis-num { color: rgba(44,95,80,0.05); -webkit-text-stroke-color: rgba(44,95,80,0.3); }
+.ch-stage[data-visbg="white"] .ch-vis-emblem { filter: drop-shadow(0 0 40px rgba(44,95,80,0.3)); }
+.ch-stage[data-visbg="white"] .ch-vis-register__date { background: rgba(44,95,80,0.04); border-color: var(--ch-green-dark); box-shadow: 8px 8px 0 var(--ch-green-dark); }
+.ch-stage[data-visbg="white"] .ch-vis-register__month { color: var(--ch-green-dark); }
+.ch-stage[data-visbg="white"] .ch-vis-method-row { border-bottom-color: rgba(44,95,80,0.15); }
+.ch-stage[data-visbg="white"] .ch-beam { mix-blend-mode: multiply; opacity: 0.25; }
+.ch-stage[data-visbg="white"] .ch-vis-stat__num { animation: none; }
+
+/* Visual-style variants */
+.ch-stage[data-style="patterns"] .ch-vis-pattern { opacity: 0.4; }
+.ch-stage[data-style="typography"] .ch-vis-emblem,
+.ch-stage[data-style="typography"] .ch-vis-icons,
+.ch-stage[data-style="typography"] .ch-vis-characters { display: none; }
+.ch-stage[data-style="typography"] .ch-vis-num { font-size: clamp(280px, 42vw, 600px); color: rgba(100,255,0,0.12); -webkit-text-stroke-color: rgba(100,255,0,0.6); }
+.ch-stage[data-style="typography"] .ch-vis-num--01 { top: 50%; inset-inline-end: 50%; transform: translate(50%, -50%); }
+.ch-stage[data-style="typography"] .ch-vis-num--02 { top: 50%; inset-inline-end: 50%; transform: translate(50%, -50%); }
+.ch-stage[data-style="icons"] .ch-vis-emblem { width: min(40%, 280px); opacity: 0.7; }
+
+/* ══════════════════════════════════════════════════════════
+   VISUAL PANE — IMAGES (replaces icon/emblem panels)
+   Each panel = a large image-slot the school fills with a real photo.
+   Layout variants driven by .ch-stage[data-vislayout]
+   ══════════════════════════════════════════════════════════ */
+.ch-vis-figure {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+  z-index: 2;
+}
+.ch-vis-figure image-slot {
+  display: block;
+  width: 100%;
+  flex: 1 1 auto;
+  min-height: 0;
+  /* empty drop-zone backdrop + legible placeholder on the dark pane */
+  color: rgba(244,240,231,0.8);
+  background:
+    repeating-linear-gradient(135deg, rgba(244,240,231,0.05) 0 2px, transparent 2px 11px),
+    linear-gradient(160deg, rgba(124,255,79,0.06), rgba(244,240,231,0.03));
+}
+.ch-stage[data-visbg="white"] .ch-vis-figure image-slot {
+  color: rgba(23,23,23,0.6);
+  background:
+    repeating-linear-gradient(135deg, rgba(0,0,0,0.035) 0 2px, transparent 2px 11px),
+    linear-gradient(160deg, rgba(44,95,80,0.06), rgba(0,0,0,0.02));
+}
+
+/* Caption band (image + text layout) */
+.ch-vis-figcap {
+  flex: 0 0 auto;
+  display: flex; align-items: flex-start; gap: 18px;
+  padding: 26px 36px 30px;
+  background: var(--ch-vis-bg);
+  border-top: 1px solid var(--ch-vis-rule);
+}
+.ch-vis-figcap__idx {
+  font-family: "FbElectron Condensed", sans-serif;
+  font-weight: 900;
+  font-size: 40px; line-height: 0.85;
+  color: var(--ch-green-neon);
+  letter-spacing: -0.03em;
+  flex: 0 0 auto;
+}
+.ch-vis-figcap__body { min-width: 0; }
+.ch-vis-figcap__title {
+  font-family: "FbElectron Condensed", sans-serif;
+  font-weight: 900; font-size: 22px;
+  color: var(--ch-vis-ink); margin: 0 0 4px;
+  letter-spacing: 0.01em;
+}
+.ch-vis-figcap__sub {
+  font: 400 14px/1.5 "Open Sans", sans-serif;
+  color: var(--ch-vis-muted); margin: 0;
+}
+
+/* Small overlaid tag (full-bleed layout) */
+.ch-vis-tag {
+  position: absolute; bottom: 32px; inset-inline-start: 36px;
+  z-index: 4;
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 10px 16px;
+  background: rgba(20,32,28,0.78);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  border: 1px solid var(--ch-vis-rule);
+  font-family: "FbElectron Condensed", sans-serif;
+  font-weight: 500; font-size: 12px;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--ch-vis-ink);
+}
+.ch-vis-tag b { color: var(--ch-green-neon); font-weight: 900; }
+.ch-vis-tag__dot { width: 5px; height: 5px; border-radius: 50%; background: var(--ch-green-neon); }
+
+/* scrim so overlaid text stays legible on bright photos */
+.ch-vis-scrim {
+  position: absolute; inset: 0; z-index: 3; pointer-events: none;
+  background: linear-gradient(to top, rgba(12,20,17,0.55) 0%, rgba(12,20,17,0) 38%);
+}
+
+/* ── Layout: framed (default) — image fills, caption band beneath ── */
+.ch-stage[data-vislayout="framed"] .ch-vis-figure { padding: 0; }
+.ch-stage[data-vislayout="framed"] .ch-vis-tag,
+.ch-stage[data-vislayout="framed"] .ch-vis-scrim { display: none; }
+
+/* ── Layout: full — image edge-to-edge, caption hidden, overlaid tag ── */
+.ch-stage[data-vislayout="full"] .ch-vis-figcap { display: none; }
+.ch-stage[data-vislayout="full"] .ch-vis-figure image-slot { flex: 1 1 100%; }
+
+/* ── Layout: type — hide the image entirely, show giant typography ── */
+.ch-stage[data-vislayout="type"] .ch-vis-figure { display: none; }
+.ch-stage[data-vislayout="type"] .ch-vis-typo { display: flex; }
+.ch-vis-typo {
+  display: none;
+  position: relative; z-index: 2;
+  flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; gap: 18px;
+  width: min(82%, 620px);
+}
+.ch-vis-typo__word {
+  font-family: "FbElectron Condensed", sans-serif;
+  font-weight: 900;
+  font-size: clamp(72px, 12vw, 160px);
+  line-height: 0.86;
+  color: var(--ch-vis-ink);
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+.ch-vis-typo__word .neon { color: var(--ch-green-neon); }
+.ch-vis-typo__sub {
+  font: 400 16px/1.55 "Open Sans", sans-serif;
+  color: var(--ch-vis-muted);
+  max-width: 36ch;
+}
+
+/* white vis-bg tweaks for image figures */
+.ch-stage[data-visbg="white"] .ch-vis-figcap { background: #fff; }
+.ch-stage[data-visbg="white"] .ch-vis-tag { background: rgba(255,255,255,0.82); color: var(--ch-ink); }
+.ch-stage[data-visbg="white"] .ch-vis-scrim { background: linear-gradient(to top, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 38%); }
+
+/* ══════════════════════════════════════════════════════════
+   CONTENT — explanation / freedom section
+   ══════════════════════════════════════════════════════════ */
+.ch-freedom-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+  margin-top: 14px;
+}
+@media (max-width: 1100px) { .ch-freedom-grid { grid-template-columns: 1fr; } }
+.ch-freedom-card {
+  padding: 26px 28px;
+  background: var(--ch-surface);
+  border: 1px solid rgba(0,0,0,0.10);
+  box-shadow: 4px 4px 0 var(--ch-ink);
+}
+.ch-freedom-card__k {
+  font-family: "FbElectron Condensed", sans-serif;
+  font-weight: 500; font-size: 12px; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--ch-green-dark);
+  margin: 0 0 8px;
+  display: inline-flex; align-items: center; gap: 10px;
+}
+.ch-freedom-card__k::before { content: ""; width: 24px; height: 3px; background: var(--ch-green-neon); }
+.ch-freedom-card__h {
+  font-family: "FbElectron Condensed", sans-serif;
+  font-weight: 900; font-size: 22px; color: var(--ch-ink); margin: 0 0 8px;
+}
+.ch-freedom-card__p { font-size: 15.5px; line-height: 1.6; color: var(--ch-ink-soft); margin: 0; }
+.ch-freedom-card--accent { border-inline-start: 4px solid var(--ch-terra); }
+.ch-freedom-card--accent .ch-freedom-card__k { color: var(--ch-terra); }
+.ch-freedom-card--accent .ch-freedom-card__k::before { background: var(--ch-terra); }
+
+/* ══════════════════════════════════════════════════════════
+   CONTENT — day-to-day timeline
+   ══════════════════════════════════════════════════════════ */
+.ch-daily {
+  display: grid; gap: 0; margin-top: 14px;
+  border-inline-start: 2px solid var(--ch-sand);
+  padding-inline-start: 28px;
+}
+.ch-daily__row {
+  position: relative;
+  padding: 18px 0 22px;
+  border-bottom: 1px solid rgba(0,0,0,0.07);
+}
+.ch-daily__row:last-child { border-bottom: 0; }
+.ch-daily__row::before {
+  content: ""; position: absolute;
+  inset-inline-start: -35px; top: 24px;
+  width: 12px; height: 12px; border-radius: 50%;
+  background: var(--ch-bg); border: 2px solid var(--ch-green-mid);
+}
+.ch-daily__row:hover::before { background: var(--ch-green-neon); border-color: var(--ch-green-neon); }
+.ch-daily__time {
+  font-family: "FbElectron Condensed", sans-serif;
+  font-weight: 900; font-size: 14px; letter-spacing: 0.12em;
+  color: var(--ch-green-dark); margin: 0 0 4px;
+}
+.ch-daily__h {
+  font-family: "FbElectron Condensed", sans-serif;
+  font-weight: 900; font-size: 21px; color: var(--ch-ink); margin: 0 0 5px;
+}
+.ch-daily__p { font-size: 15px; line-height: 1.55; color: var(--ch-ink-soft); margin: 0; max-width: 54ch; }
+
+/* ══════════════════════════════════════════════════════════
+   CONTENT — parents FAQ (accordion)
+   ══════════════════════════════════════════════════════════ */
+.ch-faq { display: grid; gap: 10px; margin-top: 14px; }
+.ch-faq__item {
+  border: 1px solid rgba(241,239,232,0.16);
+  background: rgba(255,255,255,0.04);
+  transition: border-color 200ms, background 200ms;
+}
+.ch-faq__item.is-open { border-color: rgba(124,255,79,0.4); background: rgba(124,255,79,0.05); }
+.ch-faq__q {
+  width: 100%;
+  display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 16px;
+  padding: 20px 24px;
+  background: transparent; border: 0; cursor: pointer; text-align: start;
+  font-family: "FbElectron Condensed", sans-serif;
+  font-weight: 900; font-size: 19px; color: var(--ch-vis-ink);
+}
+.ch-faq__sign {
+  flex: 0 0 auto; width: 26px; height: 26px;
+  display: grid; place-items: center;
+  color: var(--ch-green-neon); font-size: 22px; line-height: 1;
+  transition: transform 240ms var(--ease-out, ease);
+}
+.ch-faq__item.is-open .ch-faq__sign { transform: rotate(45deg); }
+.ch-faq__a {
+  max-height: 0; overflow: hidden;
+  transition: max-height 320ms cubic-bezier(0.2,0.7,0.2,1);
+}
+.ch-faq__item.is-open .ch-faq__a { max-height: 320px; }
+.ch-faq__a p {
+  margin: 0; padding: 0 24px 22px;
+  font: 400 15.5px/1.65 "Open Sans", sans-serif;
+  color: rgba(244,240,231,0.78);
+  max-width: 60ch;
+}
+
+/* Light-section FAQ variant (when parents section is not dark) */
+.ch-section:not(.ch-section--dark) .ch-faq__item { border-color: rgba(0,0,0,0.12); background: var(--ch-surface); }
+.ch-section:not(.ch-section--dark) .ch-faq__item.is-open { border-color: var(--ch-green-mid); background: #fff; }
+.ch-section:not(.ch-section--dark) .ch-faq__q { color: var(--ch-ink); }
+.ch-section:not(.ch-section--dark) .ch-faq__sign { color: var(--ch-green-dark); }
+.ch-section:not(.ch-section--dark) .ch-faq__a p { color: var(--ch-ink-soft); }
+
+/* Supporting line under leads */
+.ch-support {
+  font: 500 16px/1.6 "Open Sans", sans-serif;
+  color: var(--ch-green-dark);
+  margin: -18px 0 32px;
+  max-width: 50ch;
+  border-inline-start: 3px solid var(--ch-green-neon);
+  padding-inline-start: 16px;
+}
+.ch-section--dark .ch-support { color: rgba(244,240,231,0.82); }
+
+/* 3-up anchors (אדם / למידה / עולם) */
+.ch-anchors--three { grid-template-columns: 1fr 1fr 1fr; }
+@media (max-width: 1100px) { .ch-anchors--three { grid-template-columns: 1fr; } }
+.ch-anchors--three .ch-anchor { padding-top: 30px; }
+
+/* Project card meta column (tag + who) */
+.ch-project__meta {
+  display: flex; flex-direction: column; align-items: flex-end; gap: 8px;
+  text-align: end;
+}
+.ch-project__who {
+  font: 700 11px/1 "Open Sans", sans-serif;
+  letter-spacing: 0.08em;
+  color: var(--ch-ink-soft);
+  transition: color 220ms;
+}

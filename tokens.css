@@ -1,0 +1,326 @@
+/* ──────────────────────────────────────────────────────────
+   Chamama Design System — colors_and_type.css
+   תיכון החממה  ·  Hebrew-first / RTL
+   ──────────────────────────────────────────────────────────
+   Single source of truth for color and type tokens used across
+   preview cards, the UI kit, slides, and any production code.
+
+   Pair with:    fonts/  +  Heebo, Frank Ruhl Libre (Google)
+   Direction:    dir="rtl" lang="he"
+   ─────────────────────────────────────────────────────────── */
+
+
+/* ─── 1. Web fonts ──────────────────────────────────────── */
+
+/* Heebo & Frank Ruhl Libre come from Google Fonts (the production
+   site uses next/font). For self-contained HTML, the @import below
+   pulls them in. Remove if you load them another way. */
+@import url("https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700;800;900&family=Heebo:wght@300;400;500;600;700;800;900&display=swap");
+
+/* Brand display fonts (FbElectron) — used for the logotype and
+   loud display moments. Keep available but DO NOT make these the
+   default body face. They are condensed, all-caps Hebrew display. */
+@font-face {
+  font-family: "FbElectron";
+  src: url("./fonts/FbElectronSansHeb-Bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "FbElectron Condensed";
+  src: url("./fonts/FbElectronConHeb-Medium.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "FbElectron Condensed";
+  src: url("./fonts/FbElectronConHeb-Black.otf") format("opentype");
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Open Sans";
+  src: url("./fonts/OpenSans-VariableFont.ttf") format("truetype-variations");
+  font-weight: 300 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Open Sans";
+  src: url("./fonts/OpenSans-Italic-VariableFont.ttf") format("truetype-variations");
+  font-weight: 300 800;
+  font-style: italic;
+  font-display: swap;
+}
+
+
+/* ─── 2. Color tokens ───────────────────────────────────── */
+
+:root {
+  /* ── Brand greens (the spine of the system) ── */
+  --ch-green-dark:   #2c5f50;   /* primary backdrop, header, footer */
+  --ch-green-mid:    #3d7a66;   /* secondary surfaces, accents */
+  --ch-green-light:  #4d9c80;   /* tertiary, hover ink on dark */
+  --ch-green-pale:   #cfe7da;   /* very soft tint for cards on light bg */
+  --ch-green-neon:   #64ff00;   /* THE accent. Used sparingly + intentionally */
+
+  /* ── Surfaces ── */
+  --ch-bg:           #f8f7f4;   /* default page bg — warm off-white */
+  --ch-bg-alt:       #eeebe5;   /* zebra band between sections */
+  --ch-surface:      #f2efe8;   /* cards on light bg */
+  --ch-bg-dark:      #2c5f50;   /* dark sections (= green-dark) */
+
+  /* ── Ink (text) ── */
+  --ch-ink:          #1a1a1a;   /* primary text on light */
+  --ch-ink-2:        #3a3a3a;   /* slightly softer ink */
+  --ch-muted:        #5c5c5c;   /* secondary text */
+  --ch-faint:        #8a8a8a;   /* labels, captions, eyebrow text */
+
+  /* ── On dark ── */
+  --ch-on-dark:           #ffffff;
+  --ch-on-dark-muted:     rgba(255, 255, 255, 0.75);
+  --ch-on-dark-faint:     rgba(255, 255, 255, 0.55);
+  --ch-on-dark-divider:   rgba(255, 255, 255, 0.10);
+
+  /* ── Lines ── */
+  --ch-border:       #ccc8c0;   /* default 1px line on light */
+  --ch-border-strong:#1a1a1a;   /* heavy 2px frames around cards */
+
+  /* ── Accents (used as "tags" on cards) ── */
+  --ch-accent-blue:        #4d9c80;  /* mid-green re-mapped to "blue" slot */
+  --ch-accent-blue-light:  #62b898;
+  --ch-accent-purple:      #2d1b4e;  /* deep purple from brand patterns */
+  --ch-accent-sky:         #4ab4dd;  /* sky-blue from brand patterns */
+
+  /* ── Semantic aliases ── */
+  --bg:              var(--ch-bg);
+  --bg-alt:          var(--ch-bg-alt);
+  --surface:         var(--ch-surface);
+  --fg:              var(--ch-ink);
+  --fg-2:            var(--ch-muted);
+  --fg-faint:        var(--ch-faint);
+  --primary:         var(--ch-green-dark);
+  --primary-hover:   #234c40;
+  --accent:          var(--ch-green-neon);
+  --link:            var(--ch-green-dark);
+  --link-hover:      #234c40;
+  --focus:           var(--ch-green-neon);
+
+  /* ── Status (kept restrained, in-system) ── */
+  --success:         #3d7a66;
+  --warning:         #c79a2b;
+  --danger:          #a73a3a;
+
+
+  /* ─── 3. Type tokens ─────────────────────────────────── */
+
+  /* Families */
+  --font-display:    "Frank Ruhl Libre", "Heebo", Georgia, "David", serif;
+  --font-sans:       "Heebo", "Open Sans", "Arial Hebrew", system-ui, sans-serif;
+  --font-brand-display: "FbElectron Condensed", "Frank Ruhl Libre", Georgia, serif;
+  --font-mono:       ui-monospace, "SFMono-Regular", "Menlo", monospace;
+
+  /* Sizes — modular scale tuned for Hebrew (slightly taller line-heights) */
+  --fs-eyebrow:      0.75rem;     /* 12px — small caps / kicker */
+  --fs-caption:      0.8125rem;   /* 13px */
+  --fs-small:        0.9375rem;   /* 15px */
+  --fs-body:         1.0625rem;   /* 17px — base */
+  --fs-body-lg:      1.1875rem;   /* 19px — lead paragraphs */
+  --fs-h6:           1.125rem;    /* 18px */
+  --fs-h5:           1.25rem;     /* 20px */
+  --fs-h4:           1.5rem;      /* 24px */
+  --fs-h3:           1.875rem;    /* 30px */
+  --fs-h2:           2.25rem;     /* 36px */
+  --fs-h1:           3rem;        /* 48px */
+  --fs-display:      4.25rem;     /* 68px — hero */
+  --fs-display-lg:   5.5rem;      /* 88px — campaign hero */
+
+  /* Weights */
+  --fw-light:        300;
+  --fw-regular:      400;
+  --fw-medium:       500;
+  --fw-semibold:     600;
+  --fw-bold:         700;
+  --fw-black:        900;
+
+  /* Line heights — Hebrew benefits from a touch more leading */
+  --lh-tight:        1.15;
+  --lh-snug:         1.3;
+  --lh-base:         1.65;
+  --lh-relaxed:      1.8;
+
+  /* Letter spacing — Hebrew prefers no tracking; reserve for Latin eyebrows */
+  --ls-tight:        -0.01em;
+  --ls-normal:       0;
+  --ls-wide:         0.06em;
+  --ls-wider:        0.12em;
+
+
+  /* ─── 4. Spacing, radii, shadows, motion ─────────────── */
+
+  /* 4-pt spacing scale */
+  --space-1:   0.25rem;   /*  4 */
+  --space-2:   0.5rem;    /*  8 */
+  --space-3:   0.75rem;   /* 12 */
+  --space-4:   1rem;      /* 16 */
+  --space-5:   1.5rem;    /* 24 */
+  --space-6:   2rem;      /* 32 */
+  --space-7:   3rem;      /* 48 */
+  --space-8:   4rem;      /* 64 */
+  --space-9:   6rem;      /* 96 */
+  --space-10:  8rem;      /* 128 */
+
+  --container-max:  72rem;       /* 1152px */
+  --container-pad:  1.25rem;
+  --container-pad-md: 2rem;
+
+  /* Radii — the brand is mostly sharp. Use radii sparingly. */
+  --radius-0:   0;          /* default — sharp corners */
+  --radius-1:   2px;        /* hairline rounding */
+  --radius-2:   6px;        /* form inputs, pills inside dark UI */
+  --radius-pill: 999px;     /* pill / chip / tag */
+
+  /* Shadows — the signature is a hard offset shadow, not soft blur */
+  --shadow-card-sm: 3px 3px 0 var(--ch-ink);
+  --shadow-card:    4px 4px 0 var(--ch-ink);
+  --shadow-card-lg: 6px 6px 0 var(--ch-ink);
+  --shadow-card-neon: 4px 4px 0 var(--ch-green-neon);
+  --shadow-soft:    0 1px 2px rgba(26,26,26,0.06), 0 4px 16px rgba(26,26,26,0.06);
+
+  /* Border widths */
+  --bw-hair:   1px;
+  --bw-card:   2px;   /* default heavy frame */
+  --bw-thick:  4px;   /* attention frame, side accent */
+
+  /* Motion — easings stay restrained; mild ease, never bounce */
+  --ease-out:    cubic-bezier(0.2, 0.7, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.45, 0, 0.25, 1);
+  --dur-fast:    120ms;
+  --dur-base:    180ms;
+  --dur-slow:    320ms;
+
+  --z-header:    50;
+  --z-overlay:   80;
+  --z-modal:     100;
+}
+
+
+/* ─── 5. Base element styles ────────────────────────────── */
+
+html {
+  background: var(--ch-bg);
+  color: var(--ch-ink);
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  line-height: var(--lh-relaxed);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Headings — display family, tight leading */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-tight);
+  color: var(--ch-ink);
+  margin: 0;
+}
+h1 { font-size: var(--fs-h1); font-weight: var(--fw-black); letter-spacing: var(--ls-tight); }
+h2 { font-size: var(--fs-h2); }
+h3 { font-size: var(--fs-h3); }
+h4 { font-size: var(--fs-h4); }
+h5 { font-size: var(--fs-h5); }
+h6 { font-size: var(--fs-h6); }
+
+p {
+  margin: 0;
+  line-height: var(--lh-relaxed);
+  text-wrap: pretty;
+}
+
+a {
+  color: var(--link);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 1px;
+}
+a:hover { color: var(--link-hover); text-decoration-thickness: 2px; }
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+}
+
+/* Reusable role-based type classes */
+.t-eyebrow {
+  font-family: var(--font-sans);
+  font-size: var(--fs-eyebrow);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-wider);
+  text-transform: uppercase;
+  color: var(--ch-faint);
+}
+.t-display      { font-family: var(--font-display); font-weight: var(--fw-black); font-size: var(--fs-display); line-height: var(--lh-tight); letter-spacing: var(--ls-tight); }
+.t-display-lg   { font-family: var(--font-display); font-weight: var(--fw-black); font-size: var(--fs-display-lg); line-height: 1.05; letter-spacing: -0.015em; }
+.t-h1           { font-family: var(--font-display); font-weight: var(--fw-black); font-size: var(--fs-h1); }
+.t-h2           { font-family: var(--font-display); font-weight: var(--fw-bold);  font-size: var(--fs-h2); }
+.t-h3           { font-family: var(--font-display); font-weight: var(--fw-bold);  font-size: var(--fs-h3); }
+.t-lead         { font-family: var(--font-sans);    font-weight: var(--fw-regular); font-size: var(--fs-body-lg); line-height: var(--lh-relaxed); color: var(--ch-ink-2); }
+.t-body         { font-family: var(--font-sans);    font-weight: var(--fw-regular); font-size: var(--fs-body);    line-height: var(--lh-relaxed); }
+.t-small        { font-family: var(--font-sans);    font-weight: var(--fw-regular); font-size: var(--fs-small);   line-height: var(--lh-base); color: var(--ch-muted); }
+.t-caption      { font-family: var(--font-sans);    font-weight: var(--fw-medium);  font-size: var(--fs-caption); line-height: var(--lh-base); color: var(--ch-muted); }
+.t-quote        { font-family: var(--font-display); font-weight: var(--fw-bold);    font-size: var(--fs-h3);      line-height: var(--lh-snug); }
+
+
+/* ─── 6. Utility classes ────────────────────────────────── */
+
+.ch-container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-pad);
+}
+@media (min-width: 640px) { .ch-container { padding-inline: var(--container-pad-md); } }
+
+.ch-section { padding-block: var(--space-7); }
+@media (min-width: 768px) { .ch-section { padding-block: var(--space-8); } }
+
+.ch-card-shadow {
+  box-shadow: var(--shadow-card);
+  transition: box-shadow var(--dur-base) var(--ease-out),
+              transform   var(--dur-base) var(--ease-out);
+}
+.ch-card-shadow:hover {
+  box-shadow: var(--shadow-card-lg);
+  transform: translate(-1px, -1px);
+}
+
+/* The signature beam — radial neon-green light cone from above */
+.ch-beam { position: relative; overflow: hidden; }
+.ch-beam::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: radial-gradient(
+    ellipse 60% 80% at 50% -10%,
+    rgba(100, 255, 0, 0.14) 0%,
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+/* Neon underline accent — three-pixel rule, used on dark + light */
+.ch-neon-rule {
+  display: block;
+  width: 3rem;
+  height: 3px;
+  background: var(--ch-green-neon);
+  border: 0;
+  margin: 0;
+}
