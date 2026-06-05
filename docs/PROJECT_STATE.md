@@ -50,7 +50,8 @@ We have added dynamic-like Blog and Shop features reading from local JSON files,
 * `shop.html` — Product catalog showing items and integrating a custom ordering modal.
 
 ### Files Modified
-* `newsletter-preview.html` — Refactored from a preview utility to an internal staff builder tool to generate sheet rows and test links.
+* `newsletter.html` — Redesigned the public newsletter page: four polished, distinct templates, public copy actions removed, single print/Save-as-PDF button moved to the bottom, and improved print CSS.
+* `newsletter-preview.html` — Refactored from a preview utility to an internal staff builder tool to generate sheet rows and test links; template selector now uses the new Hebrew template names.
 * `about.html`, `learning.html`, `projects.html`, `parents.html`, `team.html`, `join.html` — Added Blog and Shop links to both header and footer navigation.
 * `app.jsx` — Updated React homepage main navigation array configuration.
 * `README.md` — Updated project structure, newsletters workflow, forms documentation, and deploy checklist.
@@ -71,10 +72,17 @@ We have added dynamic-like Blog and Shop features reading from local JSON files,
   - `PRODUCTS_CSV_URL` - CSV link to the published Google Sheets `products` tab.
   - `NEWSLETTERS_CSV_URL` - CSV link to the published Google Sheets `newsletters` tab.
 - **Saved Newsletters & Templates**:
-  - Stable URLs: Newsletters are loaded via `newsletter.html?id=[id]`.
-  - Templates supported: `classic` (institutional vertical stack), `magazine` (featured large layout with subgrid card layout), `poster` (dark theme bold typography), and `compact` (smaller spacing, floats/side-by-side layout, optimized print margins).
-  - Print optimization: Print stylesheets (`@media print`) hide controls and menus, preserve RTL and layout colors, and prevent awkward page breaks on posts/headings.
-  - Sharing: Features quick copy buttons for newsletter links and short Hebrew email templates.
+  - Stable URLs: Newsletters are loaded via `newsletter.html?id=[id]` (URL format unchanged).
+  - The public `newsletter.html` is presented as a polished, RTL-first digital magazine/newsletter page (not a utility page). All content is escaped via `escapeHTML()` / `safeURL()` so Google Sheets content can never inject raw HTML, and missing/broken images degrade gracefully to a text-only layout instead of broken-image icons.
+  - Four redesigned templates, each with a distinct visual identity. Data keys are unchanged for backward compatibility:
+    - `classic` → **editorial** (קלאסי־מערכתי): calm education magazine — serif headline, editor's-note pull-quote intro, article rows with alternating images and dividers.
+    - `magazine` → **magazine** (מגזיני): visual digital issue — hero feature with overlay headline + editorial card grid; gracefully falls back when only one post exists.
+    - `poster` → **chamama/zine** (חממתי): warm CSS-only "paper" zine — bold blocks, section numbers, stickers/tags, hard offset shadows in green/cream/ink + neon.
+    - `compact` → **print edition** (גרסת הדפסה): A4-like single column, compact readable type, controlled image sizes, clean page breaks, minimal decoration.
+  - Print optimization: `@media print` hides the back-link and the print button, prints only the newsletter content, uses `break-inside/page-break-inside: avoid` and `print-color-adjust: exact`, keeps titles attached to bodies and footer logos intact, sets page margins, and prevents image overflow. The `compact` template is tuned to print best, but all four print decently (including black/white).
+  - Public actions: The public page no longer offers "copy link" or "copy email text". It keeps only a **הדפסה / שמירה כ־PDF** button, placed at the **bottom** of the content (after the posts, before the footer); the button calls `window.print()` and is hidden in print view.
+  - Email sending: Done manually — staff write a short message in their mail client and include the newsletter URL (`newsletter.html?id=[id]`). Server-side PDF generation is **not** implemented; saving as PDF relies on the browser's built-in print/save dialog.
+  - Staff builder: `newsletter-preview.html` still offers template selection, now labeled in Hebrew (קלאסי־מערכתי / מגזיני / חממתי / גרסת הדפסה) while writing the unchanged data keys.
 - **Preserved Constraints**: No database, authentication layer, build step, CMS, or heavy frameworks (such as Next.js or Vite) were added. The site remains a collection of static HTML/CSS/JS files deployable directly to Netlify from the root directory.
 - **Forms**: Product orders continue to be handled through Netlify Forms (`product-order`) via POST requests (gracefully simulated as successful in local environments).
 

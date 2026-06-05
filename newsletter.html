@@ -6,566 +6,766 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@500;700;800;900&family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="pages.css" />
 <link rel="stylesheet" href="blog-shop.css" />
 <style>
   /* ──────────────────────────────────────────────────────────
-     Newsletter Custom Premium Styles
+     Newsletter — Digital magazine page for תיכון החממה
+     Four templates with distinct identities:
+       classic  → editorial   (קלאסי־מערכתי)
+       magazine → magazine     (מגזיני)
+       poster   → chamama zine (חממתי)
+       compact  → print edition(גרסת הדפסה)
      ────────────────────────────────────────────────────────── */
-  body {
-    background: var(--ch-bg);
+
+  :root {
+    --nl-paper:     #FBF8F1;
+    --nl-cream:     #F4F0E7;
+    --nl-ink:       #171717;
+    --nl-ink-soft:  #4a4a4a;
+    --nl-green:     #244C42;
+    --nl-green-mid: #4E7B68;
+    --nl-neon:      #7CFF4F;
+    --nl-sand:      #D8CFBF;
+    --nl-line:      rgba(23, 23, 23, 0.12);
+
+    --nl-serif:   "Frank Ruhl Libre", "Heebo", Georgia, serif;
+    --nl-display: "FbElectron Condensed", "Heebo", sans-serif;
+    --nl-sans:    "Heebo", system-ui, sans-serif;
   }
 
-  /* Utility Control Bar at the top (hidden in print) */
-  .nl-control-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 16px 24px;
-    background: var(--ch-surface);
-    border: 2px solid var(--ch-ink);
-    box-shadow: 4px 4px 0 var(--ch-ink);
-    margin: 32px auto;
-    max-width: 800px;
-    border-radius: 4px;
+  body { background: var(--nl-cream); }
+
+  img { max-width: 100%; }
+
+  /* ─── Top bar (slim back-link, never printed) ─── */
+  .nl-topbar {
+    max-width: 880px;
+    margin: 22px auto 0;
+    padding: 0 24px;
   }
-  
   .nl-back-link {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
+    gap: 6px;
+    font-family: var(--nl-sans);
     font-weight: 700;
-    font-size: 15px;
-    color: var(--ch-green-dark);
+    font-size: 14px;
+    color: var(--nl-green);
     text-decoration: none;
   }
-  
-  .nl-back-link:hover {
-    text-decoration: underline;
-  }
-  
-  .nl-actions {
-    display: flex;
-    gap: 12px;
-  }
-  
-  .nl-actions .pg-btn {
-    font-size: 14px;
-    padding: 8px 16px;
-    font-family: inherit;
-  }
+  .nl-back-link:hover { text-decoration: underline; }
 
-  /* Copy Feedback Banner */
-  .nl-feedback {
-    max-width: 800px;
-    margin: -16px auto 24px;
-    padding: 12px;
-    border-radius: 4px;
-    font-weight: 600;
-    text-align: center;
-    font-size: 14px;
-    display: none;
-    animation: fadeIn 0.2s ease-in-out;
-  }
-
-  /* Standalone Newsletter Envelope */
+  /* ─── The newsletter "sheet" ─── */
   .nl-container {
-    max-width: 800px;
-    margin: 0 auto 60px;
-    background: white;
-    padding: 48px;
-    border: 2px solid var(--ch-ink);
-    box-shadow: 6px 6px 0 var(--ch-ink);
-    border-radius: 4px;
-    transition: all 0.3s ease;
+    max-width: 880px;
+    margin: 20px auto 72px;
+    background: var(--nl-paper);
+    padding: clamp(28px, 5vw, 64px);
+    border: 1px solid var(--nl-line);
+    border-radius: 3px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 14px 44px rgba(0,0,0,0.07);
   }
 
-  /* Header Section */
-  .nl-header {
+  /* ─── Shared masthead ─── */
+  .nl-masthead {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 3px solid var(--ch-ink);
-    padding-bottom: 24px;
-    margin-bottom: 32px;
+    gap: 16px;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid var(--nl-line);
   }
-  
-  .nl-logo {
-    display: block;
-    text-decoration: none;
-  }
-  
-  .nl-logo img {
-    height: 52px;
-    width: auto;
-    display: block;
-  }
-  
-  .nl-issue-info {
+  .nl-logo { display: block; text-decoration: none; }
+  .nl-logo img { height: 50px; width: auto; display: block; }
+  .nl-issue {
     text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
   }
-  
-  .nl-issue-label {
-    font-family: "FbElectron Condensed", "Heebo", sans-serif;
+  .nl-issue__label {
+    font-family: var(--nl-display);
     font-weight: 900;
-    font-size: 20px;
-    color: var(--ch-green-dark);
-    margin-bottom: 4px;
+    font-size: 18px;
+    color: var(--nl-green);
+    letter-spacing: 0.02em;
   }
-  
-  .nl-issue-date {
-    font-size: 14px;
-    color: var(--ch-ink-soft);
+  .nl-issue__date {
+    font-family: var(--nl-sans);
+    font-size: 13px;
+    color: var(--nl-ink-soft);
   }
 
-  /* Title & Intro */
+  /* ─── Shared title + intro ─── */
   .nl-title {
-    font-family: "FbElectron Condensed", "Heebo", sans-serif;
+    font-family: var(--nl-display);
     font-weight: 900;
-    font-size: clamp(32px, 5vw, 48px);
-    color: var(--ch-ink);
-    margin: 0 0 24px;
+    font-size: clamp(30px, 5vw, 46px);
     line-height: 1.1;
+    color: var(--nl-ink);
+    margin: 0 0 20px;
   }
-  
   .nl-intro {
-    font-size: 17.5px;
+    font-family: var(--nl-sans);
+    font-size: 17px;
     line-height: 1.8;
-    color: var(--ch-ink-soft);
-    margin-bottom: 40px;
-    padding: 20px;
-    background: var(--ch-bg-alt);
-    border-right: 4px solid var(--ch-green-mid);
+    color: var(--nl-ink-soft);
+    margin: 0 0 40px;
     white-space: pre-wrap;
   }
 
-  /* Posts Grid */
-  .nl-posts-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 36px;
+  /* ─── Shared media fallback (no broken-image icon) ─── */
+  .nl-art__media, .nl-mag-card__media, .nl-zine__media,
+  .nl-digest__media, .nl-hero__media {
+    background-color: #e9e4d7;
+    background-image: repeating-linear-gradient(135deg,
+      rgba(23,23,23,0.04) 0 2px, transparent 2px 12px);
+    overflow: hidden;
   }
 
-  /* Base Post Card */
-  .nl-post-card {
-    background: white;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    box-shadow: 4px 4px 0 var(--ch-ink);
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
+  /* ─── Bottom print row (never printed) ─── */
+  .nl-print-row {
+    text-align: center;
+    margin-top: 52px;
   }
-  
-  .nl-post-img-container {
-    position: relative;
-    width: 100%;
-    height: 280px;
-    overflow: hidden;
-    background: repeating-linear-gradient(135deg, rgba(0,0,0,0.035) 0 2px, transparent 2px 11px);
-  }
-  
-  .nl-post-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-  
-  .nl-post-body {
-    padding: 24px;
-    display: flex;
-    flex-direction: column;
-    flex-grow: 1;
-  }
-  
-  .nl-post-meta {
-    font-size: 13.5px;
-    color: var(--ch-green-mid);
-    font-weight: 700;
-    margin-bottom: 8px;
-    text-transform: uppercase;
-  }
-  
-  .nl-post-title {
-    font-family: "FbElectron Condensed", "Heebo", sans-serif;
-    font-weight: 900;
-    font-size: 23px;
-    margin: 0 0 12px;
-    color: var(--ch-ink);
-    line-height: 1.25;
-  }
-  
-  .nl-post-excerpt {
-    font-size: 16px;
-    line-height: 1.65;
-    color: var(--ch-ink-soft);
-    margin-bottom: 20px;
-    flex-grow: 1;
-  }
-  
-  .nl-post-link {
-    align-self: flex-start;
+  .nl-print-btn {
+    font-family: var(--nl-sans);
     font-weight: 700;
     font-size: 15px;
-    color: var(--ch-green-dark);
-    text-decoration: underline;
+    color: #fff;
+    background: var(--nl-green);
+    border: 2px solid var(--nl-ink);
+    border-radius: 2px;
+    padding: 14px 30px;
+    cursor: pointer;
+    box-shadow: 4px 4px 0 var(--nl-ink);
+    transition: transform .14s var(--ease-out, ease), box-shadow .14s var(--ease-out, ease);
   }
+  .nl-print-btn:hover { transform: translate(-1px,-1px); box-shadow: 5px 5px 0 var(--nl-ink); }
+  .nl-print-btn:active { transform: translate(2px,2px); box-shadow: 1px 1px 0 var(--nl-ink); }
 
-  /* Footer */
+  /* ─── Shared footer ─── */
   .nl-footer {
-    border-top: 3px solid var(--ch-ink);
-    padding-top: 32px;
-    margin-top: 56px;
+    margin-top: 48px;
+    padding-top: 30px;
+    border-top: 1px solid var(--nl-line);
     text-align: center;
   }
-  
-  .nl-footer-partners {
+  .nl-footer__partners {
     display: flex;
     justify-content: center;
+    align-items: center;
     flex-wrap: wrap;
     gap: 14px;
-    margin-bottom: 24px;
+    margin-bottom: 20px;
   }
-  
-  .nl-footer-partners img {
-    height: 32px;
+  .nl-footer__partners img {
+    height: 34px;
     width: auto;
-    background: white;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 4px;
-    padding: 4px 8px;
+    background: #fff;
+    border: 1px solid var(--nl-line);
+    border-radius: 3px;
+    padding: 5px 9px;
   }
-  
-  .nl-footer-info {
-    font-size: 13.5px;
-    color: var(--ch-ink-soft);
-    line-height: 1.6;
+  .nl-footer__info {
+    font-family: var(--nl-sans);
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--nl-ink-soft);
   }
+  .nl-footer__info a { color: var(--nl-green); font-weight: 700; }
 
-  /* Loading & Error States */
+  /* ─── Status (loading / error) ─── */
   .nl-status-container {
-    max-width: 600px;
+    max-width: 560px;
     margin: 80px auto;
     text-align: center;
-    background: var(--ch-surface);
-    border: 2px solid var(--ch-ink);
-    box-shadow: 4px 4px 0 var(--ch-ink);
+    background: var(--nl-paper);
+    border: 1px solid var(--nl-line);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.06);
+    border-radius: 4px;
     padding: 48px;
   }
 
-  /* ──────────────────────────────────────────────────────────
-     Template Customizations
-     ────────────────────────────────────────────────────────── */
+  .nl-empty {
+    text-align: center;
+    color: var(--nl-ink-soft);
+    font-style: italic;
+    padding: 28px 0;
+  }
 
-  /* ─── 1. MAGAZINE TEMPLATE ─── */
-  .template-magazine .nl-posts-grid {
+  /* ══════════════════════════════════════════════════════════
+     TEMPLATE 1 — EDITORIAL  (key: classic)
+     A calm, parent-friendly education magazine.
+     ══════════════════════════════════════════════════════════ */
+  .template-classic .nl-masthead {
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+    border-bottom: 2px solid var(--nl-ink);
+    padding-bottom: 18px;
+  }
+  .template-classic .nl-issue {
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    text-align: center;
+  }
+  .template-classic .nl-issue__label {
+    font-family: var(--nl-sans);
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--nl-green-mid);
+  }
+  .template-classic .nl-issue__date {
+    font-size: 12px;
+    letter-spacing: 0.04em;
+  }
+  .template-classic .nl-title {
+    font-family: var(--nl-serif);
+    font-weight: 800;
+    font-size: clamp(32px, 5.2vw, 48px);
+    line-height: 1.15;
+    text-align: center;
+    max-width: 20ch;
+    margin: 14px auto 24px;
+  }
+  .template-classic .nl-intro {
+    font-family: var(--nl-serif);
+    font-style: italic;
+    font-size: clamp(18px, 2.4vw, 22px);
+    line-height: 1.7;
+    color: var(--nl-ink);
+    text-align: center;
+    max-width: 58ch;
+    margin: 0 auto 8px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--nl-line);
+    white-space: pre-wrap;
+  }
+  .template-classic .nl-posts {
+    display: flex;
+    flex-direction: column;
+  }
+  .nl-art__rule {
+    border: 0;
+    border-top: 1px solid var(--nl-line);
+    margin: 40px 0;
+  }
+  .nl-art { display: grid; grid-template-columns: 1fr; gap: 26px; }
+  @media (min-width: 700px) {
+    .nl-art:not(.nl-art--text) { grid-template-columns: 320px 1fr; align-items: center; }
+    .nl-art--flip:not(.nl-art--text) { grid-template-columns: 1fr 320px; }
+    .nl-art--flip:not(.nl-art--text) .nl-art__media { order: 2; }
+  }
+  .nl-art__media { aspect-ratio: 4 / 3; border-radius: 2px; }
+  .nl-art__img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .nl-art__meta {
+    display: flex;
+    gap: 8px;
+    font-family: var(--nl-sans);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--nl-green-mid);
+    margin-bottom: 10px;
+  }
+  .nl-art__title {
+    font-family: var(--nl-serif);
+    font-weight: 800;
+    font-size: clamp(22px, 3vw, 27px);
+    line-height: 1.22;
+    color: var(--nl-ink);
+    margin: 0 0 12px;
+  }
+  .nl-art__excerpt {
+    font-family: var(--nl-sans);
+    font-size: 16.5px;
+    line-height: 1.75;
+    color: var(--nl-ink-soft);
+    margin: 0 0 16px;
+  }
+  .nl-art__link {
+    font-family: var(--nl-sans);
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--nl-green);
+    text-decoration: none;
+    border-bottom: 2px solid var(--nl-neon);
+    padding-bottom: 1px;
+  }
+  .nl-art__link:hover { border-bottom-color: var(--nl-green); }
+
+  /* ══════════════════════════════════════════════════════════
+     TEMPLATE 2 — MAGAZINE  (key: magazine)
+     A visual digital issue: hero feature + editorial grid.
+     ══════════════════════════════════════════════════════════ */
+  .template-magazine .nl-masthead {
+    border-bottom: 3px solid var(--nl-ink);
+  }
+  .template-magazine .nl-issue__label { color: var(--nl-green); }
+  .template-magazine .nl-intro {
+    font-size: 18px;
+    border-inline-start: 4px solid var(--nl-green-mid);
+    padding-inline-start: 18px;
+  }
+
+  .nl-hero {
+    position: relative;
+    overflow: hidden;
+    border: 2px solid var(--nl-ink);
+    box-shadow: 7px 7px 0 var(--nl-ink);
+    background: var(--nl-green);
+    margin-bottom: 34px;
+  }
+  .nl-hero__media { aspect-ratio: 16 / 9; }
+  .nl-hero__img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .nl-hero__panel {
+    position: absolute;
+    inset-block-end: 0;
+    inset-inline: 0;
+    padding: clamp(20px, 4vw, 38px);
+    background: linear-gradient(to top, rgba(15,28,23,0.93) 0%, rgba(15,28,23,0.55) 55%, rgba(15,28,23,0) 100%);
+    color: #fff;
+  }
+  .nl-hero--text .nl-hero__panel { position: static; background: var(--nl-green); }
+  .nl-hero__kicker {
+    display: inline-block;
+    font-family: var(--nl-display);
+    font-weight: 900;
+    font-size: 13px;
+    letter-spacing: 0.06em;
+    color: var(--nl-ink);
+    background: var(--nl-neon);
+    padding: 4px 12px;
+    margin-bottom: 14px;
+  }
+  .nl-hero__title {
+    font-family: var(--nl-display);
+    font-weight: 900;
+    font-size: clamp(26px, 4.4vw, 42px);
+    line-height: 1.08;
+    color: #fff;
+    margin: 0 0 10px;
+  }
+  .nl-hero__meta {
+    font-family: var(--nl-sans);
+    font-size: 13px;
+    color: rgba(255,255,255,0.82);
+    margin-bottom: 12px;
+  }
+  .nl-hero__excerpt {
+    font-family: var(--nl-sans);
+    font-size: 16px;
+    line-height: 1.65;
+    color: rgba(255,255,255,0.94);
+    max-width: 62ch;
+    margin: 0 0 16px;
+  }
+  .nl-hero__link {
+    font-family: var(--nl-sans);
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--nl-neon);
+    text-decoration: none;
+  }
+  .nl-hero__link:hover { text-decoration: underline; }
+
+  .nl-mag-grid {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: 32px;
-  }
-  
-  /* Featured large first post */
-  .template-magazine .featured-post {
-    display: grid;
-    grid-template-columns: 1.2fr 1fr;
-    min-height: 360px;
-  }
-  
-  .template-magazine .featured-post .nl-post-img-container {
-    height: 100%;
-    min-height: 300px;
-  }
-  
-  .template-magazine .featured-post .nl-post-title {
-    font-size: 28px;
-  }
-  
-  /* Remaining posts layout in sub-grid cards */
-  .template-magazine .nl-posts-subgrid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     gap: 24px;
   }
-  
-  @media (max-width: 768px) {
-    .template-magazine .featured-post {
-      grid-template-columns: 1fr;
-    }
-    .template-magazine .featured-post .nl-post-img-container {
-      height: 220px;
-      min-height: auto;
-    }
+  .nl-mag-card {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border: 1.5px solid var(--nl-line);
+    box-shadow: 4px 4px 0 var(--nl-ink);
   }
-
-  /* ─── 2. POSTER TEMPLATE (Bold Event Style) ─── */
-  .template-poster .nl-container {
-    background: var(--ch-green-dark);
-    color: #fbf8f1;
-    border-color: var(--ch-green-neon);
-    box-shadow: 6px 6px 0 var(--ch-green-neon);
+  .nl-mag-card__media { aspect-ratio: 16 / 10; }
+  .nl-mag-card__img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .nl-mag-card__body {
+    padding: 18px 18px 20px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
   }
-  
-  .template-poster .nl-header {
-    border-bottom-color: var(--ch-green-neon);
-  }
-  
-  .template-poster .nl-logo img {
-    filter: brightness(0) invert(1);
-  }
-  
-  .template-poster .nl-issue-label {
-    color: var(--ch-green-neon);
-  }
-  
-  .template-poster .nl-issue-date {
-    color: rgba(251, 248, 241, 0.7);
-  }
-  
-  .template-poster .nl-title {
-    color: var(--ch-green-neon);
-    font-size: clamp(38px, 6vw, 56px);
-  }
-  
-  .template-poster .nl-intro {
-    background: rgba(255, 255, 255, 0.06);
-    border-right-color: var(--ch-green-neon);
-    color: #fbf8f1;
-  }
-  
-  .template-poster .nl-post-card {
-    background: rgba(255, 255, 255, 0.04);
-    border-color: rgba(255, 255, 255, 0.15);
-    box-shadow: 4px 4px 0 var(--ch-green-neon);
-    color: #fbf8f1;
-  }
-  
-  .template-poster .nl-post-title {
-    color: var(--ch-green-neon);
-  }
-  
-  .template-poster .nl-post-excerpt {
-    color: rgba(251, 248, 241, 0.85);
-  }
-  
-  .template-poster .nl-post-link {
-    color: var(--ch-green-neon);
-  }
-  
-  .template-poster .nl-footer {
-    border-top-color: var(--ch-green-neon);
-  }
-  
-  .template-poster .nl-footer-info {
-    color: rgba(251, 248, 241, 0.7);
-  }
-
-  /* ─── 3. COMPACT TEMPLATE (Print-Friendly Digest) ─── */
-  .template-compact .nl-container {
-    max-width: 680px;
-    padding: 24px 32px;
-  }
-  
-  .template-compact .nl-header {
-    padding-bottom: 12px;
-    margin-bottom: 20px;
-  }
-  
-  .template-compact .nl-title {
-    font-size: 30px;
-    margin-bottom: 16px;
-  }
-  
-  .template-compact .nl-intro {
-    padding: 14px;
-    font-size: 15px;
-    margin-bottom: 24px;
-  }
-  
-  .template-compact .nl-posts-grid {
-    gap: 20px;
-  }
-  
-  .template-compact .nl-post-card {
-    display: grid;
-    grid-template-columns: 140px 1fr;
-    box-shadow: 2px 2px 0 var(--ch-ink);
-  }
-  
-  .template-compact .nl-post-img-container {
-    height: 100%;
-    min-height: 120px;
-  }
-  
-  .template-compact .nl-post-body {
-    padding: 16px;
-  }
-  
-  .template-compact .nl-post-title {
-    font-size: 18px;
-    margin-bottom: 6px;
-  }
-  
-  .template-compact .nl-post-excerpt {
-    font-size: 14px;
+  .nl-mag-card__meta {
+    font-family: var(--nl-sans);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--nl-green-mid);
     margin-bottom: 8px;
-    line-height: 1.5;
   }
-  
-  .template-compact .nl-footer {
-    margin-top: 32px;
-    padding-top: 24px;
+  .nl-mag-card__title {
+    font-family: var(--nl-display);
+    font-weight: 900;
+    font-size: 20px;
+    line-height: 1.2;
+    color: var(--nl-ink);
+    margin: 0 0 10px;
   }
-  
-  .template-compact .nl-footer-partners {
-    margin-bottom: 16px;
+  .nl-mag-card__excerpt {
+    font-family: var(--nl-sans);
+    font-size: 14.5px;
+    line-height: 1.6;
+    color: var(--nl-ink-soft);
+    margin: 0 0 14px;
+    flex: 1;
   }
-  
-  .template-compact .nl-footer-partners img {
-    height: 26px;
+  .nl-mag-card__link {
+    font-family: var(--nl-sans);
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--nl-green);
+    text-decoration: none;
+    align-self: flex-start;
+  }
+  .nl-mag-card__link:hover { text-decoration: underline; }
+
+  /* ══════════════════════════════════════════════════════════
+     TEMPLATE 3 — CHAMAMA / זין  (key: poster)
+     Warm, creative, project-based. Paper + bold blocks + stickers.
+     ══════════════════════════════════════════════════════════ */
+  .template-poster .nl-container {
+    background:
+      radial-gradient(circle at 18% 8%, rgba(124,255,79,0.07), transparent 42%),
+      repeating-linear-gradient(0deg, rgba(23,23,23,0.018) 0 1px, transparent 1px 5px),
+      var(--nl-cream);
+    border: 2px solid var(--nl-ink);
+    box-shadow: 9px 9px 0 var(--nl-ink);
+  }
+  .template-poster .nl-masthead {
+    border-bottom: 3px solid var(--nl-ink);
+  }
+  .template-poster .nl-issue__label {
+    color: var(--nl-ink);
+    background: var(--nl-neon);
+    padding: 2px 10px;
+    border: 2px solid var(--nl-ink);
+  }
+  .template-poster .nl-title {
+    font-size: clamp(34px, 6vw, 56px);
+  }
+  .template-poster .nl-intro {
+    font-family: var(--nl-sans);
+    font-weight: 500;
+    font-size: 16.5px;
+    color: #fff;
+    background: var(--nl-green);
+    border: 2px solid var(--nl-ink);
+    box-shadow: 5px 5px 0 var(--nl-neon);
+    padding: 22px 24px;
+    border-radius: 2px;
+  }
+  .template-poster .nl-posts {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+  }
+  .nl-zine {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr;
+    background: var(--nl-paper);
+    border: 2px solid var(--nl-ink);
+    box-shadow: 6px 6px 0 var(--nl-green);
+    overflow: hidden;
+  }
+  @media (min-width: 660px) {
+    .nl-zine { grid-template-columns: minmax(0, 1.05fr) 1fr; }
+    .nl-zine:nth-child(even) .nl-zine__media { order: 2; }
+  }
+  .nl-zine--text { grid-template-columns: 1fr; }
+  .nl-zine__num {
+    position: absolute;
+    top: -6px;
+    inset-inline-start: -2px;
+    z-index: 3;
+    font-family: var(--nl-display);
+    font-weight: 900;
+    font-size: 38px;
+    line-height: 1;
+    color: var(--nl-green);
+    background: var(--nl-neon);
+    border: 2px solid var(--nl-ink);
+    padding: 6px 12px;
+    box-shadow: 3px 3px 0 var(--nl-ink);
+  }
+  .nl-zine__media { position: relative; aspect-ratio: 4 / 3; }
+  .nl-zine__img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .nl-zine__tag {
+    position: absolute;
+    bottom: 12px;
+    inset-inline-end: 12px;
+    transform: rotate(-3deg);
+    font-family: var(--nl-display);
+    font-weight: 900;
+    font-size: 14px;
+    color: var(--nl-neon);
+    background: var(--nl-ink);
+    padding: 4px 12px;
+    box-shadow: 2px 2px 0 rgba(0,0,0,0.25);
+  }
+  .nl-zine__tagrow { padding: 22px 26px 0; }
+  .nl-zine__tag--static {
+    position: static;
+    display: inline-block;
+    transform: rotate(-2deg);
+  }
+  .nl-zine__body {
+    padding: 30px 26px 26px;
+    display: flex;
+    flex-direction: column;
+  }
+  .nl-zine__date {
+    font-family: var(--nl-sans);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--nl-green-mid);
+    margin-bottom: 8px;
+  }
+  .nl-zine__title {
+    font-family: var(--nl-display);
+    font-weight: 900;
+    font-size: clamp(22px, 3vw, 27px);
+    line-height: 1.15;
+    color: var(--nl-ink);
+    margin: 0 0 12px;
+  }
+  .nl-zine__excerpt {
+    font-family: var(--nl-sans);
+    font-size: 15.5px;
+    line-height: 1.65;
+    color: var(--nl-ink-soft);
+    margin: 0 0 20px;
+  }
+  .nl-zine__link {
+    align-self: flex-start;
+    font-family: var(--nl-display);
+    font-weight: 900;
+    font-size: 15px;
+    color: var(--nl-green);
+    background: var(--nl-neon);
+    border: 2px solid var(--nl-ink);
+    padding: 8px 16px;
+    text-decoration: none;
+    box-shadow: 3px 3px 0 var(--nl-ink);
+    transition: transform .14s ease, box-shadow .14s ease;
+  }
+  .nl-zine__link:hover { transform: translate(-1px,-1px); box-shadow: 4px 4px 0 var(--nl-ink); }
+
+  /* ══════════════════════════════════════════════════════════
+     TEMPLATE 4 — PRINT EDITION  (key: compact)
+     A4-like column, restrained, optimized for Save-as-PDF.
+     ══════════════════════════════════════════════════════════ */
+  .template-compact .nl-container {
+    max-width: 760px;
+    background: #fff;
+    padding: clamp(24px, 4vw, 46px);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05), 0 8px 30px rgba(0,0,0,0.05);
+  }
+  .template-compact .nl-masthead {
+    padding-bottom: 14px;
+    margin-bottom: 22px;
+  }
+  .template-compact .nl-logo img { height: 42px; }
+  .template-compact .nl-title {
+    font-family: var(--nl-display);
+    font-size: clamp(26px, 4vw, 34px);
+    margin-bottom: 14px;
+  }
+  .template-compact .nl-intro {
+    font-size: 15px;
+    line-height: 1.7;
+    margin-bottom: 26px;
+    border-inline-start: 3px solid var(--nl-green-mid);
+    padding-inline-start: 14px;
+  }
+  .template-compact .nl-posts {
+    display: flex;
+    flex-direction: column;
+  }
+  .nl-digest {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 18px;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--nl-line);
+  }
+  .nl-digest--text { grid-template-columns: 1fr; }
+  .nl-digest__media {
+    aspect-ratio: 4 / 3;
+    border: 1px solid var(--nl-line);
+    border-radius: 2px;
+  }
+  .nl-digest__img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .nl-digest__meta {
+    font-family: var(--nl-sans);
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--nl-green-mid);
+    margin-bottom: 5px;
+  }
+  .nl-digest__title {
+    font-family: var(--nl-sans);
+    font-weight: 800;
+    font-size: 18px;
+    line-height: 1.25;
+    color: var(--nl-ink);
+    margin: 0 0 6px;
+  }
+  .nl-digest__excerpt {
+    font-family: var(--nl-sans);
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--nl-ink-soft);
+    margin: 0 0 6px;
+  }
+  .nl-digest__link {
+    font-family: var(--nl-sans);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--nl-green);
+    text-decoration: none;
+  }
+  @media (max-width: 520px) {
+    .nl-digest { grid-template-columns: 1fr; }
   }
 
-  @media (max-width: 540px) {
-    .template-compact .nl-post-card {
-      grid-template-columns: 1fr;
-    }
-    .template-compact .nl-post-img-container {
-      height: 160px;
-    }
-  }
-
-  /* ──────────────────────────────────────────────────────────
-     Print Media Queries Optimization
-     ────────────────────────────────────────────────────────── */
+  /* ══════════════════════════════════════════════════════════
+     PRINT  — works for every template, best for compact
+     ══════════════════════════════════════════════════════════ */
   @media print {
-    body {
-      background: white !important;
-      color: black !important;
-    }
-    
-    .no-print {
-      display: none !important;
-    }
-    
-    .nl-container {
-      max-width: 100% !important;
-      width: 100% !important;
-      border: none !important;
-      box-shadow: none !important;
-      padding: 0 !important;
-      margin: 0 !important;
-      background: white !important;
-      color: black !important;
-    }
-    
-    .nl-post-card {
-      page-break-inside: avoid;
-      break-inside: avoid;
-      box-shadow: none !important;
-      border: 1px solid #ddd !important;
-      background: white !important;
-      color: black !important;
-    }
+    @page { margin: 1.4cm; }
 
-    .template-poster .nl-container,
-    .template-poster .nl-post-card {
-      background: white !important;
-      color: black !important;
-      border: 1px solid #333 !important;
-      box-shadow: none !important;
-    }
-
-    .template-poster .nl-title,
-    .template-poster .nl-issue-label,
-    .template-poster .nl-post-title,
-    .template-poster .nl-post-link {
-      color: #1e3a34 !important;
-    }
-
-    .template-poster .nl-logo img {
-      filter: none !important;
-    }
-
-    .template-poster .nl-intro {
-      background: #f4f0e7 !important;
-      color: black !important;
-      border-right-color: #1e3a34 !important;
-    }
-
-    .template-poster .nl-issue-date,
-    .template-poster .nl-post-excerpt,
-    .template-poster .nl-footer-info {
-      color: #333 !important;
-    }
-
-    /* Print color adjust setup */
     * {
       -webkit-print-color-adjust: exact !important;
       print-color-adjust: exact !important;
     }
-    
-    @page {
-      margin: 1.5cm;
+
+    html, body { background: #fff !important; }
+
+    /* Hide every screen-only control */
+    .no-print,
+    .nl-topbar,
+    .nl-print-row { display: none !important; }
+
+    .nl-container {
+      max-width: 100% !important;
+      width: 100% !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      border: 0 !important;
+      border-radius: 0 !important;
+      box-shadow: none !important;
+      background: #fff !important;
     }
+
+    /* Keep meaningful blocks intact on the page */
+    .nl-masthead,
+    .nl-footer { break-inside: avoid; page-break-inside: avoid; }
+
+    .nl-art,
+    .nl-mag-card,
+    .nl-zine,
+    .nl-digest,
+    .nl-hero {
+      break-inside: avoid;
+      page-break-inside: avoid;
+      box-shadow: none !important;
+    }
+
+    /* Never split a title from its body */
+    .nl-art__title,
+    .nl-mag-card__title,
+    .nl-zine__title,
+    .nl-digest__title,
+    .nl-hero__title {
+      break-after: avoid;
+      page-break-after: avoid;
+    }
+
+    img { max-width: 100% !important; }
+
+    /* Chamama: drop the heavy ink shadows, keep it legible in print */
+    .template-poster .nl-container {
+      background: #fff !important;
+      border: 1px solid #333 !important;
+      box-shadow: none !important;
+    }
+    .template-poster .nl-zine,
+    .template-poster .nl-zine__num,
+    .template-poster .nl-zine__link,
+    .template-poster .nl-intro {
+      box-shadow: none !important;
+    }
+    .template-poster .nl-zine { border: 1px solid #333 !important; }
+
+    .nl-footer__partners img { box-shadow: none !important; }
   }
 </style>
 </head>
 <body>
 
-  <!-- Controls for staff/users (hidden on print) -->
-  <div class="nl-control-bar pg-wrap no-print">
+  <!-- Slim back link (screen only) -->
+  <div class="nl-topbar no-print">
     <a href="blog.html" class="nl-back-link">→ חזרה לבלוג וחדשות</a>
-    <div class="nl-actions">
-      <button id="btn-copy-link" class="pg-btn pg-btn--ghost">העתק קישור</button>
-      <button id="btn-copy-email" class="pg-btn pg-btn--ghost">העתק טקסט למייל</button>
-      <button id="btn-print" class="pg-btn">הדפסה / שמירה כ־PDF</button>
-    </div>
   </div>
 
-  <div id="nl-feedback-banner" class="nl-feedback no-print"></div>
-
-  <!-- Loading State placeholder -->
+  <!-- Loading / error state -->
   <div id="nl-status" class="nl-status-container">
     <h2 class="pg-h2" id="status-title">טוען ניוזלטר...</h2>
     <p class="pg-p" id="status-text">מתחבר למקורות הנתונים לשחזור הגיליון השמור.</p>
   </div>
 
-  <!-- Main Newsletter Content (initially hidden) -->
+  <!-- Main newsletter (hidden until loaded) -->
   <article id="nl-content" class="nl-container" style="display: none;">
-    
-    <!-- Top Header -->
-    <header class="nl-header">
+
+    <header class="nl-masthead">
       <a href="index.html" class="nl-logo">
         <img src="assets/logos/logo-full.png" alt="תיכון החממה" />
       </a>
-      <div class="nl-issue-info">
-        <div class="nl-issue-label" id="nl-lbl-issue"><!-- Dynamic Issue --></div>
-        <div class="nl-issue-date" id="nl-lbl-date"><!-- Dynamic Date --></div>
+      <div class="nl-issue">
+        <span class="nl-issue__label" id="nl-lbl-issue"></span>
+        <span class="nl-issue__date" id="nl-lbl-date"></span>
       </div>
     </header>
 
-    <!-- Main Title -->
-    <h1 class="nl-title" id="nl-val-title"><!-- Dynamic Title --></h1>
+    <h1 class="nl-title" id="nl-val-title"></h1>
 
-    <!-- Intro block -->
-    <div class="nl-intro" id="nl-val-intro"><!-- Dynamic Intro --></div>
+    <div class="nl-intro" id="nl-val-intro"></div>
 
-    <!-- Posts list -->
-    <div class="nl-posts-grid" id="nl-posts-grid-container">
-      <!-- Dynamic list of posts based on template -->
+    <section class="nl-posts" id="nl-posts-grid-container"></section>
+
+    <!-- Print / Save as PDF — bottom of the content, screen only -->
+    <div class="nl-print-row no-print">
+      <button id="btn-print" class="nl-print-btn" type="button">הדפסה / שמירה כ־PDF</button>
     </div>
 
-    <!-- Bottom Footer -->
     <footer class="nl-footer">
-      <div class="nl-footer-partners">
+      <div class="nl-footer__partners">
         <img src="assets/logos/partner-ministry-of-labor.png" alt="משרד העבודה" />
         <img src="assets/logos/partner-amal.png" alt="רשת עמל" />
         <img src="assets/logos/partner-hod-hasharon.png" alt="עיריית הוד השרון" />
       </div>
-      <div class="nl-footer-info">
-        תיכון החממה · עמל הוד השרון · טלפון: 09-7884549 · אימייל: <a href="mailto:info@chamama.org" style="color: var(--ch-green-dark); font-weight: 700;">info@chamama.org</a>
+      <div class="nl-footer__info">
+        תיכון החממה · עמל הוד השרון · טלפון: 09-7884549 · אימייל: <a href="mailto:info@chamama.org">info@chamama.org</a>
         <br />
-        <a href="index.html" class="no-print" style="color: var(--ch-green-dark); text-decoration: underline; font-weight: 600; margin-top: 8px; display: inline-block;">ביקור באתר בית הספר</a>
+        <a href="index.html" class="no-print">ביקור באתר בית הספר</a>
       </div>
     </footer>
 
@@ -578,16 +778,13 @@
     const statusTitle = document.getElementById("status-title");
     const statusText = document.getElementById("status-text");
     const contentContainer = document.getElementById("nl-content");
-    
+
     const lblIssue = document.getElementById("nl-lbl-issue");
     const lblDate = document.getElementById("nl-lbl-date");
     const valTitle = document.getElementById("nl-val-title");
     const valIntro = document.getElementById("nl-val-intro");
     const postsGridContainer = document.getElementById("nl-posts-grid-container");
 
-    const feedbackBanner = document.getElementById("nl-feedback-banner");
-
-    // Extract newsletter ID from query
     const urlParams = new URLSearchParams(window.location.search);
     const newsletterId = urlParams.get("id");
 
@@ -596,7 +793,7 @@
       return;
     }
 
-    // Safety escaping helpers
+    // ─── Safety helpers ───
     function escapeHTML(str) {
       if (typeof str !== 'string') {
         return str === undefined || str === null ? '' : String(str);
@@ -614,7 +811,8 @@
         url = url === undefined || url === null ? '' : String(url);
       }
       const trimmed = url.trim();
-      if (trimmed.toLowerCase().startsWith('javascript:') || trimmed.toLowerCase().startsWith('data:')) {
+      const lower = trimmed.toLowerCase();
+      if (lower.startsWith('javascript:') || lower.startsWith('data:')) {
         return '';
       }
       return escapeHTML(trimmed);
@@ -622,30 +820,20 @@
 
     function showError(title, message) {
       statusTitle.textContent = title;
-      statusTitle.style.color = "var(--ch-danger)";
+      statusTitle.style.color = "var(--ch-terra)";
       statusText.textContent = message;
       statusContainer.style.display = "block";
       contentContainer.style.display = "none";
     }
 
-    function showBannerFeedback(message, isSuccess = true) {
-      feedbackBanner.textContent = message;
-      feedbackBanner.style.display = "block";
-      if (isSuccess) {
-        feedbackBanner.style.backgroundColor = "rgba(34, 197, 94, 0.15)";
-        feedbackBanner.style.color = "#15803d";
-        feedbackBanner.style.border = "1px solid #bbf7d0";
-      } else {
-        feedbackBanner.style.backgroundColor = "#fde8e8";
-        feedbackBanner.style.color = "#c81e1e";
-        feedbackBanner.style.border = "1px solid #fecaca";
-      }
-      setTimeout(() => {
-        feedbackBanner.style.display = "none";
-      }, 5000);
+    function formatDate(value) {
+      if (!value) return '';
+      const d = new Date(value);
+      if (isNaN(d.getTime())) return '';
+      return d.toLocaleDateString("he-IL", { year: "numeric", month: "long", day: "numeric" });
     }
 
-    // Data loading functions
+    // ─── Data loading ───
     async function loadNewsletters() {
       try {
         const response = await fetch("/.netlify/functions/newsletters");
@@ -672,7 +860,6 @@
       }
     }
 
-    // Load data and compile
     Promise.all([loadNewsletters(), loadPosts()])
       .then(([newsletters, posts]) => {
         const newsletter = newsletters.find(n => n.id === newsletterId && n.published === true);
@@ -682,50 +869,33 @@
           return;
         }
 
-        // Apply template layout class
         const activeTemplate = ['classic', 'magazine', 'poster', 'compact'].includes(newsletter.template)
           ? newsletter.template
           : 'classic';
         contentContainer.classList.add(`template-${activeTemplate}`);
 
-        // Set document title
         document.title = `${newsletter.title} — ניוזלטר תיכון החממה`;
 
-        // Fill Header & Content Meta
-        lblIssue.textContent = newsletter.issue ? escapeHTML(newsletter.issue) : "ניוזלטר";
-        
-        if (newsletter.date) {
-          const formattedNLDate = new Date(newsletter.date).toLocaleDateString("he-IL", {
-            year: "numeric",
-            month: "long",
-            day: "numeric"
-          });
-          lblDate.textContent = formattedNLDate;
-        } else {
-          lblDate.textContent = "";
-        }
+        lblIssue.textContent = newsletter.issue ? newsletter.issue : "ניוזלטר";
+        lblDate.textContent = formatDate(newsletter.date);
+        valTitle.textContent = newsletter.title || "";
+        valIntro.textContent = newsletter.intro || "";
 
-        valTitle.textContent = newsletter.title;
-        valIntro.textContent = newsletter.intro;
-
-        // Match referenced posts in precise order of post_slugs
+        // Match referenced posts in the saved order
         const selectedPosts = [];
-        if (newsletter.post_slugs && Array.isArray(newsletter.post_slugs)) {
+        if (Array.isArray(newsletter.post_slugs)) {
           newsletter.post_slugs.forEach(slug => {
-            const foundPost = posts.find(p => p.slug === slug);
-            if (foundPost) {
-              selectedPosts.push(foundPost);
-            }
+            const found = posts.find(p => p.slug === slug);
+            if (found) selectedPosts.push(found);
           });
         }
 
         if (selectedPosts.length === 0) {
-          postsGridContainer.innerHTML = `<p style="color: #666; font-style: italic; text-align: center; padding: 24px 0;">לא נמצאו עדכונים או כתבות להצגה בגיליון זה.</p>`;
+          postsGridContainer.innerHTML = `<p class="nl-empty">לא נמצאו עדכונים או כתבות להצגה בגיליון זה.</p>`;
         } else {
           renderPostsLayout(selectedPosts, activeTemplate);
         }
 
-        // Show main content & hide loading state
         statusContainer.style.display = "none";
         contentContainer.style.display = "block";
       })
@@ -734,88 +904,137 @@
         showError("שגיאה בטעינת הניוזלטר", "אירעה שגיאה תקשורתית במהלך שחזור נתוני הניוזלטר. אנא נסו לרענן את הדף.");
       });
 
-    // Helper to generate post card markup
-    function buildPostMarkup(post, isFeatured = false) {
-      const formattedDate = new Date(post.date).toLocaleDateString("he-IL", {
-        year: "numeric",
-        month: "long",
-        day: "numeric"
-      });
-      
-      const postUrl = `blog-post.html?slug=${safeURL(post.slug)}`;
-      const typeHebrew = post.type === 'event' || post.type === 'אירוע' ? 'אירוע' : 'מאמר';
-      const imageSrc = post.image ? safeURL(post.image) : "assets/uploads/learn-project.webp";
-
-      return `
-        <div class="nl-post-card ${isFeatured ? 'featured-post' : ''}">
-          <div class="nl-post-img-container">
-            <img src="${imageSrc}" alt="${escapeHTML(post.title)}" class="nl-post-img" loading="lazy" />
-          </div>
-          <div class="nl-post-body">
-            <div class="nl-post-meta">${escapeHTML(typeHebrew)} · ${formattedDate}</div>
-            <h3 class="nl-post-title">${escapeHTML(post.title)}</h3>
-            <p class="nl-post-excerpt">${escapeHTML(post.excerpt)}</p>
-            <a href="${postUrl}" class="nl-post-link" target="_blank">קראו עוד באתר ←</a>
-          </div>
-        </div>
-      `;
+    // ─── Post helpers ───
+    function postData(post) {
+      const typeHe = post.type ? escapeHTML(String(post.type)) : 'עדכון';
+      return {
+        title: escapeHTML(post.title),
+        excerpt: escapeHTML(post.excerpt),
+        dateStr: formatDate(post.date),
+        url: `blog-post.html?slug=${safeURL(post.slug)}`,
+        typeHe: typeHe,
+        img: post.image ? safeURL(post.image) : ''
+      };
     }
 
-    // Template specific layout compilation
-    function renderPostsLayout(selectedPosts, template) {
-      if (template === 'magazine') {
-        // First post is featured
-        const firstPost = selectedPosts[0];
-        const remainingPosts = selectedPosts.slice(1);
-        
-        let htmlContent = buildPostMarkup(firstPost, true);
-        
-        if (remainingPosts.length > 0) {
-          htmlContent += `
-            <div class="nl-posts-subgrid">
-              ${remainingPosts.map(p => buildPostMarkup(p, false)).join("")}
+    function imgTag(d, cls) {
+      if (!d.img) return '';
+      return `<img src="${d.img}" alt="${d.title}" class="${cls}" loading="lazy" onerror="this.style.display='none'" />`;
+    }
+
+    function meta(d) {
+      return d.dateStr ? `${d.typeHe} · ${d.dateStr}` : d.typeHe;
+    }
+
+    // ─── Template renderers ───
+    function renderEditorial(posts) {
+      return posts.map((post, i) => {
+        const d = postData(post);
+        const flip = i % 2 ? 'nl-art--flip' : '';
+        const textOnly = d.img ? '' : 'nl-art--text';
+        const media = d.img ? `<div class="nl-art__media">${imgTag(d, 'nl-art__img')}</div>` : '';
+        return `
+          <article class="nl-art ${flip} ${textOnly}">
+            ${media}
+            <div class="nl-art__text">
+              <div class="nl-art__meta"><span>${d.typeHe}</span>${d.dateStr ? `<span>·</span><time>${d.dateStr}</time>` : ''}</div>
+              <h2 class="nl-art__title">${d.title}</h2>
+              <p class="nl-art__excerpt">${d.excerpt}</p>
+              <a href="${d.url}" class="nl-art__link" target="_blank" rel="noopener">קראו את הכתבה המלאה ←</a>
             </div>
-          `;
-        }
-        postsGridContainer.innerHTML = htmlContent;
-      } else {
-        // classic, poster, compact all share a vertical flow with styling customized in CSS
-        postsGridContainer.innerHTML = selectedPosts.map(p => buildPostMarkup(p, false)).join("");
-      }
+          </article>`;
+      }).join('<hr class="nl-art__rule" />');
     }
 
-    // Sharing action listeners
-    document.getElementById("btn-copy-link").addEventListener("click", function () {
-      const currentUrl = window.location.href;
-      navigator.clipboard.writeText(currentUrl)
-        .then(() => {
-          showBannerFeedback("הקישור הישיר לניוזלטר הועתק ללוח! כעת תוכלו לשתף אותו.");
-        })
-        .catch(err => {
-          console.error("Failed to copy link:", err);
-          showBannerFeedback("שגיאה בהעתקת הקישור. אנא העתיקו ידנית משורת הכתובת.", false);
-        });
-    });
+    function renderMagazine(posts) {
+      const h = postData(posts[0]);
+      const heroText = h.img ? '' : 'nl-hero--text';
+      let html = `
+        <article class="nl-hero ${heroText}">
+          ${h.img ? `<div class="nl-hero__media">${imgTag(h, 'nl-hero__img')}</div>` : ''}
+          <div class="nl-hero__panel">
+            <span class="nl-hero__kicker">כתבת השער</span>
+            <h2 class="nl-hero__title">${h.title}</h2>
+            <div class="nl-hero__meta">${meta(h)}</div>
+            <p class="nl-hero__excerpt">${h.excerpt}</p>
+            <a href="${h.url}" class="nl-hero__link" target="_blank" rel="noopener">לכתבה המלאה ←</a>
+          </div>
+        </article>`;
 
-    document.getElementById("btn-copy-email").addEventListener("click", function () {
-      const currentUrl = window.location.href;
-      const emailTemplateText = `שלום,
-הניוזלטר החדש של תיכון החממה זמין לקריאה כאן:
-${currentUrl}
+      const rest = posts.slice(1);
+      if (rest.length) {
+        html += `<div class="nl-mag-grid">${rest.map(p => {
+          const d = postData(p);
+          const textOnly = d.img ? '' : 'nl-mag-card--text';
+          return `
+            <article class="nl-mag-card ${textOnly}">
+              ${d.img ? `<div class="nl-mag-card__media">${imgTag(d, 'nl-mag-card__img')}</div>` : ''}
+              <div class="nl-mag-card__body">
+                <div class="nl-mag-card__meta">${meta(d)}</div>
+                <h3 class="nl-mag-card__title">${d.title}</h3>
+                <p class="nl-mag-card__excerpt">${d.excerpt}</p>
+                <a href="${d.url}" class="nl-mag-card__link" target="_blank" rel="noopener">קראו עוד ←</a>
+              </div>
+            </article>`;
+        }).join('')}</div>`;
+      }
+      return html;
+    }
 
-קריאה נעימה,
-תיכון החממה`;
+    function renderChamama(posts) {
+      return posts.map((post, i) => {
+        const d = postData(post);
+        const num = String(i + 1).padStart(2, '0');
+        const textOnly = d.img ? '' : 'nl-zine--text';
+        const media = d.img
+          ? `<div class="nl-zine__media">${imgTag(d, 'nl-zine__img')}<span class="nl-zine__tag">${d.typeHe}</span></div>`
+          : `<div class="nl-zine__tagrow"><span class="nl-zine__tag nl-zine__tag--static">${d.typeHe}</span></div>`;
+        return `
+          <article class="nl-zine ${textOnly}">
+            <span class="nl-zine__num">${num}</span>
+            ${media}
+            <div class="nl-zine__body">
+              ${d.dateStr ? `<div class="nl-zine__date">${d.dateStr}</div>` : ''}
+              <h2 class="nl-zine__title">${d.title}</h2>
+              <p class="nl-zine__excerpt">${d.excerpt}</p>
+              <a href="${d.url}" class="nl-zine__link" target="_blank" rel="noopener">קראו עוד ←</a>
+            </div>
+          </article>`;
+      }).join('');
+    }
 
-      navigator.clipboard.writeText(emailTemplateText)
-        .then(() => {
-          showBannerFeedback("טקסט המייל הקצר הועתק ללוח! מוכן להדבקה במערכת הדיוור או בגוף המייל.");
-        })
-        .catch(err => {
-          console.error("Failed to copy email text:", err);
-          showBannerFeedback("שגיאה בהעתקת טקסט המייל.", false);
-        });
-    });
+    function renderCompact(posts) {
+      return posts.map(post => {
+        const d = postData(post);
+        const textOnly = d.img ? '' : 'nl-digest--text';
+        return `
+          <article class="nl-digest ${textOnly}">
+            ${d.img ? `<div class="nl-digest__media">${imgTag(d, 'nl-digest__img')}</div>` : ''}
+            <div class="nl-digest__body">
+              <div class="nl-digest__meta">${meta(d)}</div>
+              <h2 class="nl-digest__title">${d.title}</h2>
+              <p class="nl-digest__excerpt">${d.excerpt}</p>
+              <a href="${d.url}" class="nl-digest__link" target="_blank" rel="noopener">קישור לכתבה באתר ←</a>
+            </div>
+          </article>`;
+      }).join('');
+    }
 
+    function renderPostsLayout(selectedPosts, template) {
+      let html;
+      if (template === 'magazine') {
+        html = renderMagazine(selectedPosts);
+      } else if (template === 'poster') {
+        html = renderChamama(selectedPosts);
+      } else if (template === 'compact') {
+        html = renderCompact(selectedPosts);
+      } else {
+        html = renderEditorial(selectedPosts);
+      }
+      postsGridContainer.innerHTML = html;
+    }
+
+    // ─── Print / Save as PDF ───
     document.getElementById("btn-print").addEventListener("click", function () {
       window.print();
     });
