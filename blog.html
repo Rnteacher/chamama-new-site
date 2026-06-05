@@ -47,6 +47,41 @@
       </div>
     </div>
   </section>
+
+  <!-- Newsletter Signup Form Section -->
+  <section class="pg-section pg-section--band" id="newsletter-signup-section" style="border-top: 1px solid var(--ch-border);">
+    <div class="pg-wrap" style="max-width: 600px; margin: 0 auto; text-align: center;">
+      <h2 class="pg-h2" style="margin-bottom: 8px;">רוצים לקבל עדכונים מהחממה?</h2>
+      <p class="pg-p" style="margin-bottom: 24px;">אירועים, פרויקטים של חניכים, ימים פתוחים ומחשבות על למידה עצמאית — אחת לתקופה, בלי להציף.</p>
+      
+      <form class="pg-form" id="newsletter-form" name="newsletter-signup" netlify netlify-honeypot="bot-field" style="display: flex; flex-direction: column; gap: 16px; text-align: right; background: var(--ch-surface); border: 2px solid var(--ch-ink); box-shadow: 4px 4px 0 var(--ch-ink); padding: 28px; border-radius: 4px;">
+        <input type="hidden" name="form-name" value="newsletter-signup" />
+        <input type="hidden" name="source" value="blog" />
+        <p hidden><label>אל תמלאו שדה זה: <input name="bot-field" /></label></p>
+        
+        <div class="pg-field" style="margin-bottom: 0;">
+          <label style="font-weight: 700; font-size: 14px; margin-bottom: 6px; display: block; color: var(--ch-ink);">שם מלא</label>
+          <input type="text" name="name" required placeholder="ישראל ישראלי" style="width: 100%; padding: 10px; border: 1px solid var(--ch-border); border-radius: 4px; font-size: 15px; font-family: inherit;" />
+        </div>
+        
+        <div class="pg-field" style="margin-bottom: 0;">
+          <label style="font-weight: 700; font-size: 14px; margin-bottom: 6px; display: block; color: var(--ch-ink);">אימייל *</label>
+          <input type="email" name="email" required placeholder="israel@example.com" style="width: 100%; padding: 10px; border: 1px solid var(--ch-border); border-radius: 4px; font-size: 15px; font-family: inherit;" />
+        </div>
+        
+        <div style="display: flex; align-items: flex-start; gap: 10px; margin-top: 8px; cursor: pointer; user-select: none;">
+          <input type="checkbox" id="newsletter-consent" name="consent" value="yes" required style="width: 18px; height: 18px; margin-top: 2px; accent-color: var(--ch-green-dark);" />
+          <label for="newsletter-consent" style="font-size: 14px; color: var(--ch-ink-soft); line-height: 1.4; cursor: pointer;">אני מאשר/ת לקבל עדכונים מתיכון החממה במייל.</label>
+        </div>
+        
+        <div style="margin-top: 8px;">
+          <button type="submit" class="pg-btn" id="newsletter-submit" style="width: 100%; justify-content: center; font-size: 16px; padding: 12px;">הרשמה לעדכונים</button>
+          <p id="newsletter-success" hidden style="margin-top: 16px; color: var(--ch-green-mid, #22c55e); font-weight: 700; font-size: 15px; text-align: center;">תודה! נרשמתם לעדכונים מהחממה.</p>
+          <p id="newsletter-error" hidden style="margin-top: 16px; color: #e05a3a; font-weight: 600; font-size: 14px; text-align: center;">הייתה בעיה בהרשמה. אפשר לנסות שוב או ליצור קשר עם בית הספר.</p>
+        </div>
+      </form>
+    </div>
+  </section>
 </main>
 
 <footer class="pg-footer">
@@ -76,6 +111,30 @@
 <script>
   document.addEventListener("DOMContentLoaded", function () {
     const grid = document.getElementById("posts-grid");
+
+    // Escaping helper functions
+    function escapeHTML(str) {
+      if (typeof str !== 'string') {
+        return str === undefined || str === null ? '' : String(str);
+      }
+      return str
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function safeURL(url) {
+      if (typeof url !== 'string') {
+        url = url === undefined || url === null ? '' : String(url);
+      }
+      const trimmed = url.trim();
+      if (trimmed.toLowerCase().startsWith('javascript:') || trimmed.toLowerCase().startsWith('data:')) {
+        return '';
+      }
+      return escapeHTML(trimmed);
+    }
 
     async function loadPosts() {
       try {
@@ -115,28 +174,28 @@
           });
 
           const tagsHTML = post.tags && post.tags.length > 0
-            ? `<div class="bs-card__tags">${post.tags.map(tag => `<span class="bs-card__tag">${tag}</span>`).join("")}</div>`
+            ? `<div class="bs-card__tags">${post.tags.map(tag => `<span class="bs-card__tag">${escapeHTML(tag)}</span>`).join("")}</div>`
             : "";
 
-          const imageSrc = post.image || "assets/uploads/learn-project.webp";
+          const imageSrc = post.image ? safeURL(post.image) : "assets/uploads/learn-project.webp";
 
           return `
             <article class="bs-card">
               <div class="bs-card__image-container">
-                <img src="${imageSrc}" alt="${post.title}" class="bs-card__img" loading="lazy" />
+                <img src="${imageSrc}" alt="${escapeHTML(post.title)}" class="bs-card__img" loading="lazy" />
               </div>
               <div class="bs-card__body">
                 <div class="bs-card__meta">
-                  <span class="bs-card__type">${post.type}</span>
+                  <span class="bs-card__type">${escapeHTML(post.type)}</span>
                   <span class="bs-card__date">${formattedDate}</span>
                 </div>
                 <h3 class="bs-card__title">
-                  <a href="blog-post.html?slug=${post.slug}">${post.title}</a>
+                  <a href="blog-post.html?slug=${safeURL(post.slug)}">${escapeHTML(post.title)}</a>
                 </h3>
-                <p class="bs-card__excerpt">${post.excerpt}</p>
+                <p class="bs-card__excerpt">${escapeHTML(post.excerpt)}</p>
                 ${tagsHTML}
                 <div class="bs-card__footer">
-                  <a href="blog-post.html?slug=${post.slug}" class="pg-btn pg-btn--ghost" style="padding: 8px 16px; font-size: 14px;">קראו עוד</a>
+                  <a href="blog-post.html?slug=${safeURL(post.slug)}" class="pg-btn pg-btn--ghost" style="padding: 8px 16px; font-size: 14px;">קראו עוד</a>
                 </div>
               </div>
             </article>
@@ -152,6 +211,43 @@
         `;
       });
   });
+</script>
+
+<script>
+(function () {
+  var form = document.getElementById("newsletter-form");
+  var btn = document.getElementById("newsletter-submit");
+  var successMsg = document.getElementById("newsletter-success");
+  var errorMsg = document.getElementById("newsletter-error");
+  if (!form) return;
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    btn.disabled = true;
+    btn.textContent = "שולח...";
+    errorMsg.hidden = true;
+    successMsg.hidden = true;
+
+    var data = new URLSearchParams(new FormData(form)).toString();
+    fetch("/", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: data,
+    })
+      .then(function (res) {
+        if (!res.ok) throw new Error("server error");
+        form.reset();
+        btn.disabled = false;
+        btn.textContent = "הרשמה לעדכונים";
+        successMsg.hidden = false;
+      })
+      .catch(function () {
+        btn.disabled = false;
+        btn.textContent = "הרשמה לעדכונים";
+        errorMsg.hidden = false;
+      });
+  });
+})();
 </script>
 </body>
 </html>

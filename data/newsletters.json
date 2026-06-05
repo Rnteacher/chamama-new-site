@@ -1,0 +1,32 @@
+[
+  {
+    "id": "newsletter-2026-06",
+    "title": "סוף שנה בחממה - גיליון סיכום",
+    "date": "2026-06-05",
+    "issue": "יוני 2026",
+    "template": "classic",
+    "intro": "שלום לכל קהילת החממה,\nהשנה הזו מגיעה לסיומה ואנחנו נרגשים לשתף אתכם בסיכום הפעילויות, החדשות והאירועים האחרונים של החניכים והחניכות שלנו. קריאה נעימה!",
+    "post_slugs": ["open-evening-2026", "makers-new-projects-2026"],
+    "published": true
+  },
+  {
+    "id": "newsletter-2026-05",
+    "title": "חדשות מאי - יצירה ומייקרס",
+    "date": "2026-05-25",
+    "issue": "גיליון 1",
+    "template": "magazine",
+    "intro": "החודש החולף היה עמוס בפרויקטים טכנולוגיים מרתקים ותערוכות ייחודיות. הנה הצצה לעשייה במרחבי הלמידה השונים של בית הספר.",
+    "post_slugs": ["makers-new-projects-2026", "exhibition-2026"],
+    "published": true
+  },
+  {
+    "id": "newsletter-unpublished",
+    "title": "טיוטת ניוזלטר סודית",
+    "date": "2026-05-10",
+    "issue": "טיוטה",
+    "template": "compact",
+    "intro": "זוהי טיוטה שאינה אמורה להופיע באתר הציבורי.",
+    "post_slugs": ["open-evening-2026"],
+    "published": false
+  }
+]
