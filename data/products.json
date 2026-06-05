@@ -1,0 +1,50 @@
+[
+  {
+    "id": "textile-bag-001",
+    "title": "תיק בד בעבודת יד",
+    "creator": "חניכת מגמת מייקרס וטקסטיל",
+    "category": "טקסטיל",
+    "price": 80,
+    "currency": "₪",
+    "description": "תיק כתף עמיד ומעוצב, העשוי משאריות בדים איכותיות שנאספו במתפרות מקומיות. כל תיק נתפר בעבודת יד קפדנית וכולל כיס פנימי לטלפון ורצועות נשיאה רחבות ונוחות.",
+    "image": "assets/uploads/proj-1.webp",
+    "status": "available",
+    "published": true
+  },
+  {
+    "id": "notebook-design-002",
+    "title": "מחברת בעיצוב אישי",
+    "creator": "חניכי סדנת הפקה וגרפיקה",
+    "category": "נייר וגרפיקה",
+    "price": 45,
+    "currency": "₪",
+    "description": "מחברת שורות איכותית בעלת כריכה קשה בעיצוב גרפי מקורי של חניכי מגמת גרפיקה. דפי נייר ממוחזר 90 גרם המתאימים במיוחד לכתיבה ורישום, כריכת קרטון ידידותית לסביבה.",
+    "image": "assets/uploads/proj-2.webp",
+    "status": "available",
+    "published": true
+  },
+  {
+    "id": "recycled-cushion-003",
+    "title": "כרית טקסטיל ממוחזר",
+    "creator": "חניך מגמת קיימות ומייקרס",
+    "category": "טקסטיל ובית",
+    "price": 95,
+    "currency": "₪",
+    "description": "כרית נוי לסלון או לחדר השינה, עשויה מחיבור טלאים של בדים טבעיים שעברו שדרוג וצביעה ידנית בצמחי תבלין וקליפות בצל מחצר בית הספר. מגיעה כולל מילוי רך.",
+    "image": "assets/uploads/proj-3.webp",
+    "status": "sold",
+    "published": true
+  },
+  {
+    "id": "draft-product-004",
+    "title": "מוצר טיוטה לדוגמה",
+    "creator": "חניך לבדיקה",
+    "category": "טיוטה",
+    "price": 100,
+    "currency": "₪",
+    "description": "מוצר זה נמצא במצב טיוטה ולא יופיע בחנות של בית הספר.",
+    "image": "assets/uploads/proj-4.webp",
+    "status": "available",
+    "published": false
+  }
+]

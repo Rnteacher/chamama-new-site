@@ -1,0 +1,418 @@
+/* ──────────────────────────────────────────────────────────
+   Chamama — Blog & Shop Pages Custom CSS Stylesheet
+   ────────────────────────────────────────────────────────── */
+
+/* ─── 1. Blog & Shop Common Components ─── */
+.bs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px;
+  margin-top: 32px;
+}
+
+@media (max-width: 600px) {
+  .bs-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Base Card override / styling */
+.bs-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--ch-surface);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 4px 4px 0 var(--ch-ink);
+  transition: transform var(--dur-base) var(--ease-out), box-shadow var(--dur-base) var(--ease-out);
+  height: 100%;
+}
+
+.bs-card:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--ch-ink);
+}
+
+.bs-card__image-container {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  overflow: hidden;
+  background: repeating-linear-gradient(135deg, rgba(0,0,0,0.035) 0 2px, transparent 2px 11px);
+}
+
+.bs-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.bs-card__body {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.bs-card__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  font-size: 14px;
+  color: var(--ch-muted);
+}
+
+.bs-card__type {
+  font-family: "FbElectron Condensed", sans-serif;
+  font-weight: 500;
+  color: var(--ch-green-mid);
+  letter-spacing: 0.05em;
+}
+
+.bs-card__date {
+  font-size: 13.5px;
+}
+
+.bs-card__title {
+  font-family: "FbElectron Condensed", sans-serif;
+  font-weight: 900;
+  font-size: 24px;
+  margin: 0 0 12px;
+  color: var(--ch-ink);
+  line-height: 1.2;
+}
+
+.bs-card__title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.bs-card__title a:hover {
+  color: var(--ch-green-dark);
+  text-decoration: underline;
+}
+
+.bs-card__excerpt {
+  font-size: 15.5px;
+  line-height: 1.6;
+  color: var(--ch-ink-soft);
+  margin-bottom: 20px;
+  flex-grow: 1;
+}
+
+.bs-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.bs-card__tag {
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 8px;
+  background: rgba(36, 76, 66, 0.08);
+  color: var(--ch-green-dark);
+}
+
+.bs-card__footer {
+  margin-top: auto;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  padding-top: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* ─── 2. Single Post Details ─── */
+.post-header {
+  margin-bottom: 36px;
+}
+
+.post-meta-details {
+  display: flex;
+  gap: 20px;
+  font-size: 15px;
+  color: var(--ch-muted);
+  margin-bottom: 16px;
+  align-items: center;
+}
+
+.post-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 32px;
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--ch-green-dark);
+  font-size: 15.5px;
+}
+
+.post-back-link:hover {
+  text-decoration: underline;
+}
+
+.post-image-hero {
+  width: 100%;
+  max-height: 480px;
+  object-fit: cover;
+  margin-bottom: 36px;
+  box-shadow: var(--shadow-card);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.post-body-content {
+  font-size: 18px;
+  line-height: 1.8;
+  color: var(--ch-ink-soft);
+  max-width: 72ch;
+  margin: 0 auto;
+}
+
+.post-body-content p {
+  margin-bottom: 24px;
+}
+
+/* ─── 3. Shop Specifics ─── */
+.shop-card__creator {
+  font-size: 14px;
+  color: var(--ch-muted);
+  margin-bottom: 12px;
+}
+
+.shop-card__price-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+}
+
+.shop-card__price {
+  font-family: "FbElectron Condensed", sans-serif;
+  font-weight: 900;
+  font-size: 26px;
+  color: var(--ch-green-dark);
+}
+
+.shop-card__status-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  padding: 6px 12px;
+  font-size: 13px;
+  font-weight: 700;
+  box-shadow: 2px 2px 0 var(--ch-ink);
+  z-index: 10;
+}
+
+.shop-card__status-badge--available {
+  background: var(--ch-green-neon);
+  color: var(--ch-ink);
+}
+
+.shop-card__status-badge--sold {
+  background: var(--ch-terra);
+  color: white;
+}
+
+.shop-card__btn {
+  width: 100%;
+  text-align: center;
+  justify-content: center;
+  font-size: 16px;
+  padding: 12px 20px;
+  margin-top: 16px;
+}
+
+.shop-card__btn--sold {
+  background: var(--ch-bg-alt);
+  color: var(--ch-muted);
+  border: 1px solid var(--ch-border);
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.shop-card__btn--sold:hover {
+  transform: none;
+}
+
+/* ─── 4. Order Modal ─── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(36, 76, 70, 0.4);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 280ms var(--ease-out);
+}
+
+.modal-overlay.is-active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.modal-content {
+  background: var(--ch-surface);
+  border: 2px solid var(--ch-ink);
+  box-shadow: var(--shadow-card-lg);
+  max-width: 600px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  transform: translateY(20px);
+  transition: transform 280ms var(--ease-out);
+}
+
+.modal-overlay.is-active .modal-content {
+  transform: translateY(0);
+}
+
+.modal-header {
+  background: var(--ch-green-dark);
+  color: white;
+  padding: 20px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid var(--ch-ink);
+}
+
+.modal-title {
+  font-family: "FbElectron Condensed", sans-serif;
+  font-weight: 900;
+  font-size: 24px;
+  margin: 0;
+  color: white;
+}
+
+.modal-close {
+  background: transparent;
+  border: 0;
+  color: white;
+  font-size: 28px;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0;
+}
+
+.modal-body {
+  padding: 24px;
+}
+
+/* Form status feedback */
+.form-feedback {
+  padding: 16px;
+  margin-bottom: 20px;
+  border: 1px solid;
+  font-size: 15.5px;
+}
+
+.form-feedback--success {
+  background: var(--ch-green-pale);
+  border-color: var(--ch-green-mid);
+  color: var(--ch-green-dark);
+}
+
+.form-feedback--error {
+  background: #fde8e8;
+  border-color: var(--ch-danger);
+  color: var(--ch-danger);
+}
+
+/* ─── 5. Newsletter Preview Page ─── */
+.news-intro-box {
+  background: var(--ch-bg-alt);
+  border: 1px solid var(--ch-border);
+  padding: 24px;
+  margin-bottom: 32px;
+}
+
+.news-intro-editor {
+  width: 100%;
+  height: 120px;
+  padding: 12px;
+  font-family: inherit;
+  font-size: 16px;
+  border: 1px solid var(--ch-border);
+  margin-top: 12px;
+}
+
+.news-preview-area {
+  background: white;
+  border: 2px solid var(--ch-ink);
+  padding: 36px;
+  margin-bottom: 32px;
+  box-shadow: var(--shadow-card);
+  direction: rtl;
+}
+
+.news-actions {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 40px;
+}
+
+/* Format specifically for copying style */
+.copyable-title {
+  font-family: "FbElectron Condensed", sans-serif;
+  font-size: 28px;
+  font-weight: 900;
+  color: #244C42;
+  border-bottom: 2px solid #7CFF4F;
+  padding-bottom: 8px;
+  margin-bottom: 24px;
+}
+
+.copyable-intro {
+  font-size: 17px;
+  line-height: 1.6;
+  color: #333;
+  margin-bottom: 32px;
+  white-space: pre-wrap;
+}
+
+.copyable-post {
+  margin-bottom: 32px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #ece5d6;
+}
+
+.copyable-post:last-child {
+  border-bottom: 0;
+}
+
+.copyable-post-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #244C42;
+  margin-bottom: 6px;
+}
+
+.copyable-post-meta {
+  font-size: 13.5px;
+  color: #666;
+  margin-bottom: 10px;
+}
+
+.copyable-post-excerpt {
+  font-size: 15.5px;
+  line-height: 1.6;
+  color: #444;
+  margin-bottom: 12px;
+}
+
+.copyable-post-link {
+  font-size: 14px;
+  font-weight: 600;
+  color: #244C42;
+  text-decoration: underline;
+}

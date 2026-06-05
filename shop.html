@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8" />
+<title>חנות מוצרים — תיכון החממה</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="pages.css" />
+<link rel="stylesheet" href="blog-shop.css" />
+</head>
+<body>
+<header class="pg-header">
+  <a href="index.html" class="pg-brand"><img src="assets/logos/logo-full.png" alt="תיכון החממה" /><span>חממה</span></a>
+  <button class="pg-burger" aria-label="תפריט" aria-expanded="false">☰</button>
+  <nav class="pg-nav" aria-label="ניווט ראשי">
+    <a href="about.html">מהי החממה</a>
+    <a href="learning.html">איך לומדים כאן</a>
+    <a href="projects.html">פרויקטים</a>
+    <a href="blog.html">בלוג</a>
+    <a href="shop.html" aria-current="page">חנות</a>
+    <a href="parents.html">להורים</a>
+    <a href="team.html">צוות</a>
+    <a href="join.html">הצטרפות</a>
+  </nav>
+  <a href="join.html" class="pg-cta">להרשמה לערב חשיפה</a>
+</header>
+
+<main>
+  <section class="pg-hero">
+    <div class="pg-wrap">
+      <p class="pg-eyebrow">חנות תוצרי חניכים</p>
+      <h1 class="pg-title">תוצרת <span class="neon">החממה</span>.</h1>
+      <p class="pg-lead">
+        קטלוג מוצרים ייחודיים שנוצרו על ידי חניכות וחניכי תיכון החממה במגמות המייקרס, טקסטיל וגרפיקה. ההכנסות מהמכירות מיועדות לפיתוח פרויקטים נוספים של חניכים.
+      </p>
+    </div>
+  </section>
+
+  <section class="pg-section">
+    <div class="pg-wrap">
+      <div id="products-grid" class="bs-grid">
+        <div style="grid-column: 1 / -1; text-align: center; padding: 48px 0;">
+          <p class="pg-p">טוען מוצרים...</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- Hidden Netlify Form detection template -->
+<form name="product-order" netlify netlify-honeypot="bot-field" hidden>
+  <input type="text" name="product_id" />
+  <input type="text" name="product_title" />
+  <input type="text" name="name" />
+  <input type="tel" name="phone" />
+  <input type="email" name="email" />
+  <textarea name="message"></textarea>
+</form>
+
+<!-- Interactive Order Modal Overlay -->
+<div id="order-modal" class="modal-overlay">
+  <div class="modal-content">
+    <header class="modal-header">
+      <h3 class="modal-title" id="modal-heading-title">בקשת רכישה</h3>
+      <button class="modal-close" id="modal-close-btn" aria-label="סגור">&times;</button>
+    </header>
+    <div class="modal-body">
+      <!-- Success/Error Feedback -->
+      <div id="feedback-success" class="form-feedback form-feedback--success" style="display: none;">
+        <strong>תודה! קיבלנו את הבקשה ונחזור אליכם לגבי רכישת המוצר.</strong>
+        <div id="local-dev-notice" style="font-size: 13px; margin-top: 8px; opacity: 0.8; display: none;">
+          ℹ️ שים לב: פועל בסביבה מקומית. סימולציית שליחה בוצעה בהצלחה (קוד 405 מדומה). בפריסה לנטליפיי הטופס יישלח בפועל.
+        </div>
+      </div>
+      <div id="feedback-error" class="form-feedback form-feedback--error" style="display: none;">
+        <strong>הייתה בעיה בשליחת ההזמנה. אפשר לנסות שוב או ליצור קשר בטלפון 09-7884549.</strong>
+      </div>
+
+      <!-- Active Form -->
+      <form id="order-submit-form" class="pg-form" style="grid-template-columns: 1fr;">
+        <!-- Hidden/Readonly product details passed to Netlify -->
+        <input type="hidden" name="form-name" value="product-order" />
+        
+        <div class="pg-field">
+          <label>מזהה מוצר</label>
+          <input type="text" name="product_id" id="form-product-id" readonly style="background: var(--ch-bg-alt); color: var(--ch-muted); font-size: 14.5px;" />
+        </div>
+        
+        <div class="pg-field">
+          <label>שם המוצר</label>
+          <input type="text" name="product_title" id="form-product-title" readonly style="background: var(--ch-bg-alt); color: var(--ch-muted); font-weight: bold;" />
+        </div>
+        
+        <div class="pg-field">
+          <label>שם מלא *</label>
+          <input type="text" name="name" required placeholder="רותם כהן" />
+        </div>
+        
+        <div class="pg-field">
+          <label>טלפון *</label>
+          <input type="tel" name="phone" required placeholder="050-1234567" />
+        </div>
+        
+        <div class="pg-field">
+          <label>אימייל</label>
+          <input type="email" name="email" placeholder="rotem@example.com" />
+        </div>
+        
+        <div class="pg-field">
+          <label>הערות / בקשות מיוחדות</label>
+          <textarea name="message" rows="3" placeholder="נשמח לדעת אם יש לך בקשות מיוחדות לגבי המוצר (כמו צבע מסוים, משלוח וכדומה)"></textarea>
+        </div>
+        
+        <div class="pg-btn-row" style="margin-top: 18px;">
+          <button type="submit" class="pg-btn" id="form-submit-btn" style="width: 100%; justify-content: center;">שליחת בקשה</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<footer class="pg-footer">
+  <div class="pg-footer__inner">
+    <a href="index.html" class="pg-footer__brand"><img src="assets/logos/logo-full.png" alt="תיכון החממה" /><span>תיכון החממה</span></a>
+    <nav class="pg-footer__links" aria-label="ניווט תחתון">
+      <a href="about.html">מהי החממה</a>
+      <a href="learning.html">איך לומדים כאן</a>
+      <a href="projects.html">פרויקטים</a>
+      <a href="blog.html">בלוג</a>
+      <a href="shop.html">חנות</a>
+      <a href="parents.html">להורים</a>
+      <a href="team.html">צוות</a>
+      <a href="join.html">הצטרפות</a>
+      <a href="mailto:info@chamama.org">info@chamama.org</a>
+    </nav>
+    <p class="pg-footer__meta"><span>© תיכון החממה · עמל הוד השרון · עצמאות בתוך מסגרת</span>
+      <span class="pg-footer__partners">
+        <img src="assets/logos/partner-ministry-of-labor.png" alt="משרד העבודה" />
+        <img src="assets/logos/partner-amal.png" alt="רשת עמל" />
+        <img src="assets/logos/partner-hod-hasharon.png" alt="עיריית הוד השרון" />
+      </span></p>
+  </div>
+</footer>
+
+<script src="pages.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const grid = document.getElementById("products-grid");
+    const modal = document.getElementById("order-modal");
+    const closeBtn = document.getElementById("modal-close-btn");
+    const orderForm = document.getElementById("order-submit-form");
+    
+    const inputProductId = document.getElementById("form-product-id");
+    const inputProductTitle = document.getElementById("form-product-title");
+    const modalHeadingTitle = document.getElementById("modal-heading-title");
+    
+    const feedbackSuccess = document.getElementById("feedback-success");
+    const feedbackError = document.getElementById("feedback-error");
+    const localDevNotice = document.getElementById("local-dev-notice");
+    const submitBtn = document.getElementById("form-submit-btn");
+
+    let productsData = [];
+
+    // Load products
+    fetch("data/products.json")
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("שגיאה בטעינת קובץ המוצרים");
+        }
+        return response.json();
+      })
+      .then(products => {
+        productsData = products;
+        
+        // Filter published
+        const publishedProducts = products.filter(p => p.published === true);
+
+        if (publishedProducts.length === 0) {
+          grid.innerHTML = `
+            <div style="grid-column: 1 / -1; text-align: center; padding: 48px 0;">
+              <p class="pg-p">החנות ריקה כעת. מוצרים חדשים יעלו בקרוב!</p>
+            </div>
+          `;
+          return;
+        }
+
+        grid.innerHTML = publishedProducts.map(product => {
+          const isAvailable = product.status === "available";
+          
+          const statusBadgeHTML = isAvailable
+            ? `<span class="shop-card__status-badge shop-card__status-badge--available">זמין לרכישה</span>`
+            : `<span class="shop-card__status-badge shop-card__status-badge--sold">נמכר</span>`;
+
+          const buttonHTML = isAvailable
+            ? `<button class="pg-btn shop-card__btn" data-action="buy" data-id="${product.id}">אני רוצה לקנות</button>`
+            : `<button class="pg-btn shop-card__btn shop-card__btn--sold" disabled>נמכר</button>`;
+
+          return `
+            <article class="bs-card" style="position: relative;">
+              ${statusBadgeHTML}
+              <div class="bs-card__image-container">
+                <img src="${product.image || 'assets/uploads/proj-1.webp'}" alt="${product.title}" class="bs-card__img" loading="lazy" />
+              </div>
+              <div class="bs-card__body">
+                <span class="pg-tag" style="align-self: flex-start; margin-bottom: 12px; font-size: 11px;">${product.category}</span>
+                <h3 class="bs-card__title" style="margin-bottom: 4px;">${product.title}</h3>
+                <div class="shop-card__creator">${product.creator}</div>
+                <p class="bs-card__excerpt" style="font-size: 15px; margin-bottom: 24px;">${product.description}</p>
+                <div class="shop-card__price-row">
+                  <div class="shop-card__price">${product.price} ${product.currency}</div>
+                </div>
+                ${buttonHTML}
+              </div>
+            </article>
+          `;
+        }).join("");
+      })
+      .catch(error => {
+        console.error("Error loading products:", error);
+        grid.innerHTML = `
+          <div style="grid-column: 1 / -1; text-align: center; padding: 48px 0;">
+            <p class="pg-p" style="color: var(--ch-danger)">אירעה שגיאה בטעינת קטלוג המוצרים. אנא נסו שוב מאוחר יותר.</p>
+          </div>
+        `;
+      });
+
+    // Handle Buy button click (Event Delegation)
+    grid.addEventListener("click", function (e) {
+      if (e.target.matches('[data-action="buy"]')) {
+        const productId = e.target.getAttribute("data-id");
+        const product = productsData.find(p => p.id === productId);
+        if (product) {
+          openOrderModal(product);
+        }
+      }
+    });
+
+    function openOrderModal(product) {
+      // Pre-fill form
+      inputProductId.value = product.id;
+      inputProductTitle.value = product.title;
+      modalHeadingTitle.innerText = `בקשת רכישה: ${product.title}`;
+
+      // Reset feedbacks and buttons
+      feedbackSuccess.style.display = "none";
+      feedbackError.style.display = "none";
+      localDevNotice.style.display = "none";
+      orderForm.style.display = "grid";
+      submitBtn.disabled = false;
+      submitBtn.innerText = "שליחת בקשה";
+      
+      // Reset input values except product details
+      orderForm.querySelectorAll('input:not([readonly]), textarea').forEach(input => {
+        input.value = "";
+      });
+
+      // Show modal
+      modal.classList.add("is-active");
+    }
+
+    function closeModal() {
+      modal.classList.remove("is-active");
+    }
+
+    closeBtn.addEventListener("click", closeModal);
+    
+    // Close on click outside modal content
+    modal.addEventListener("click", function (e) {
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
+
+    // Handle form submit
+    orderForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+      
+      submitBtn.disabled = true;
+      submitBtn.innerText = "שולח...";
+      feedbackSuccess.style.display = "none";
+      feedbackError.style.display = "none";
+
+      const formData = new FormData(orderForm);
+      const urlEncoded = new URLSearchParams(formData).toString();
+
+      fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: urlEncoded
+      })
+      .then(response => {
+        const isLocal = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
+        
+        if (response.ok || (isLocal && response.status === 405)) {
+          showSuccess(isLocal && response.status === 405);
+        } else {
+          showError();
+        }
+      })
+      .catch(error => {
+        const isLocal = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1";
+        
+        if (isLocal) {
+          // Local development fallback
+          showSuccess(true);
+        } else {
+          console.error("Form submission error:", error);
+          showError();
+        }
+      });
+    });
+
+    function showSuccess(isLocalSimulated) {
+      orderForm.style.display = "none";
+      feedbackSuccess.style.display = "block";
+      if (isLocalSimulated) {
+        localDevNotice.style.display = "block";
+      }
+    }
+
+    function showError() {
+      submitBtn.disabled = false;
+      submitBtn.innerText = "שליחת בקשה";
+      feedbackError.style.display = "block";
+    }
+  });
+</script>
+</body>
+</html>

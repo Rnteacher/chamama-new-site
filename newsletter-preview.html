@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8" />
+<title>תצוגה מקדימה לניוזלטר — תיכון החממה</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="pages.css" />
+<link rel="stylesheet" href="blog-shop.css" />
+</head>
+<body>
+<header class="pg-header">
+  <a href="index.html" class="pg-brand"><img src="assets/logos/logo-full.png" alt="תיכון החממה" /><span>חממה</span></a>
+  <button class="pg-burger" aria-label="תפריט" aria-expanded="false">☰</button>
+  <nav class="pg-nav" aria-label="ניווט ראשי">
+    <a href="about.html">מהי החממה</a>
+    <a href="learning.html">איך לומדים כאן</a>
+    <a href="projects.html">פרויקטים</a>
+    <a href="blog.html">בלוג</a>
+    <a href="shop.html">חנות</a>
+    <a href="parents.html">להורים</a>
+    <a href="team.html">צוות</a>
+    <a href="join.html">הצטרפות</a>
+  </nav>
+  <a href="join.html" class="pg-cta">להרשמה לערב חשיפה</a>
+</header>
+
+<main>
+  <section class="pg-hero">
+    <div class="pg-wrap">
+      <p class="pg-eyebrow">כלי עזר לצוות בית הספר</p>
+      <h1 class="pg-title">הכנת <span class="neon">ניוזלטר</span>.</h1>
+      <p class="pg-lead">
+        כלי זה מרכז את כל הפוסטים והאירועים המסומנים לניוזלטר. ניתן לערוך את פסקת הפתיחה למטה, להציג תצוגה מקדימה ולהעתיק ישירות למייל שלכם.
+      </p>
+    </div>
+  </section>
+
+  <section class="pg-section">
+    <div class="pg-wrap">
+      
+      <!-- Configuration Controls -->
+      <div class="news-intro-box">
+        <h3 class="pg-h2" style="font-size: 20px; margin-bottom: 8px;">1. עריכת פסקת פתיחה</h3>
+        <p class="pg-p" style="font-size: 14.5px; margin-bottom: 12px;">הטקסט שתכתבו כאן יופיע בראש הניוזלטר המועתק:</p>
+        <textarea id="intro-editor" class="news-intro-editor" placeholder="כתבו כאן פתיח לניוזלטר...">שלום לכולם,
+הנה כמה מהאירועים והעדכונים האחרונים בתיכון החממה. נשמח לראותכם באירועים הקרובים שלנו!
+
+בברכה,
+צוות תיכון החממה</textarea>
+      </div>
+
+      <!-- Actions -->
+      <div class="news-actions">
+        <button id="copy-btn" class="pg-btn">העתקת הניוזלטר למייל (מעוצב)</button>
+        <button id="refresh-btn" class="pg-btn pg-btn--ghost">רענון תצוגה מקדימה</button>
+      </div>
+
+      <h3 class="pg-h2" style="font-size: 20px; margin-bottom: 16px;">2. תצוגה מקדימה (לחצו על ההעתקה למעלה או סמנו והעתיקו באופן ידני)</h3>
+
+      <!-- Copyable/Preview container -->
+      <div id="newsletter-preview-rich" class="news-preview-area">
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; direction: rtl; text-align: right;">
+          
+          <div class="copyable-title" id="newsletter-title-el">
+            חדשות ועדכונים מתיכון החממה
+          </div>
+          
+          <div class="copyable-intro" id="newsletter-intro-el" style="font-family: Arial, sans-serif; font-size: 16px; line-height: 1.6; color: #333333; margin-bottom: 24px; white-space: pre-wrap;">
+            <!-- Dynamic intro -->
+          </div>
+          
+          <div id="newsletter-posts-el">
+            <!-- Dynamic posts list -->
+            <p style="color: #666; font-style: italic;">טוען עדכונים לניוזלטר...</p>
+          </div>
+          
+          <hr style="border: 0; border-top: 1px solid #cccccc; margin: 32px 0 16px;" />
+          
+          <div style="font-size: 12px; color: #666666; text-align: center; font-family: Arial, sans-serif;">
+            תיכון החממה · עמל הוד השרון · טלפון: 09-7884549 · אימייל: <a href="mailto:info@chamama.org" style="color: #244C42;">info@chamama.org</a>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </section>
+</main>
+
+<footer class="pg-footer">
+  <div class="pg-footer__inner">
+    <a href="index.html" class="pg-footer__brand"><img src="assets/logos/logo-full.png" alt="תיכון החממה" /><span>תיכון החממה</span></a>
+    <nav class="pg-footer__links" aria-label="ניווט תחתון">
+      <a href="about.html">מהי החממה</a>
+      <a href="learning.html">איך לומדים כאן</a>
+      <a href="projects.html">פרויקטים</a>
+      <a href="blog.html">בלוג</a>
+      <a href="shop.html">חנות</a>
+      <a href="parents.html">להורים</a>
+      <a href="team.html">צוות</a>
+      <a href="join.html">הצטרפות</a>
+      <a href="mailto:info@chamama.org">info@chamama.org</a>
+    </nav>
+    <p class="pg-footer__meta"><span>© תיכון החממה · עמל הוד השרון · עצמאות בתוך מסגרת</span>
+      <span class="pg-footer__partners">
+        <img src="assets/logos/partner-ministry-of-labor.png" alt="משרד העבודה" />
+        <img src="assets/logos/partner-amal.png" alt="רשת עמל" />
+        <img src="assets/logos/partner-hod-hasharon.png" alt="עיריית הוד השרון" />
+      </span></p>
+  </div>
+</footer>
+
+<script src="pages.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const introEditor = document.getElementById("intro-editor");
+    const introEl = document.getElementById("intro-el");
+    const postsEl = document.getElementById("newsletter-posts-el");
+    const copyBtn = document.getElementById("copy-btn");
+    const refreshBtn = document.getElementById("refresh-btn");
+    
+    // Live preview update
+    function updateIntro() {
+      const introText = introEditor.value;
+      document.getElementById("newsletter-intro-el").innerText = introText;
+    }
+    
+    introEditor.addEventListener("input", updateIntro);
+
+    let allPosts = [];
+
+    function renderNewsletter() {
+      if (allPosts.length === 0) {
+        postsEl.innerHTML = `<p style="color: #666; font-style: italic;">אין פוסטים מפורסמים המסומנים להכללה בניוזלטר.</p>`;
+        return;
+      }
+
+      // Filter: newsletter === true && published === true
+      const newsletterPosts = allPosts.filter(post => post.published === true && post.newsletter === true);
+      
+      // Sort newest first
+      newsletterPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+      if (newsletterPosts.length === 0) {
+        postsEl.innerHTML = `<p style="color: #666; font-style: italic;">אין פוסטים מפורסמים המסומנים להכללה בניוזלטר.</p>`;
+        return;
+      }
+
+      // We resolve full absolute URL path dynamically for absolute links inside email
+      const baseUrl = window.location.origin + window.location.pathname.substring(0, window.location.pathname.lastIndexOf('/') + 1);
+
+      postsEl.innerHTML = newsletterPosts.map(post => {
+        const formattedDate = new Date(post.date).toLocaleDateString("he-IL", {
+          year: "numeric",
+          month: "long",
+          day: "numeric"
+        });
+
+        const postUrl = `${baseUrl}blog-post.html?slug=${post.slug}`;
+
+        return `
+          <div class="copyable-post" style="margin-bottom: 24px; padding-bottom: 20px; border-bottom: 1px solid #ece5d6; text-align: right;">
+            <h4 class="copyable-post-title" style="font-size: 18px; margin: 0 0 4px; color: #244C42; font-family: Arial, sans-serif; font-weight: bold;">
+              ${post.title}
+            </h4>
+            <div class="copyable-post-meta" style="font-size: 13px; color: #666666; margin-bottom: 8px; font-family: Arial, sans-serif;">
+              ${post.type} · ${formattedDate}
+            </div>
+            <p class="copyable-post-excerpt" style="font-size: 15px; line-height: 1.5; color: #444444; margin: 0 0 10px; font-family: Arial, sans-serif;">
+              ${post.excerpt}
+            </p>
+            <a href="${postUrl}" class="copyable-post-link" style="font-size: 14px; font-weight: bold; color: #244C42; text-decoration: underline; font-family: Arial, sans-serif;" target="_blank">
+              קראו עוד באתר ←
+            </a>
+          </div>
+        `;
+      }).join("");
+    }
+
+    // Load data
+    fetch("data/posts.json")
+      .then(response => {
+        if (!response.ok) throw new Error("שגיאת רשת");
+        return response.json();
+      })
+      .then(posts => {
+        allPosts = posts;
+        updateIntro();
+        renderNewsletter();
+      })
+      .catch(error => {
+        console.error("Error loading posts for newsletter:", error);
+        postsEl.innerHTML = `<p style="color: var(--ch-danger);">שגיאה בטעינת העדכונים.</p>`;
+      });
+
+    // Copy to Clipboard Action (copies rich formatted HTML text)
+    copyBtn.addEventListener("click", function () {
+      const container = document.getElementById("newsletter-preview-rich");
+      
+      // Select the element contents
+      const range = document.createRange();
+      range.selectNode(container);
+      
+      const selection = window.getSelection();
+      selection.removeAllRanges();
+      selection.addRange(range);
+
+      try {
+        const successful = document.execCommand("copy");
+        if (successful) {
+          alert("הניוזלטר הועתק ללוח! כעת פתחו את תוכנת המייל שלכם (Gmail, Outlook וכד') והדביקו את התוכן בגוף המייל באמצעות Ctrl+V (או Cmd+V במק).");
+        } else {
+          alert("שגיאה בהעתקה האוטומטית. אנא סמנו את התצוגה המקדימה בתיבה למטה והעתיקו באופן ידני (Ctrl+C).");
+        }
+      } catch (err) {
+        console.error("ExecCommand copy failed:", err);
+        alert("ההעתקה האוטומטית נכשלה במכשיר זה. אנא סמנו את התוכן והעתיקו באופן ידני.");
+      }
+      
+      // Clear selection
+      selection.removeAllRanges();
+    });
+
+    refreshBtn.addEventListener("click", function () {
+      updateIntro();
+      renderNewsletter();
+      alert("התצוגה המקדימה עודכנה!");
+    });
+  });
+</script>
+</body>
+</html>

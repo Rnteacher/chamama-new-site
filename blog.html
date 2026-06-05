@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8" />
+<title>בלוג וחדשות — תיכון החממה</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="pages.css" />
+<link rel="stylesheet" href="blog-shop.css" />
+</head>
+<body>
+<header class="pg-header">
+  <a href="index.html" class="pg-brand"><img src="assets/logos/logo-full.png" alt="תיכון החממה" /><span>חממה</span></a>
+  <button class="pg-burger" aria-label="תפריט" aria-expanded="false">☰</button>
+  <nav class="pg-nav" aria-label="ניווט ראשי">
+    <a href="about.html">מהי החממה</a>
+    <a href="learning.html">איך לומדים כאן</a>
+    <a href="projects.html">פרויקטים</a>
+    <a href="blog.html" aria-current="page">בלוג</a>
+    <a href="shop.html">חנות</a>
+    <a href="parents.html">להורים</a>
+    <a href="team.html">צוות</a>
+    <a href="join.html">הצטרפות</a>
+  </nav>
+  <a href="join.html" class="pg-cta">להרשמה לערב חשיפה</a>
+</header>
+
+<main>
+  <section class="pg-hero">
+    <div class="pg-wrap">
+      <p class="pg-eyebrow">חדשות ואירועים</p>
+      <h1 class="pg-title">החיים <span class="neon">בחממה</span>.</h1>
+      <p class="pg-lead">
+        עדכונים שוטפים, סיפורי למידה, אירועים קרובים ותוצרים חדשים של החניכים והחניכות שלנו.
+      </p>
+    </div>
+  </section>
+
+  <section class="pg-section">
+    <div class="pg-wrap">
+      <div id="posts-grid" class="bs-grid">
+        <div style="grid-column: 1 / -1; text-align: center; padding: 48px 0;">
+          <p class="pg-p">טוען פוסטים...</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="pg-footer">
+  <div class="pg-footer__inner">
+    <a href="index.html" class="pg-footer__brand"><img src="assets/logos/logo-full.png" alt="תיכון החממה" /><span>תיכון החממה</span></a>
+    <nav class="pg-footer__links" aria-label="ניווט תחתון">
+      <a href="about.html">מהי החממה</a>
+      <a href="learning.html">איך לומדים כאן</a>
+      <a href="projects.html">פרויקטים</a>
+      <a href="blog.html">בלוג</a>
+      <a href="shop.html">חנות</a>
+      <a href="parents.html">להורים</a>
+      <a href="team.html">צוות</a>
+      <a href="join.html">הצטרפות</a>
+      <a href="mailto:info@chamama.org">info@chamama.org</a>
+    </nav>
+    <p class="pg-footer__meta"><span>© תיכון החממה · עמל הוד השרון · עצמאות בתוך מסגרת</span>
+      <span class="pg-footer__partners">
+        <img src="assets/logos/partner-ministry-of-labor.png" alt="משרד העבודה" />
+        <img src="assets/logos/partner-amal.png" alt="רשת עמל" />
+        <img src="assets/logos/partner-hod-hasharon.png" alt="עיריית הוד השרון" />
+      </span></p>
+  </div>
+</footer>
+
+<script src="pages.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const grid = document.getElementById("posts-grid");
+
+    fetch("data/posts.json")
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("רשת לא זמינה או שגיאה בטעינת הקובץ");
+        }
+        return response.json();
+      })
+      .then(posts => {
+        // Filter published
+        const publishedPosts = posts.filter(post => post.published === true);
+        
+        // Sort by date newest first
+        publishedPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+        if (publishedPosts.length === 0) {
+          grid.innerHTML = `
+            <div style="grid-column: 1 / -1; text-align: center; padding: 48px 0;">
+              <p class="pg-p">עדיין לא פורסמו פוסטים בבלוג.</p>
+            </div>
+          `;
+          return;
+        }
+
+        grid.innerHTML = publishedPosts.map(post => {
+          const formattedDate = new Date(post.date).toLocaleDateString("he-IL", {
+            year: "numeric",
+            month: "long",
+            day: "numeric"
+          });
+
+          const tagsHTML = post.tags && post.tags.length > 0
+            ? `<div class="bs-card__tags">${post.tags.map(tag => `<span class="bs-card__tag">${tag}</span>`).join("")}</div>`
+            : "";
+
+          const imageSrc = post.image || "assets/uploads/learn-project.webp";
+
+          return `
+            <article class="bs-card">
+              <div class="bs-card__image-container">
+                <img src="${imageSrc}" alt="${post.title}" class="bs-card__img" loading="lazy" />
+              </div>
+              <div class="bs-card__body">
+                <div class="bs-card__meta">
+                  <span class="bs-card__type">${post.type}</span>
+                  <span class="bs-card__date">${formattedDate}</span>
+                </div>
+                <h3 class="bs-card__title">
+                  <a href="blog-post.html?slug=${post.slug}">${post.title}</a>
+                </h3>
+                <p class="bs-card__excerpt">${post.excerpt}</p>
+                ${tagsHTML}
+                <div class="bs-card__footer">
+                  <a href="blog-post.html?slug=${post.slug}" class="pg-btn pg-btn--ghost" style="padding: 8px 16px; font-size: 14px;">קראו עוד</a>
+                </div>
+              </div>
+            </article>
+          `;
+        }).join("");
+      })
+      .catch(error => {
+        console.error("Error loading blog posts:", error);
+        grid.innerHTML = `
+          <div style="grid-column: 1 / -1; text-align: center; padding: 48px 0;">
+            <p class="pg-p" style="color: var(--ch-danger)">אירעה שגיאה בטעינת הפוסטים. אנא נסו שוב מאוחר יותר.</p>
+          </div>
+        `;
+      });
+  });
+</script>
+</body>
+</html>

@@ -16,18 +16,23 @@
 
 ## טפסים — Netlify Forms
 
-האתר משתמש ב-**Netlify Forms** לאיסוף פניות. שני טפסים פעילים:
+האתר משתמש ב-**Netlify Forms** לאיסוף פניות. שלושה טפסים פעילים:
 
 | שם טופס | קובץ | שדות |
 |---------|------|------|
 | `open-day` | `index.html` (React) | parent, student, phone, grade, email |
 | `contact` | `join.html` (HTML) | parent, student, phone, grade, email, message |
+| `product-order` | `shop.html` (HTML) | product_id, product_title, name, phone, email, message |
 
 ### בדיקות לאחר פריסה
-- [ ] כנסו ל-Netlify Dashboard → **Forms** — ודאו שמופיעים שני טפסים: `open-day` ו-`contact`
+- [ ] כנסו ל-Netlify Dashboard → **Forms** — ודאו שמופיעים שלושה טפסים: `open-day`, `contact`, ו-`product-order`
 - [ ] מלאו ושלחו כל טופס — ודאו שההגשה מופיעה ב-Dashboard
 - [ ] בדקו שנשלחת הודעת אישור לאימייל (אם הגדרתם email notifications)
 - [ ] ודאו שהודעת ההצלחה בעברית מוצגת לאחר שליחה
+- [ ] ודאו שמוצרים שנמכרו (sold) בחנות לא מאפשרים הזמנה
+- [ ] ודאו שדף הפוסט הבודד (`blog-post.html?slug=...`) עובד תקין
+- [ ] ודאו שדף הכנת הניוזלטר (`newsletter-preview.html`) מציג רק פוסטים שסומנו לכך
+- [ ] ודאו שטופס ההזמנה של החנות פועל ומציג הודעת הצלחה בעברית לאחר הגשה במודל
 
 ---
 
@@ -41,6 +46,10 @@ projects.html       — פרויקטים
 parents.html        — להורים
 team.html           — צוות
 join.html           — הצטרפות + טופס התעניינות
+blog.html           — בלוג וחדשות (רשימת פוסטים)
+blog-post.html      — תצוגת פוסט בודד (לפי slug)
+newsletter-preview.html — כלי להכנת ניוזלטר והעתקה למייל
+shop.html           — קטלוג מוצרים פתוח להזמנות
 
 app.jsx             — אפליקציית React ראשית
 content-pane.jsx    — תוכן המקטעים (כולל טופס יום פתוח)
@@ -50,8 +59,10 @@ image-slot.js       — רכיב תמונות עם placeholder
 styles.css          — עיצוב דף הבית
 tokens.css          — ערכי צבע ועיצוב
 pages.css           — עיצוב הדפים הסטטיים
+blog-shop.css       — עיצוב ייעודי לבלוג ולחנות
 pages.js            — JavaScript בסיסי לדפים הסטטיים
 
+data/               — קבצי נתונים מקומיים (posts.json, products.json)
 assets/             — תמונות, לוגואים, פונטים
 fonts/              — פונטים מקומיים
 ```
@@ -79,3 +90,12 @@ npx serve .
 ## פרטי קשר
 - טלפון: **09-7884549**
 - אימייל: **info@chamama.org**
+
+---
+
+## ארכיטקטורת נתונים (בלוג וחנות)
+- הבלוג והחנות קוראים כעת מקבצי JSON מקומיים (`data/posts.json` ו-`data/products.json`).
+- המבנה מתוכנן כך שבעתיד ניתן להחליף את מקור הנתונים ב-Google Sheets באמצעות Netlify Functions או Google Apps Script, ללא שכתוב של ה-frontend.
+- אין כרגע בסיס נתונים או צד שרת פעיל.
+- החנות אינה כוללת סליקה או תשלום בפועל, אלא שליחת בקשות הזמנה בלבד באמצעות Netlify Forms.
+

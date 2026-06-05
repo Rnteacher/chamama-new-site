@@ -18,6 +18,8 @@ const NAV = [
   { href: "about.html",    label: "מהי החממה" },
   { href: "learning.html", label: "איך לומדים כאן" },
   { href: "projects.html", label: "פרויקטים" },
+  { href: "blog.html",     label: "בלוג" },
+  { href: "shop.html",     label: "חנות" },
   { href: "parents.html",  label: "להורים" },
   { href: "team.html",     label: "צוות" },
   { href: "join.html",     label: "הצטרפות" },
