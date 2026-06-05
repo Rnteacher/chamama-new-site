@@ -45,8 +45,16 @@ We have added dynamic-like Blog and Shop features reading from local JSON files 
 * `product-order` — Form on `shop.html` matching Netlify Form expectations, collecting `product_id`, `product_title`, `name`, `phone`, `email`, and `message`.
 
 ### Current Architecture Status
-- Frontend fetches content dynamically from `data/posts.json` and `data/products.json` on client load.
-- No database, build process, or CMS dependencies have been added, retaining a 100% static HTML/CSS/JS architecture.
-- Future Google Sheets integration can be implemented by pointing fetches to Netlify Functions or custom API endpoints without changing layout code.
-- Shop orders are routed through Netlify Forms (gracefully simulated in local testing).
+- **Google Sheets Integration**: Google Sheets is now the primary, lightweight content source for the Blog and Shop, integrated via dependency-free Netlify Functions.
+- **Local Fallback**: Local JSON files (`data/posts.json` and `data/products.json`) remain in the repository and act as an automatic fallback if the Netlify Functions fetch fails or when developing locally without Netlify CLI.
+- **Netlify Functions**:
+  - `posts` (`netlify/functions/posts.js`) - Fetches and parses posts CSV from `POSTS_CSV_URL`.
+  - `products` (`netlify/functions/products.js`) - Fetches and parses products CSV from `PRODUCTS_CSV_URL`.
+  - `_csv` (`netlify/functions/_csv.js`) - Shared utility module containing a robust, custom CSV parser.
+- **Required Environment Variables**:
+  - `POSTS_CSV_URL` - CSV link to the published Google Sheets `posts` tab.
+  - `PRODUCTS_CSV_URL` - CSV link to the published Google Sheets `products` tab.
+- **Preserved Constraints**: No database, authentication layer, build step, CMS, or heavy frameworks (such as Next.js or Vite) were added. The site remains a collection of static HTML/CSS/JS files deployable directly to Netlify from the root directory.
+- **Forms**: Product orders continue to be handled through Netlify Forms (`product-order`) via POST requests (gracefully simulated as successful in local environments).
+
 

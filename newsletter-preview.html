@@ -179,12 +179,21 @@
       }).join("");
     }
 
+    async function loadPosts() {
+      try {
+        const response = await fetch("/.netlify/functions/posts");
+        if (!response.ok) throw new Error("Function failed");
+        return await response.json();
+      } catch (error) {
+        console.warn("Falling back to local posts.json", error);
+        const fallback = await fetch("data/posts.json");
+        if (!fallback.ok) throw new Error("Fallback failed");
+        return await fallback.json();
+      }
+    }
+
     // Load data
-    fetch("data/posts.json")
-      .then(response => {
-        if (!response.ok) throw new Error("שגיאת רשת");
-        return response.json();
-      })
+    loadPosts()
       .then(posts => {
         allPosts = posts;
         updateIntro();

@@ -77,13 +77,20 @@
   document.addEventListener("DOMContentLoaded", function () {
     const grid = document.getElementById("posts-grid");
 
-    fetch("data/posts.json")
-      .then(response => {
-        if (!response.ok) {
-          throw new Error("רשת לא זמינה או שגיאה בטעינת הקובץ");
-        }
-        return response.json();
-      })
+    async function loadPosts() {
+      try {
+        const response = await fetch("/.netlify/functions/posts");
+        if (!response.ok) throw new Error("Function failed");
+        return await response.json();
+      } catch (error) {
+        console.warn("Falling back to local posts.json", error);
+        const fallback = await fetch("data/posts.json");
+        if (!fallback.ok) throw new Error("Fallback failed");
+        return await fallback.json();
+      }
+    }
+
+    loadPosts()
       .then(posts => {
         // Filter published
         const publishedPosts = posts.filter(post => post.published === true);

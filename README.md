@@ -91,11 +91,45 @@ npx serve .
 - טלפון: **09-7884549**
 - אימייל: **info@chamama.org**
 
----
+## Google Sheets content source
 
-## ארכיטקטורת נתונים (בלוג וחנות)
-- הבלוג והחנות קוראים כעת מקבצי JSON מקומיים (`data/posts.json` ו-`data/products.json`).
-- המבנה מתוכנן כך שבעתיד ניתן להחליף את מקור הנתונים ב-Google Sheets באמצעות Netlify Functions או Google Apps Script, ללא שכתוב של ה-frontend.
-- אין כרגע בסיס נתונים או צד שרת פעיל.
-- החנות אינה כוללת סליקה או תשלום בפועל, אלא שליחת בקשות הזמנה בלבד באמצעות Netlify Forms.
+הבלוג והחנות קוראים כעת מגיליונות Google Sheets באופן דינמי באמצעות **Netlify Functions**. קבצי ה-JSON המקומיים הישנים (`data/posts.json` ו-`data/products.json`) נשמרים בפרויקט כגיבוי (Fallback) למקרה של תקלה ברשת או בפיתוח מקומי.
+
+### הגדרות ומשתני סביבה ב-Netlify
+לחיבור הגיליונות, יש להגדיר ב-Netlify את שני משתני הסביבה הבאים:
+* `POSTS_CSV_URL` — קישור ה-CSV של הלשונית `posts`
+* `PRODUCTS_CSV_URL` — קישור ה-CSV של הלשונית `products`
+
+### מבנה הגיליונות ופרסום לרשת
+1. פתחו גיליון Google Sheets חדש עם שתי לשוניות (Tabs): `posts` ו-`products`.
+2. בכל לשונית, הגדירו את העמודות הבאות בשורה הראשונה:
+   - **posts**: `slug,title,date,type,excerpt,body,image,tags,published,newsletter`
+     - *הערה לגבי tags*: רשימה מופרדת באמצעות קו אנכי (`|`), לדוגמה `הרשמה|אירועים`.
+     - *הערה לגבי published ו-newsletter*: תומך בערכים `TRUE/FALSE`, `yes/no`, `1/0` או `כן/לא`.
+   - **products**: `id,title,creator,category,price,currency,description,image,status,published`
+     - *הערה לגבי status*: ערך מסוג `available` או `sold`.
+     - *הערה לגבי price*: מספר בלבד.
+3. בצעו שיתוף לרשת: **קובץ (File) ← שיתוף (Share) ← פרסם באינטרנט (Publish to web)**.
+4. בחרו לפרסם כל לשונית בנפרד כקובץ **ערכים מופרדים בפסיק (CSV)** והעתיקו את הקישור שנוצר לכל אחת.
+5. הזינו את הקישורים במשתני הסביבה בלוח הבקרה של Netlify.
+
+### התנהגות במטמון (Cache)
+השרת של Netlify Functions מחזיר את הנתונים עם כותרת `Cache-Control: public, max-age=60`, מה שאומר שעדכונים מגוגל שיטס ישתקפו באתר לאחר רענון, במרווח של כדקה לכל היותר.
+
+> [!CAUTION]
+> אין לפרסם מידע רגיש או פרטי בגיליונות גוגל שיטס, כיוון שקישורי ה-CSV הללו נגישים לציבור דרך הקישור הישיר.
+
+### בדיקות לאחר פריסה (Google Sheets)
+- [ ] ודאו שפרסמתם את לשונית `posts` כ-CSV והעתקתם את הקישור.
+- [ ] ודאו שפרסמתם את לשונית `products` כ-CSV והעתקתם את הקישור.
+- [ ] הגדירו את `POSTS_CSV_URL` במשתני הסביבה של Netlify.
+- [ ] הגדירו את `PRODUCTS_CSV_URL` במשתני הסביבה של Netlify.
+- [ ] פרסו את האתר ב-Netlify.
+- [ ] כנסו לכתובת `/.netlify/functions/posts` בדפדפן וודאו שמוחזר פלט JSON תקין.
+- [ ] כנסו לכתובת `/.netlify/functions/products` בדפדפן וודאו שמוחזר פלט JSON תקין.
+- [ ] בדקו שדף הבלוג (`blog.html`) מציג את הפוסטים מהגיליון.
+- [ ] בדקו שדף הפוסט הבודד (`blog-post.html?slug=...`) עובד תקין.
+- [ ] בדקו שדף תצוגה מקדימה לניוזלטר (`newsletter-preview.html`) מציג רק פוסטים שסומנו כ-`newsletter = TRUE`.
+- [ ] בדקו שדף החנות (`shop.html`) מציג את המוצרים מהגיליון, והסטטוס (זמין/נמכר) מוצג נכון.
+
 

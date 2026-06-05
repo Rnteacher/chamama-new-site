@@ -74,13 +74,20 @@
       return;
     }
 
-    fetch("data/posts.json")
-      .then(response => {
-        if (!response.ok) {
-          throw new Error("רשת לא זמינה");
-        }
-        return response.json();
-      })
+    async function loadPosts() {
+      try {
+        const response = await fetch("/.netlify/functions/posts");
+        if (!response.ok) throw new Error("Function failed");
+        return await response.json();
+      } catch (error) {
+        console.warn("Falling back to local posts.json", error);
+        const fallback = await fetch("data/posts.json");
+        if (!fallback.ok) throw new Error("Fallback failed");
+        return await fallback.json();
+      }
+    }
+
+    loadPosts()
       .then(posts => {
         const post = posts.find(p => p.slug === slug);
 
