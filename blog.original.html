@@ -1,13 +1,14 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="he" dir="rtl">
 <head>
 <meta charset="utf-8" />
-<title>הבלוג שלנו כמעט מוכן — תיכון החממה</title>
+<title>בלוג וחדשות — תיכון החממה</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="pages.css" />
+<link rel="stylesheet" href="blog-shop.css" />
 </head>
 <body>
 <header class="pg-header">
@@ -30,45 +31,28 @@
   <section class="pg-hero">
     <div class="pg-wrap">
       <p class="pg-eyebrow">חדשות ואירועים</p>
-      <h1 class="pg-title">הבלוג שלנו <span class="neon">כמעט מוכן</span>.</h1>
+      <h1 class="pg-title">החיים <span class="neon">בחממה</span>.</h1>
       <p class="pg-lead">
-        אנחנו כותבים, אוספים ומסדרים סיפורי למידה, יומני פרויקטים, מחשבות חינוכיות ועדכונים שוטפים מהעשייה היומיומית בחממה. בקרוב נעלה כאן פוסטים ראשונים.
+        עדכונים שוטפים, סיפורי למידה, אירועים קרובים ותוצרים חדשים של החניכים והחניכות שלנו.
       </p>
-      <div class="pg-btn-row" style="margin-top: 32px;">
-        <a class="pg-btn" href="projects.html">לפרויקטים של החניכים</a>
-        <a class="pg-btn pg-btn--ghost" href="about.html">מהי החממה?</a>
-      </div>
     </div>
   </section>
 
-  <section class="pg-section pg-section--band">
+  <section class="pg-section">
     <div class="pg-wrap">
-      <h2 class="pg-h2">מה תוכלו למצוא כאן <span class="neon">בקרוב</span>?</h2>
-      <div class="pg-cards">
-        <article class="pg-card">
-          <p class="pg-card__k">תהליכים ועשייה</p>
-          <h3 class="pg-card__h">סיפורי פרויקטים</h3>
-          <p class="pg-card__p">הצצה אל מאחורי הקלעים של פרויקטי הגמר והעבודה בסדנאות — מהרעיון הראשוני ועד לתוצר המוגמר.</p>
-        </article>
-        <article class="pg-card">
-          <p class="pg-card__k">פדגוגיה ולמידה</p>
-          <h3 class="pg-card__h">יוטוגוגיה בפעולה</h3>
-          <p class="pg-card__p">מחשבות, תובנות ושיחות על למידה בהכוונה עצמית, תפקיד המנטור ובניית עצמאות בגיל ההתבגרות.</p>
-        </article>
-        <article class="pg-card">
-          <p class="pg-card__k">חיי הקהילה</p>
-          <h3 class="pg-card__h">אירועים ועדכונים</h3>
-          <p class="pg-card__p">ימים פתוחים, תערוכות תוצרים, שיתופי פעולה קהילתיים וכל מה שקורה במרחב החממה.</p>
-        </article>
+      <div id="posts-grid" class="bs-grid">
+        <div style="grid-column: 1 / -1; text-align: center; padding: 48px 0;">
+          <p class="pg-p">טוען פוסטים...</p>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- Newsletter Signup Form Section -->
-  <section class="pg-section" id="newsletter-signup-section">
+  <section class="pg-section pg-section--band" id="newsletter-signup-section" style="border-top: 1px solid var(--ch-border);">
     <div class="pg-wrap" style="max-width: 600px; margin: 0 auto; text-align: center;">
-      <h2 class="pg-h2" style="margin-bottom: 8px;">רוצים שנעדכן אתכם כשהבלוג יעלה?</h2>
-      <p class="pg-p" style="margin-bottom: 24px;">הרשמו לניוזלטר של החממה וקבלו עדכונים על פוסטים חדשים, אירועים ופעילויות.</p>
+      <h2 class="pg-h2" style="margin-bottom: 8px;">רוצים לקבל עדכונים מהחממה?</h2>
+      <p class="pg-p" style="margin-bottom: 24px;">אירועים, פרויקטים של חניכים, ימים פתוחים ומחשבות על למידה עצמאית — אחת לתקופה, בלי להציף.</p>
       
       <form class="pg-form" id="newsletter-form" name="newsletter-signup" netlify netlify-honeypot="bot-field" style="display: flex; flex-direction: column; gap: 16px; text-align: right; background: var(--ch-surface); border: 2px solid var(--ch-ink); box-shadow: 4px 4px 0 var(--ch-ink); padding: 28px; border-radius: 4px;">
         <input type="hidden" name="form-name" value="newsletter-signup" />
@@ -77,12 +61,12 @@
         
         <div class="pg-field" style="margin-bottom: 0;">
           <label style="font-weight: 700; font-size: 14px; margin-bottom: 6px; display: block; color: var(--ch-ink);">שם מלא</label>
-          <input type="text" name="name" required placeholder="ישראל ישראלי" style="width: 100%; padding: 10px; border: 1px solid var(--ch-border, rgba(0,0,0,0.15)); border-radius: 4px; font-size: 15px; font-family: inherit;" />
+          <input type="text" name="name" required placeholder="ישראל ישראלי" style="width: 100%; padding: 10px; border: 1px solid var(--ch-border); border-radius: 4px; font-size: 15px; font-family: inherit;" />
         </div>
         
         <div class="pg-field" style="margin-bottom: 0;">
           <label style="font-weight: 700; font-size: 14px; margin-bottom: 6px; display: block; color: var(--ch-ink);">אימייל *</label>
-          <input type="email" name="email" required placeholder="israel@example.com" style="width: 100%; padding: 10px; border: 1px solid var(--ch-border, rgba(0,0,0,0.15)); border-radius: 4px; font-size: 15px; font-family: inherit;" />
+          <input type="email" name="email" required placeholder="israel@example.com" style="width: 100%; padding: 10px; border: 1px solid var(--ch-border); border-radius: 4px; font-size: 15px; font-family: inherit;" />
         </div>
         
         <div style="display: flex; align-items: flex-start; gap: 10px; margin-top: 8px; cursor: pointer; user-select: none;">
@@ -124,6 +108,111 @@
 </footer>
 
 <script src="pages.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const grid = document.getElementById("posts-grid");
+
+    // Escaping helper functions
+    function escapeHTML(str) {
+      if (typeof str !== 'string') {
+        return str === undefined || str === null ? '' : String(str);
+      }
+      return str
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function safeURL(url) {
+      if (typeof url !== 'string') {
+        url = url === undefined || url === null ? '' : String(url);
+      }
+      const trimmed = url.trim();
+      if (trimmed.toLowerCase().startsWith('javascript:') || trimmed.toLowerCase().startsWith('data:')) {
+        return '';
+      }
+      return escapeHTML(trimmed);
+    }
+
+    async function loadPosts() {
+      try {
+        const response = await fetch("/.netlify/functions/posts");
+        if (!response.ok) throw new Error("Function failed");
+        return await response.json();
+      } catch (error) {
+        console.warn("Falling back to local posts.json", error);
+        const fallback = await fetch("data/posts.json");
+        if (!fallback.ok) throw new Error("Fallback failed");
+        return await fallback.json();
+      }
+    }
+
+    loadPosts()
+      .then(posts => {
+        // Filter published
+        const publishedPosts = posts.filter(post => post.published === true);
+        
+        // Sort by date newest first
+        publishedPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+        if (publishedPosts.length === 0) {
+          grid.innerHTML = `
+            <div style="grid-column: 1 / -1; text-align: center; padding: 48px 0;">
+              <p class="pg-p">עדיין לא פורסמו פוסטים בבלוג.</p>
+            </div>
+          `;
+          return;
+        }
+
+        grid.innerHTML = publishedPosts.map(post => {
+          const formattedDate = new Date(post.date).toLocaleDateString("he-IL", {
+            year: "numeric",
+            month: "long",
+            day: "numeric"
+          });
+
+          const tagsHTML = post.tags && post.tags.length > 0
+            ? `<div class="bs-card__tags">${post.tags.map(tag => `<span class="bs-card__tag">${escapeHTML(tag)}</span>`).join("")}</div>`
+            : "";
+
+          const imageSrc = post.image ? safeURL(post.image) : "assets/uploads/learn-project.webp";
+
+          return `
+            <article class="bs-card">
+              <div class="bs-card__image-container">
+                <img src="${imageSrc}" alt="${escapeHTML(post.title)}" class="bs-card__img" loading="lazy" />
+              </div>
+              <div class="bs-card__body">
+                <div class="bs-card__meta">
+                  <span class="bs-card__type">${escapeHTML(post.type)}</span>
+                  <span class="bs-card__date">${formattedDate}</span>
+                </div>
+                <h3 class="bs-card__title">
+                  <a href="blog-post.html?slug=${safeURL(post.slug)}">${escapeHTML(post.title)}</a>
+                </h3>
+                <p class="bs-card__excerpt">${escapeHTML(post.excerpt)}</p>
+                ${tagsHTML}
+                <div class="bs-card__footer">
+                  <a href="blog-post.html?slug=${safeURL(post.slug)}" class="pg-btn pg-btn--ghost" style="padding: 8px 16px; font-size: 14px;">קראו עוד</a>
+                </div>
+              </div>
+            </article>
+          `;
+        }).join("");
+      })
+      .catch(error => {
+        console.error("Error loading blog posts:", error);
+        grid.innerHTML = `
+          <div style="grid-column: 1 / -1; text-align: center; padding: 48px 0;">
+            <p class="pg-p" style="color: var(--ch-danger)">אירעה שגיאה בטעינת הפוסטים. אנא נסו שוב מאוחר יותר.</p>
+          </div>
+        `;
+      });
+  });
+</script>
+
 <script>
 (function () {
   var form = document.getElementById("newsletter-form");
