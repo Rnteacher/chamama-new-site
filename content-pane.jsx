@@ -264,7 +264,7 @@ function SectionJoin({ idx, ctaText }) {
             <input type="tel" required value={form.phone} onChange={(e) => update("phone", e.target.value)} placeholder="050-1234567" />
           </div>
           <div className="ch-field">
-            <label className="ch-field__label">עולה מכיתה</label>
+            <label className="ch-field__label">עולה לכיתה</label>
             <select value={form.grade} onChange={(e) => update("grade", e.target.value)}>
               <option value="">בחרו —</option>
               <option value="ט">ט׳ (שכבת פתיחה)</option>
