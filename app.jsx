@@ -37,21 +37,65 @@ const SITE = {
 };
 
 function Header({ onJumpTo, progressRef }) {
+  const [menuOpen, setMenuOpen] = useStateA(false);
+
+  // Close menu on resize to desktop (> 1024px)
+  useEffectA(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 1024) {
+        setMenuOpen(false);
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  // Close on Escape key
+  useEffectA(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") setMenuOpen(false);
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, []);
+
+  const handleNavClick = () => {
+    setMenuOpen(false);
+  };
+
+  const handleCtaClick = () => {
+    setMenuOpen(false);
+    onJumpTo("join");
+  };
+
   return (
     <>
       <div className="ch-progress"><div className="ch-progress__bar" ref={progressRef} /></div>
-      <header className="ch-header">
-        <a href="index.html" className="ch-header__brand">
+      <header className={`ch-header ${menuOpen ? "is-menu-open" : ""}`}>
+        <a href="index.html" className="ch-header__brand" onClick={handleNavClick}>
           <img className="ch-header__brand-logo" src="assets/logos/logo-full.png" alt="תיכון החממה — תיכון יוטוגוגי, עמל הוד השרון" />
         </a>
-        <nav className="ch-header__nav" aria-label="ניווט">
+        <button
+          className={`ch-header__burger ${menuOpen ? "is-active" : ""}`}
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="תפריט ניווט"
+          aria-expanded={menuOpen}
+        >
+          <span className="ch-header__burger-line" />
+          <span className="ch-header__burger-line" />
+          <span className="ch-header__burger-line" />
+        </button>
+        <nav className={`ch-header__nav ${menuOpen ? "is-open" : ""}`} aria-label="ניווט">
           {NAV.map((item) => (
-            <a key={item.href} href={item.href} className="ch-header__link">
+            <a key={item.href} href={item.href} className="ch-header__link" onClick={handleNavClick}>
               {item.label}
             </a>
           ))}
+          <button className="ch-header__mobile-cta" onClick={handleCtaClick}>
+            {SITE.ctaText}
+          </button>
         </nav>
-        <button className="ch-header__cta" onClick={() => onJumpTo("join")}>
+        <button className="ch-header__cta" onClick={handleCtaClick}>
           {SITE.ctaText}
         </button>
       </header>

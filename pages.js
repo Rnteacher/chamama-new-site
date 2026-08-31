@@ -4,9 +4,52 @@
   var burger = document.querySelector(".pg-burger");
   var nav = document.querySelector(".pg-nav");
   if (burger && nav) {
-    burger.addEventListener("click", function () {
-      nav.classList.toggle("is-open");
-      burger.setAttribute("aria-expanded", nav.classList.contains("is-open"));
+    burger.addEventListener("click", function (e) {
+      e.stopPropagation();
+      var isOpen = nav.classList.toggle("is-open");
+      burger.classList.toggle("is-open", isOpen);
+      burger.setAttribute("aria-expanded", String(isOpen));
+      document.body.classList.toggle("pg-no-scroll", isOpen);
+    });
+
+    // Close when clicking any nav link
+    nav.querySelectorAll("a").forEach(function (link) {
+      link.addEventListener("click", function () {
+        nav.classList.remove("is-open");
+        burger.classList.remove("is-open");
+        burger.setAttribute("aria-expanded", "false");
+        document.body.classList.remove("pg-no-scroll");
+      });
+    });
+
+    // Close when clicking outside
+    document.addEventListener("click", function (e) {
+      if (nav.classList.contains("is-open") && !nav.contains(e.target) && !burger.contains(e.target)) {
+        nav.classList.remove("is-open");
+        burger.classList.remove("is-open");
+        burger.setAttribute("aria-expanded", "false");
+        document.body.classList.remove("pg-no-scroll");
+      }
+    });
+
+    // Close on Escape key
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && nav.classList.contains("is-open")) {
+        nav.classList.remove("is-open");
+        burger.classList.remove("is-open");
+        burger.setAttribute("aria-expanded", "false");
+        document.body.classList.remove("pg-no-scroll");
+      }
+    });
+
+    // Close on window resize to desktop
+    window.addEventListener("resize", function () {
+      if (window.innerWidth > 1024 && nav.classList.contains("is-open")) {
+        nav.classList.remove("is-open");
+        burger.classList.remove("is-open");
+        burger.setAttribute("aria-expanded", "false");
+        document.body.classList.remove("pg-no-scroll");
+      }
     });
   }
 
