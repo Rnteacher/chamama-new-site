@@ -291,7 +291,7 @@ function SectionJoin({ idx, ctaText }) {
       }
 
       <p className="ch-register-note ch-reveal">
-        ההרשמה ליום הפתוח אינה מחייבת. אם לא הצלחתם להגיע — נשמח לקבוע פגישה אישית.
+        הרשמה לערב חשיפה אינה מחייבת. אם לא הצלחתם להגיע — נשמח לקבוע פגישה אישית.
       </p>
 
       <div className="ch-footer-strip">
