@@ -201,7 +201,7 @@ function SectionParents({ idx }) {
 function SectionJoin({ idx, ctaText }) {
   const [submitted, setSubmitted] = useStateC(false);
   const [sending, setSending] = useStateC(false);
-  const [form, setForm] = useStateC({ parent: "", student: "", phone: "", grade: "", email: "" });
+  const [form, setForm] = useStateC({ parent: "", student: "", phone: "", location: "", grade: "", email: "" });
   function update(k, v) {setForm((f) => ({ ...f, [k]: v }));}
 
   function encode(data) {
@@ -218,11 +218,12 @@ function SectionJoin({ idx, ctaText }) {
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: encode({
           "form-name": "open-day",
-          parent:  form.parent,
-          student: form.student || "",
-          phone:   form.phone,
-          grade:   form.grade  || "",
-          email:   form.email  || "",
+          parent:   form.parent,
+          student:  form.student || "",
+          phone:    form.phone,
+          location: form.location || "",
+          grade:    form.grade  || "",
+          email:    form.email  || "",
         }),
       });
       if (!response.ok) throw new Error("server error");
@@ -264,6 +265,10 @@ function SectionJoin({ idx, ctaText }) {
             <input type="tel" required value={form.phone} onChange={(e) => update("phone", e.target.value)} placeholder="050-1234567" />
           </div>
           <div className="ch-field">
+            <label className="ch-field__label">מקום מגורים</label>
+            <input type="text" value={form.location} onChange={(e) => update("location", e.target.value)} placeholder="הוד השרון" />
+          </div>
+          <div className="ch-field">
             <label className="ch-field__label">עולה לכיתה</label>
             <select value={form.grade} onChange={(e) => update("grade", e.target.value)}>
               <option value="">בחרו —</option>
@@ -273,7 +278,7 @@ function SectionJoin({ idx, ctaText }) {
               <option value="other">אחר / טרם החלטנו</option>
             </select>
           </div>
-          <div className="ch-field ch-field--wide">
+          <div className="ch-field">
             <label className="ch-field__label">אימייל</label>
             <input type="email" value={form.email} onChange={(e) => update("email", e.target.value)} placeholder="rotem@example.com" />
           </div>

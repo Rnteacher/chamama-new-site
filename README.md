@@ -20,8 +20,8 @@
 
 | שם טופס | קובץ | שדות |
 |---------|------|------|
-| `open-day` | `index.html` (React) | parent, student, phone, grade, email |
-| `contact` | `join.html` (HTML) | parent, student, phone, grade, email, message |
+| `open-day` | `index.html` (React) | parent, student, phone, location, grade, email |
+| `contact` | `join.html` (HTML) | parent, student, phone, location, grade, email, message |
 | `product-order` | `shop.html` (HTML) | product_id, product_title, name, phone, email, message |
 | `newsletter-signup` | `blog.html` | name, email, consent, source |
 
