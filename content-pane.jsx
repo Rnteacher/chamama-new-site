@@ -282,7 +282,7 @@ function SectionJoin({ idx, ctaText }) {
               <span>{sending ? "שולח..." : (ctaText || "להרשמה לערב חשיפה")}</span>
               <span className="ch-btn__arrow">←</span>
             </button>
-            <a className="ch-btn ch-btn--ghost" href="mailto:info@chamama.org">
+            <a className="ch-btn ch-btn--ghost" href="https://wa.me/message/3FOXCDGYKDMPE1" target="_blank" rel="noopener noreferrer">
               <span>או דברו איתנו</span>
               <span className="ch-btn__arrow">↗</span>
             </a>
