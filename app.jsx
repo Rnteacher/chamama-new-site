@@ -22,6 +22,7 @@ const NAV = [
   { href: "shop.html",     label: "חנות" },
   { href: "parents.html",  label: "להורים" },
   { href: "team.html",     label: "צוות" },
+  { href: "social.html",   label: "ברשת" },
   { href: "join.html",     label: "הצטרפות" },
 ];
 

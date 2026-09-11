@@ -86,5 +86,14 @@ We have added dynamic-like Blog and Shop features reading from local JSON files,
 - **Preserved Constraints**: No database, authentication layer, build step, CMS, or heavy frameworks (such as Next.js or Vite) were added. The site remains a collection of static HTML/CSS/JS files deployable directly to Netlify from the root directory.
 - **Forms**: Product orders continue to be handled through Netlify Forms (`product-order`) via POST requests (gracefully simulated as successful in local environments).
 
+## Recent Updates (September 2026)
+
+Added `social.html` — a "what's new" dashboard aggregating the school's social channels, laid out as two columns (YouTube on the left, Facebook on the right) above a full-width Instagram section.
+* **YouTube**: shows the same "Videos" shelf featured at the top of the channel's YouTube homepage — not simply the most recent uploads (that shelf's order is staff-curated on YouTube itself and isn't exposed by the key-less public RSS feed). `data/youtube-featured.json` holds this curated list (id/title/url/thumbnail); the page fetches it directly. To update: edit that file to match whatever YouTube shows in the channel's "Videos" shelf. (An earlier version used `netlify/functions/youtube.js` to pull the plain "latest uploads" RSS feed — removed since it didn't match what was wanted here.)
+* **Facebook**: embedded via the official Meta Page Plugin (`fb-page` + `connect.facebook.net/.../sdk.js`) — a live public widget, no API key or maintenance needed.
+* **Instagram**: Meta has no free, key-less way to show a live "latest posts" feed anymore (Basic Display API is deprecated). The page currently shows a fallback card linking to the Instagram profile, with an HTML comment in `social.html` explaining how staff can wire up a third-party widget (e.g. SnapWidget) by pasting an embed `<iframe>` into the `#instagram-widget` div — no code changes needed elsewhere.
+* The left/right column split is done with a `direction: ltr` wrapper (`.social-columns`) around two `direction: rtl` columns, so the visual left/right placement is guaranteed regardless of the page's overall RTL flow; it collapses to a single stacked column under 900px.
+* Nav link (`ברשת`) added to header/footer across all static pages and to `app.jsx`'s `NAV` array.
+
 
 
