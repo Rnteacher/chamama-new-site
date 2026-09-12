@@ -23,6 +23,7 @@ const NAV = [
   { href: "parents.html",  label: "להורים" },
   { href: "team.html",     label: "צוות" },
   { href: "social.html",   label: "ברשת" },
+  { href: "press.html",    label: "כתבו עלינו" },
   { href: "join.html",     label: "הצטרפות" },
 ];
 

@@ -95,5 +95,7 @@ Added `social.html` — a "what's new" dashboard aggregating the school's social
 * The left/right column split is done with a `direction: ltr` wrapper (`.social-columns`) around two `direction: rtl` columns, so the visual left/right placement is guaranteed regardless of the page's overall RTL flow; it collapses to a single stacked column under 900px.
 * Nav link (`ברשת`) added to header/footer across all static pages and to `app.jsx`'s `NAV` array.
 
+Added `press.html` ("כתבו עלינו") — a static press/media-coverage page, three sections (טלוויזיה / פודקאסטים / עיתונות), each a `bs-grid` of `bs-card`s sorted newest-to-oldest, with date/source/image/link per item. Content is hardcoded directly in the page (no data file or function — it's a short, rarely-changing curated list, unlike the blog/shop/newsletter content which comes from Google Sheets). To add an item: copy an existing `<article class="bs-card">` block into the right section, in date order. Images are hotlinked from the original source (news site / Spotify cdn / YouTube thumbnail) except the Blinker article, whose image is blocked from external embedding by that site's bot protection — it uses the site's existing `assets/uploads/learn-project.webp` as a fallback. Nav link (`כתבו עלינו`) added to header/footer across all static pages and to `app.jsx`'s `NAV` array.
+
 
 
