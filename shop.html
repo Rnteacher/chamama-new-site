@@ -183,16 +183,9 @@
     let productsData = [];
 
     async function loadProducts() {
-      try {
-        const response = await fetch("/.netlify/functions/products");
-        if (!response.ok) throw new Error("Function failed");
-        return await response.json();
-      } catch (error) {
-        console.warn("Falling back to local products.json", error);
-        const fallback = await fetch("data/products.json");
-        if (!fallback.ok) throw new Error("Fallback failed");
-        return await fallback.json();
-      }
+      const response = await fetch("data/products.json");
+      if (!response.ok) throw new Error("Failed to load products.json");
+      return await response.json();
     }
 
     // Load products
