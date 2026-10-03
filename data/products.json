@@ -21,7 +21,7 @@
     "description": "תיק כתף עמיד ומעוצב, העשוי משאריות בדים איכותיות שנאספו במתפרות מקומיות. כל תיק נתפר בעבודת יד קפדנית וכולל כיס פנימי לטלפון ורצועות נשיאה רחבות ונוחות.",
     "image": "assets/uploads/proj-1.webp",
     "status": "available",
-    "published": true
+    "published": false
   },
   {
     "id": "notebook-design-002",
@@ -33,7 +33,7 @@
     "description": "מחברת שורות איכותית בעלת כריכה קשה בעיצוב גרפי מקורי של חניכי מגמת גרפיקה. דפי נייר ממוחזר 90 גרם המתאימים במיוחד לכתיבה ורישום, כריכת קרטון ידידותית לסביבה.",
     "image": "assets/uploads/proj-2.webp",
     "status": "available",
-    "published": true
+    "published": false
   },
   {
     "id": "recycled-cushion-003",
@@ -45,7 +45,7 @@
     "description": "כרית נוי לסלון או לחדר השינה, עשויה מחיבור טלאים של בדים טבעיים שעברו שדרוג וצביעה ידנית בצמחי תבלין וקליפות בצל מחצר בית הספר. מגיעה כולל מילוי רך.",
     "image": "assets/uploads/proj-3.webp",
     "status": "sold",
-    "published": true
+    "published": false
   },
   {
     "id": "draft-product-004",
