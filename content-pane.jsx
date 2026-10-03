@@ -213,18 +213,25 @@ function SectionJoin({ idx, ctaText }) {
     if (!form.parent || !form.phone) return;
     setSending(true);
     try {
+      const body = encode({
+        "form-name": "open-day",
+        parent:   form.parent,
+        student:  form.student || "",
+        phone:    form.phone,
+        location: form.location || "",
+        grade:    form.grade  || "",
+        email:    form.email  || "",
+      });
+      fetch("https://script.google.com/macros/s/AKfycbyLx46AKE8o8B5HQTqsAr69jIlaOsIOpD_2VwNRAyluyRMnivd7eSSPn5CfeHtwybO6/exec", {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body,
+      }).catch(() => {});
       const response = await fetch("/", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: encode({
-          "form-name": "open-day",
-          parent:   form.parent,
-          student:  form.student || "",
-          phone:    form.phone,
-          location: form.location || "",
-          grade:    form.grade  || "",
-          email:    form.email  || "",
-        }),
+        body,
       });
       if (!response.ok) throw new Error("server error");
       setSubmitted(true);
