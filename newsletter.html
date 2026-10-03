@@ -2,7 +2,7 @@
 <html lang="he" dir="rtl">
 <head>
 <meta charset="utf-8" />
-<title>ניוזלטר — תיכון החממה</title>
+<title>ניוזלטר - תיכון החממה</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="blog-shop.css" />
 <style>
   /* ──────────────────────────────────────────────────────────
-     Newsletter — Digital magazine page for תיכון החממה
+     Newsletter - Digital magazine page for תיכון החממה
      Four templates with distinct identities:
        classic  → editorial   (קלאסי־מערכתי)
        magazine → magazine     (מגזיני)
@@ -198,7 +198,7 @@
   }
 
   /* ══════════════════════════════════════════════════════════
-     TEMPLATE 1 — EDITORIAL  (key: classic)
+     TEMPLATE 1 - EDITORIAL  (key: classic)
      A calm, parent-friendly education magazine.
      ══════════════════════════════════════════════════════════ */
   .template-classic .nl-masthead {
@@ -303,7 +303,7 @@
   .nl-art__link:hover { border-bottom-color: var(--nl-green); }
 
   /* ══════════════════════════════════════════════════════════
-     TEMPLATE 2 — MAGAZINE  (key: magazine)
+     TEMPLATE 2 - MAGAZINE  (key: magazine)
      A visual digital issue: hero feature + editorial grid.
      ══════════════════════════════════════════════════════════ */
   .template-magazine .nl-masthead {
@@ -433,7 +433,7 @@
   .nl-mag-card__link:hover { text-decoration: underline; }
 
   /* ══════════════════════════════════════════════════════════
-     TEMPLATE 3 — CHAMAMA / זין  (key: poster)
+     TEMPLATE 3 - CHAMAMA / זין  (key: poster)
      Warm, creative, project-based. Paper + bold blocks + stickers.
      ══════════════════════════════════════════════════════════ */
   .template-poster .nl-container {
@@ -567,7 +567,7 @@
   .nl-zine__link:hover { transform: translate(-1px,-1px); box-shadow: 4px 4px 0 var(--nl-ink); }
 
   /* ══════════════════════════════════════════════════════════
-     TEMPLATE 4 — PRINT EDITION  (key: compact)
+     TEMPLATE 4 - PRINT EDITION  (key: compact)
      A4-like column, restrained, optimized for Save-as-PDF.
      ══════════════════════════════════════════════════════════ */
   .template-compact .nl-container {
@@ -647,7 +647,7 @@
   }
 
   /* ══════════════════════════════════════════════════════════
-     PRINT  — works for every template, best for compact
+     PRINT  - works for every template, best for compact
      ══════════════════════════════════════════════════════════ */
   @media print {
     @page { margin: 1.4cm; }
@@ -751,7 +751,7 @@
 
     <section class="nl-posts" id="nl-posts-grid-container"></section>
 
-    <!-- Print / Save as PDF — bottom of the content, screen only -->
+    <!-- Print / Save as PDF - bottom of the content, screen only -->
     <div class="nl-print-row no-print">
       <button id="btn-print" class="nl-print-btn" type="button">הדפסה / שמירה כ־PDF</button>
     </div>
@@ -874,7 +874,7 @@
           : 'classic';
         contentContainer.classList.add(`template-${activeTemplate}`);
 
-        document.title = `${newsletter.title} — ניוזלטר תיכון החממה`;
+        document.title = `${newsletter.title} - ניוזלטר תיכון החממה`;
 
         lblIssue.textContent = newsletter.issue ? newsletter.issue : "ניוזלטר";
         lblDate.textContent = formatDate(newsletter.date);

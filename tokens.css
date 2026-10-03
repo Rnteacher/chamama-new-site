@@ -1,5 +1,5 @@
 /* ──────────────────────────────────────────────────────────
-   Chamama Design System — colors_and_type.css
+   Chamama Design System - colors_and_type.css
    תיכון החממה  ·  Hebrew-first / RTL
    ──────────────────────────────────────────────────────────
    Single source of truth for color and type tokens used across
@@ -17,7 +17,7 @@
    pulls them in. Remove if you load them another way. */
 @import url("https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700;800;900&family=Heebo:wght@300;400;500;600;700;800;900&display=swap");
 
-/* Brand display fonts (FbElectron) — used for the logotype and
+/* Brand display fonts (FbElectron) - used for the logotype and
    loud display moments. Keep available but DO NOT make these the
    default body face. They are condensed, all-caps Hebrew display. */
 @font-face {
@@ -68,7 +68,7 @@
   --ch-green-neon:   #64ff00;   /* THE accent. Used sparingly + intentionally */
 
   /* ── Surfaces ── */
-  --ch-bg:           #f8f7f4;   /* default page bg — warm off-white */
+  --ch-bg:           #f8f7f4;   /* default page bg - warm off-white */
   --ch-bg-alt:       #eeebe5;   /* zebra band between sections */
   --ch-surface:      #f2efe8;   /* cards on light bg */
   --ch-bg-dark:      #2c5f50;   /* dark sections (= green-dark) */
@@ -123,20 +123,20 @@
   --font-brand-display: "FbElectron Condensed", "Frank Ruhl Libre", Georgia, serif;
   --font-mono:       ui-monospace, "SFMono-Regular", "Menlo", monospace;
 
-  /* Sizes — modular scale tuned for Hebrew (slightly taller line-heights) */
-  --fs-eyebrow:      0.75rem;     /* 12px — small caps / kicker */
+  /* Sizes - modular scale tuned for Hebrew (slightly taller line-heights) */
+  --fs-eyebrow:      0.75rem;     /* 12px - small caps / kicker */
   --fs-caption:      0.8125rem;   /* 13px */
   --fs-small:        0.9375rem;   /* 15px */
-  --fs-body:         1.0625rem;   /* 17px — base */
-  --fs-body-lg:      1.1875rem;   /* 19px — lead paragraphs */
+  --fs-body:         1.0625rem;   /* 17px - base */
+  --fs-body-lg:      1.1875rem;   /* 19px - lead paragraphs */
   --fs-h6:           1.125rem;    /* 18px */
   --fs-h5:           1.25rem;     /* 20px */
   --fs-h4:           1.5rem;      /* 24px */
   --fs-h3:           1.875rem;    /* 30px */
   --fs-h2:           2.25rem;     /* 36px */
   --fs-h1:           3rem;        /* 48px */
-  --fs-display:      4.25rem;     /* 68px — hero */
-  --fs-display-lg:   5.5rem;      /* 88px — campaign hero */
+  --fs-display:      4.25rem;     /* 68px - hero */
+  --fs-display-lg:   5.5rem;      /* 88px - campaign hero */
 
   /* Weights */
   --fw-light:        300;
@@ -146,13 +146,13 @@
   --fw-bold:         700;
   --fw-black:        900;
 
-  /* Line heights — Hebrew benefits from a touch more leading */
+  /* Line heights - Hebrew benefits from a touch more leading */
   --lh-tight:        1.15;
   --lh-snug:         1.3;
   --lh-base:         1.65;
   --lh-relaxed:      1.8;
 
-  /* Letter spacing — Hebrew prefers no tracking; reserve for Latin eyebrows */
+  /* Letter spacing - Hebrew prefers no tracking; reserve for Latin eyebrows */
   --ls-tight:        -0.01em;
   --ls-normal:       0;
   --ls-wide:         0.06em;
@@ -177,13 +177,13 @@
   --container-pad:  1.25rem;
   --container-pad-md: 2rem;
 
-  /* Radii — the brand is mostly sharp. Use radii sparingly. */
-  --radius-0:   0;          /* default — sharp corners */
+  /* Radii - the brand is mostly sharp. Use radii sparingly. */
+  --radius-0:   0;          /* default - sharp corners */
   --radius-1:   2px;        /* hairline rounding */
   --radius-2:   6px;        /* form inputs, pills inside dark UI */
   --radius-pill: 999px;     /* pill / chip / tag */
 
-  /* Shadows — the signature is a hard offset shadow, not soft blur */
+  /* Shadows - the signature is a hard offset shadow, not soft blur */
   --shadow-card-sm: 3px 3px 0 var(--ch-ink);
   --shadow-card:    4px 4px 0 var(--ch-ink);
   --shadow-card-lg: 6px 6px 0 var(--ch-ink);
@@ -195,7 +195,7 @@
   --bw-card:   2px;   /* default heavy frame */
   --bw-thick:  4px;   /* attention frame, side accent */
 
-  /* Motion — easings stay restrained; mild ease, never bounce */
+  /* Motion - easings stay restrained; mild ease, never bounce */
   --ease-out:    cubic-bezier(0.2, 0.7, 0.2, 1);
   --ease-in-out: cubic-bezier(0.45, 0, 0.25, 1);
   --dur-fast:    120ms;
@@ -224,7 +224,7 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-/* Headings — display family, tight leading */
+/* Headings - display family, tight leading */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-display);
   font-weight: var(--fw-bold);
@@ -302,7 +302,7 @@ a:hover { color: var(--link-hover); text-decoration-thickness: 2px; }
   transform: translate(-1px, -1px);
 }
 
-/* The signature beam — radial neon-green light cone from above */
+/* The signature beam - radial neon-green light cone from above */
 .ch-beam { position: relative; overflow: hidden; }
 .ch-beam::before {
   content: "";
@@ -315,7 +315,7 @@ a:hover { color: var(--link-hover); text-decoration-thickness: 2px; }
   pointer-events: none;
 }
 
-/* Neon underline accent — three-pixel rule, used on dark + light */
+/* Neon underline accent - three-pixel rule, used on dark + light */
 .ch-neon-rule {
   display: block;
   width: 3rem;

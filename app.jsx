@@ -1,5 +1,5 @@
 /* global React, ReactDOM */
-/* App — orchestrates header, two panes, reveal-on-scroll. */
+/* App - orchestrates header, two panes, reveal-on-scroll. */
 
 const { useState: useStateA, useEffect: useEffectA, useRef: useRefA } = React;
 
@@ -27,7 +27,7 @@ const NAV = [
   { href: "join.html",     label: "הצטרפות" },
 ];
 
-/* Fixed site configuration — no tweaks panel in production */
+/* Fixed site configuration - no tweaks panel in production */
 const SITE = {
   palette:      "calm",
   vislayout:    "framed",
@@ -75,7 +75,7 @@ function Header({ onJumpTo, progressRef }) {
       <div className="ch-progress"><div className="ch-progress__bar" ref={progressRef} /></div>
       <header className={`ch-header ${menuOpen ? "is-menu-open" : ""}`}>
         <a href="index.html" className="ch-header__brand" onClick={handleNavClick}>
-          <img className="ch-header__brand-logo" src="assets/logos/logo-full.png" alt="תיכון החממה — תיכון יוטוגוגי, עמל הוד השרון" />
+          <img className="ch-header__brand-logo" src="assets/logos/logo-full.png" alt="תיכון החממה - תיכון יוטוגוגי, עמל הוד השרון" />
         </a>
         <button
           className={`ch-header__burger ${menuOpen ? "is-active" : ""}`}

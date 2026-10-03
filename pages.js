@@ -1,4 +1,4 @@
-/* Chamama content pages — tiny enhancers: mobile nav toggle + FAQ accordion. */
+/* Chamama content pages - tiny enhancers: mobile nav toggle + FAQ accordion. */
 (function () {
   // Mobile nav
   var burger = document.querySelector(".pg-burger");

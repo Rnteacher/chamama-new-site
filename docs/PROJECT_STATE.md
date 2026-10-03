@@ -1,4 +1,4 @@
-# Project State — Tichon HaChamama Static Site
+# Project State - Tichon HaChamama Static Site
 
 This document outlines the current state and structure of the Tichon HaChamama static website.
 
@@ -39,25 +39,25 @@ A basic manual newsletter system is configured:
 We have added dynamic-like Blog and Shop features reading from local JSON files, and fully integrated dynamic, saved newsletter issues using Google Sheets.
 
 ### Files Created
-* `data/posts.json` — Local JSON-based post/event database.
-* `data/products.json` — Local JSON-based product database.
-* `data/newsletters.json` — Local JSON-based newsletters database.
-* `newsletter.html` — Public standalone newsletter viewer page supporting multiple templates and print optimization.
-* `netlify/functions/newsletters.js` — Netlify Function fetching and normalizing newsletters from Google Sheets.
-* `blog-shop.css` — Custom stylesheet for the new pages and overlays.
-* `blog.html` — Main school blog displaying published posts.
-* `blog-post.html` — Dynamic single-post page fetching content by slug.
-* `shop.html` — Product catalog showing items and integrating a custom ordering modal.
+* `data/posts.json` - Local JSON-based post/event database.
+* `data/products.json` - Local JSON-based product database.
+* `data/newsletters.json` - Local JSON-based newsletters database.
+* `newsletter.html` - Public standalone newsletter viewer page supporting multiple templates and print optimization.
+* `netlify/functions/newsletters.js` - Netlify Function fetching and normalizing newsletters from Google Sheets.
+* `blog-shop.css` - Custom stylesheet for the new pages and overlays.
+* `blog.html` - Main school blog displaying published posts.
+* `blog-post.html` - Dynamic single-post page fetching content by slug.
+* `shop.html` - Product catalog showing items and integrating a custom ordering modal.
 
 ### Files Modified
-* `newsletter.html` — Redesigned the public newsletter page: four polished, distinct templates, public copy actions removed, single print/Save-as-PDF button moved to the bottom, and improved print CSS.
-* `newsletter-preview.html` — Refactored from a preview utility to an internal staff builder tool to generate sheet rows and test links; template selector now uses the new Hebrew template names.
-* `about.html`, `learning.html`, `projects.html`, `parents.html`, `team.html`, `join.html` — Added Blog and Shop links to both header and footer navigation.
-* `app.jsx` — Updated React homepage main navigation array configuration.
-* `README.md` — Updated project structure, newsletters workflow, forms documentation, and deploy checklist.
+* `newsletter.html` - Redesigned the public newsletter page: four polished, distinct templates, public copy actions removed, single print/Save-as-PDF button moved to the bottom, and improved print CSS.
+* `newsletter-preview.html` - Refactored from a preview utility to an internal staff builder tool to generate sheet rows and test links; template selector now uses the new Hebrew template names.
+* `about.html`, `learning.html`, `projects.html`, `parents.html`, `team.html`, `join.html` - Added Blog and Shop links to both header and footer navigation.
+* `app.jsx` - Updated React homepage main navigation array configuration.
+* `README.md` - Updated project structure, newsletters workflow, forms documentation, and deploy checklist.
 
 ### Forms Added
-* `product-order` — Form on `shop.html` matching Netlify Form expectations, collecting `product_id`, `product_title`, `name`, `phone`, `email`, and `message`.
+* `product-order` - Form on `shop.html` matching Netlify Form expectations, collecting `product_id`, `product_title`, `name`, `phone`, `email`, and `message`.
 
 ### Current Architecture Status
 - **Google Sheets Integration**: Google Sheets is the primary, lightweight content source for the Blog, Shop, and Newsletters, integrated via dependency-free Netlify Functions.
@@ -75,27 +75,27 @@ We have added dynamic-like Blog and Shop features reading from local JSON files,
   - Stable URLs: Newsletters are loaded via `newsletter.html?id=[id]` (URL format unchanged).
   - The public `newsletter.html` is presented as a polished, RTL-first digital magazine/newsletter page (not a utility page). All content is escaped via `escapeHTML()` / `safeURL()` so Google Sheets content can never inject raw HTML, and missing/broken images degrade gracefully to a text-only layout instead of broken-image icons.
   - Four redesigned templates, each with a distinct visual identity. Data keys are unchanged for backward compatibility:
-    - `classic` → **editorial** (קלאסי־מערכתי): calm education magazine — serif headline, editor's-note pull-quote intro, article rows with alternating images and dividers.
-    - `magazine` → **magazine** (מגזיני): visual digital issue — hero feature with overlay headline + editorial card grid; gracefully falls back when only one post exists.
-    - `poster` → **chamama/zine** (חממתי): warm CSS-only "paper" zine — bold blocks, section numbers, stickers/tags, hard offset shadows in green/cream/ink + neon.
+    - `classic` → **editorial** (קלאסי־מערכתי): calm education magazine - serif headline, editor's-note pull-quote intro, article rows with alternating images and dividers.
+    - `magazine` → **magazine** (מגזיני): visual digital issue - hero feature with overlay headline + editorial card grid; gracefully falls back when only one post exists.
+    - `poster` → **chamama/zine** (חממתי): warm CSS-only "paper" zine - bold blocks, section numbers, stickers/tags, hard offset shadows in green/cream/ink + neon.
     - `compact` → **print edition** (גרסת הדפסה): A4-like single column, compact readable type, controlled image sizes, clean page breaks, minimal decoration.
   - Print optimization: `@media print` hides the back-link and the print button, prints only the newsletter content, uses `break-inside/page-break-inside: avoid` and `print-color-adjust: exact`, keeps titles attached to bodies and footer logos intact, sets page margins, and prevents image overflow. The `compact` template is tuned to print best, but all four print decently (including black/white).
   - Public actions: The public page no longer offers "copy link" or "copy email text". It keeps only a **הדפסה / שמירה כ־PDF** button, placed at the **bottom** of the content (after the posts, before the footer); the button calls `window.print()` and is hidden in print view.
-  - Email sending: Done manually — staff write a short message in their mail client and include the newsletter URL (`newsletter.html?id=[id]`). Server-side PDF generation is **not** implemented; saving as PDF relies on the browser's built-in print/save dialog.
+  - Email sending: Done manually - staff write a short message in their mail client and include the newsletter URL (`newsletter.html?id=[id]`). Server-side PDF generation is **not** implemented; saving as PDF relies on the browser's built-in print/save dialog.
   - Staff builder: `newsletter-preview.html` still offers template selection, now labeled in Hebrew (קלאסי־מערכתי / מגזיני / חממתי / גרסת הדפסה) while writing the unchanged data keys.
 - **Preserved Constraints**: No database, authentication layer, build step, CMS, or heavy frameworks (such as Next.js or Vite) were added. The site remains a collection of static HTML/CSS/JS files deployable directly to Netlify from the root directory.
 - **Forms**: Product orders continue to be handled through Netlify Forms (`product-order`) via POST requests (gracefully simulated as successful in local environments).
 
 ## Recent Updates (September 2026)
 
-Added `social.html` — a "what's new" dashboard aggregating the school's social channels, laid out as two columns (YouTube on the left, Facebook on the right) above a full-width Instagram section.
-* **YouTube**: shows a staff-picked set of 3 videos (not simply the most recent uploads — and not necessarily even from the school's own channel). `data/youtube-featured.json` holds this curated list (id/title/url/thumbnail) in display order; the page fetches it directly. To update: edit that file. (An earlier version used `netlify/functions/youtube.js` to pull the plain "latest uploads" RSS feed, then a version that mirrored the channel homepage's "Videos" shelf — both removed as the requirements evolved.)
-* **Facebook**: embedded via the official Meta Page Plugin (`fb-page` + `connect.facebook.net/.../sdk.js`) — a live public widget, no API key or maintenance needed.
+Added `social.html` - a "what's new" dashboard aggregating the school's social channels, laid out as two columns (YouTube on the left, Facebook on the right) above a full-width Instagram section.
+* **YouTube**: shows a staff-picked set of 3 videos (not simply the most recent uploads - and not necessarily even from the school's own channel). `data/youtube-featured.json` holds this curated list (id/title/url/thumbnail) in display order; the page fetches it directly. To update: edit that file. (An earlier version used `netlify/functions/youtube.js` to pull the plain "latest uploads" RSS feed, then a version that mirrored the channel homepage's "Videos" shelf - both removed as the requirements evolved.)
+* **Facebook**: embedded via the official Meta Page Plugin (`fb-page` + `connect.facebook.net/.../sdk.js`) - a live public widget, no API key or maintenance needed.
 * **Instagram**: Meta has no free, key-less way to show a live "latest posts" feed anymore (Basic Display API is deprecated). The page features one specific post via Instagram's official single-post embed widget (`blockquote.instagram-media` + `instagram.com/embed.js`, no API key needed) with an HTML comment in `social.html` explaining how staff can swap in a different post's URL, plus a "לכל העמוד" link to the profile.
 * The left/right column split is done with a `direction: ltr` wrapper (`.social-columns`) around two `direction: rtl` columns, so the visual left/right placement is guaranteed regardless of the page's overall RTL flow; it collapses to a single stacked column under 900px.
 * Nav link (`ברשת`) added to header/footer across all static pages and to `app.jsx`'s `NAV` array.
 
-Added `press.html` ("כתבו עלינו") — a static press/media-coverage page, three sections (טלוויזיה / פודקאסטים / עיתונות), each a `bs-grid` of `bs-card`s sorted newest-to-oldest, with date/source/image/link per item. Content is hardcoded directly in the page (no data file or function — it's a short, rarely-changing curated list, unlike the blog/shop/newsletter content which comes from Google Sheets). To add an item: copy an existing `<article class="bs-card">` block into the right section, in date order. Images are hotlinked from the original source (news site / Spotify cdn / YouTube thumbnail) except the Blinker article, whose image is blocked from external embedding by that site's bot protection — it uses the site's existing `assets/uploads/learn-project.webp` as a fallback. Nav link (`כתבו עלינו`) added to header/footer across all static pages and to `app.jsx`'s `NAV` array.
+Added `press.html` ("כתבו עלינו") - a static press/media-coverage page, three sections (טלוויזיה / פודקאסטים / עיתונות), each a `bs-grid` of `bs-card`s sorted newest-to-oldest, with date/source/image/link per item. Content is hardcoded directly in the page (no data file or function - it's a short, rarely-changing curated list, unlike the blog/shop/newsletter content which comes from Google Sheets). To add an item: copy an existing `<article class="bs-card">` block into the right section, in date order. Images are hotlinked from the original source (news site / Spotify cdn / YouTube thumbnail) except the Blinker article, whose image is blocked from external embedding by that site's bot protection - it uses the site's existing `assets/uploads/learn-project.webp` as a fallback. Nav link (`כתבו עלינו`) added to header/footer across all static pages and to `app.jsx`'s `NAV` array.
 
 
 

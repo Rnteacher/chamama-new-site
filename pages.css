@@ -1,5 +1,5 @@
 /* ──────────────────────────────────────────────────────────
-   Chamama — content pages (about / learning / projects /
+   Chamama - content pages (about / learning / projects /
    parents / team / join). Calm, readable, wide (MD §11).
    Self-contained: fonts + calm palette + layout.
    ────────────────────────────────────────────────────────── */
@@ -276,7 +276,7 @@ image-slot.pg-img--wide { height: 320px; }
 .pg-listcol ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; }
 .pg-listcol li { font-size: 15.5px; line-height: 1.5; color: var(--ch-ink-soft); padding-inline-start: 22px; position: relative; }
 .pg-listcol--yes li::before { content: "✓"; position: absolute; inset-inline-start: 0; color: var(--ch-green-mid); font-weight: 700; }
-.pg-listcol--no li::before { content: "—"; position: absolute; inset-inline-start: 0; color: var(--ch-terra); font-weight: 700; }
+.pg-listcol--no li::before { content: "-"; position: absolute; inset-inline-start: 0; color: var(--ch-terra); font-weight: 700; }
 
 /* ──────────── Project cards (portfolio feel) ──────────── */
 .pg-projects { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; margin-top: 8px; }

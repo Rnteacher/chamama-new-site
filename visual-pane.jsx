@@ -1,5 +1,5 @@
 /* global React */
-/* Visual pane — right side. Stack of full-height image panels, translated by activeIdx.
+/* Visual pane - right side. Stack of full-height image panels, translated by activeIdx.
    Each panel is an <image-slot> the school fills with a real photo (drag & drop).
    Layout (full / framed / type) is controlled by .ch-stage[data-vislayout]. */
 
@@ -7,16 +7,16 @@
 const VIS = {
   hero: {
     slot: "vis-hero",
-    placeholder: "תמונת שער — חניכים במרחב הפתוח של החממה",
+    placeholder: "תמונת שער - חניכים במרחב הפתוח של החממה",
     title: "המרחב",
-    sub: "החצר, חדרי הסטודיו, הפינות השקטות — איפה שהיום קורה.",
+    sub: "החצר, חדרי הסטודיו, הפינות השקטות - איפה שהיום קורה.",
     tag: "תיכון החממה · הוד השרון",
     typoWord: <>עצמאות בתוך <span className="neon">מסגרת</span></>,
     typoSub: "בית ספר יוטוגוגי לחניכים וחניכות שבונים דרך אישית.",
   },
   freedom: {
     slot: "vis-freedom",
-    placeholder: "שיחת מנטורינג — חניך/ה עם מבוגר/ת משמעותי/ת",
+    placeholder: "שיחת מנטורינג - חניך/ה עם מבוגר/ת משמעותי/ת",
     title: "ליווי",
     sub: "חופש לא עומד לבד. לכל חניך מבוגר שמכיר אותו מקרוב.",
     tag: "מנטורינג · תוכנית אישית",
@@ -25,7 +25,7 @@ const VIS = {
   },
   anchors: {
     slot: "vis-anchors",
-    placeholder: "רגע של עבודה — חניכה מרוכזת בתהליך אישי",
+    placeholder: "רגע של עבודה - חניכה מרוכזת בתהליך אישי",
     title: "אדם · למידה · עולם",
     sub: "שלושה עוגנים שמלווים כל תהליך אישי בחממה.",
     tag: "שלושה עוגנים",
@@ -34,7 +34,7 @@ const VIS = {
   },
   daily: {
     slot: "vis-daily",
-    placeholder: "סצנת יום־יום — סדנה, פינת עבודה, דיון בקבוצה",
+    placeholder: "סצנת יום־יום - סדנה, פינת עבודה, דיון בקבוצה",
     title: "יום בחממה",
     sub: "בוקר פתוח, מפגשי קבוצה, עבודת פרויקט, שיחות תהליך.",
     tag: "ככה זה נראה",
@@ -43,16 +43,16 @@ const VIS = {
   },
   projects: {
     slot: "vis-projects",
-    placeholder: "תוצר פרויקט — תיק עבודות של חניך/ה",
+    placeholder: "תוצר פרויקט - תיק עבודות של חניך/ה",
     title: "פרויקטים",
-    sub: "עבודה אמיתית שיוצאת אל העולם — לא תרגיל.",
+    sub: "עבודה אמיתית שיוצאת אל העולם - לא תרגיל.",
     tag: "תיק עבודות · 2025/26",
     typoWord: <>דברים <span className="neon">קורים</span></>,
     typoSub: "אפליקציות, פודקאסטים, מחקר קהילתי, עיצוב.",
   },
   parents: {
     slot: "vis-parents",
-    placeholder: "הורים וחניכים — ערב חשיפה / שיחה משותפת",
+    placeholder: "הורים וחניכים - ערב חשיפה / שיחה משותפת",
     title: "להורים",
     sub: "הילד שלכם לא נשאר לבד עם החופש.",
     tag: "שאלות שהורים שואלים",
@@ -61,7 +61,7 @@ const VIS = {
   },
   join: {
     slot: "vis-join",
-    placeholder: "ביקור בחממה — ערב חשיפה, קפה, שיחה",
+    placeholder: "ביקור בחממה - ערב חשיפה, קפה, שיחה",
     title: "בואו להכיר",
     sub: "הדרך הכי טובה להבין את החממה היא לבוא ולשבת.",
     tag: "ערב חשיפה · החל מינואר 2027",

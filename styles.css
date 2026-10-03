@@ -1,15 +1,15 @@
 /* ──────────────────────────────────────────────────────────
-   Chamama Homepage — split-scroll
+   Chamama Homepage - split-scroll
    Hebrew-first / RTL · content scrolls free · visual snaps
    ────────────────────────────────────────────────────────── */
 
 :root {
-  /* Brand — calm "institutional-alternative" palette (default).
+  /* Brand - calm "institutional-alternative" palette (default).
      Neon is a spice, not a base color. */
-  --ch-green-dark:  #244C42;   /* deep greenhouse green — primary */
+  --ch-green-dark:  #244C42;   /* deep greenhouse green - primary */
   --ch-green-mid:   #4E7B68;   /* soft greenhouse green */
   --ch-green-light: #6E9C88;
-  --ch-green-neon:  #7CFF4F;   /* THE accent — used sparingly */
+  --ch-green-neon:  #7CFF4F;   /* THE accent - used sparingly */
   --ch-sand:        #D8CFBF;   /* stone / sand */
   --ch-terra:       #B95A3D;   /* warm clay accent */
   --ch-bluegrey:    #586F7C;   /* calm info / balance */
@@ -244,7 +244,7 @@ body {
   transition: background 600ms ease;
 }
 
-/* Left pane (text / content) — actually scrollable */
+/* Left pane (text / content) - actually scrollable */
 .ch-pane--content {
   background: var(--ch-bg);
   color: var(--ch-ink);
@@ -418,7 +418,7 @@ body {
   to { transform: rotate(360deg); }
 }
 
-/* ─── Panel B: method principles (visual side — three big numbers) ─── */
+/* ─── Panel B: method principles (visual side - three big numbers) ─── */
 .ch-vis-method {
   position: relative; z-index: 2;
   display: grid; gap: 28px;
@@ -1042,7 +1042,7 @@ body[data-palette="neon"] .ch-h1 .neon::after, body[data-palette="neon"] .ch-h2 
 .ch-footer-partners { display: flex; align-items: center; gap: 10px; margin-inline-start: auto; }
 .ch-footer-partners img { height: 30px; width: auto; display: block; background: #fff; border-radius: 6px; padding: 5px 8px; }
 
-/* Visual-bg variants — applied via .ch-stage data attr */
+/* Visual-bg variants - applied via .ch-stage data attr */
 .ch-stage[data-visbg="dark-green"]  { --ch-vis-bg: #0e1f1a; --ch-vis-ink: #f1efe8; --ch-vis-muted: rgba(241,239,232,0.55); --ch-vis-rule: rgba(100,255,0,0.08); }
 .ch-stage[data-visbg="black"]       { --ch-vis-bg: #0a0a0a; --ch-vis-ink: #f1efe8; --ch-vis-muted: rgba(241,239,232,0.5);  --ch-vis-rule: rgba(100,255,0,0.1); }
 .ch-stage[data-visbg="white"]       { --ch-vis-bg: #ffffff; --ch-vis-ink: #1a1a1a; --ch-vis-muted: rgba(26,26,26,0.55);    --ch-vis-rule: rgba(44,95,80,0.16); }
@@ -1072,7 +1072,7 @@ body[data-palette="neon"] .ch-h1 .neon::after, body[data-palette="neon"] .ch-h2 
 .ch-stage[data-style="icons"] .ch-vis-emblem { width: min(40%, 280px); opacity: 0.7; }
 
 /* ══════════════════════════════════════════════════════════
-   VISUAL PANE — IMAGES (replaces icon/emblem panels)
+   VISUAL PANE - IMAGES (replaces icon/emblem panels)
    Each panel = a large image-slot the school fills with a real photo.
    Layout variants driven by .ch-stage[data-vislayout]
    ══════════════════════════════════════════════════════════ */
@@ -1150,16 +1150,16 @@ body[data-palette="neon"] .ch-h1 .neon::after, body[data-palette="neon"] .ch-h2 
   background: linear-gradient(to top, rgba(12,20,17,0.55) 0%, rgba(12,20,17,0) 38%);
 }
 
-/* ── Layout: framed (default) — image fills, caption band beneath ── */
+/* ── Layout: framed (default) - image fills, caption band beneath ── */
 .ch-stage[data-vislayout="framed"] .ch-vis-figure { padding: 0; }
 .ch-stage[data-vislayout="framed"] .ch-vis-tag,
 .ch-stage[data-vislayout="framed"] .ch-vis-scrim { display: none; }
 
-/* ── Layout: full — image edge-to-edge, caption hidden, overlaid tag ── */
+/* ── Layout: full - image edge-to-edge, caption hidden, overlaid tag ── */
 .ch-stage[data-vislayout="full"] .ch-vis-figcap { display: none; }
 .ch-stage[data-vislayout="full"] .ch-vis-figure image-slot { flex: 1 1 100%; }
 
-/* ── Layout: type — hide the image entirely, show giant typography ── */
+/* ── Layout: type - hide the image entirely, show giant typography ── */
 .ch-stage[data-vislayout="type"] .ch-vis-figure { display: none; }
 .ch-stage[data-vislayout="type"] .ch-vis-typo { display: flex; }
 .ch-vis-typo {
@@ -1191,7 +1191,7 @@ body[data-palette="neon"] .ch-h1 .neon::after, body[data-palette="neon"] .ch-h2 
 .ch-stage[data-visbg="white"] .ch-vis-scrim { background: linear-gradient(to top, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 38%); }
 
 /* ══════════════════════════════════════════════════════════
-   CONTENT — explanation / freedom section
+   CONTENT - explanation / freedom section
    ══════════════════════════════════════════════════════════ */
 .ch-freedom-grid {
   display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
@@ -1222,7 +1222,7 @@ body[data-palette="neon"] .ch-h1 .neon::after, body[data-palette="neon"] .ch-h2 
 .ch-freedom-card--accent .ch-freedom-card__k::before { background: var(--ch-terra); }
 
 /* ══════════════════════════════════════════════════════════
-   CONTENT — day-to-day timeline
+   CONTENT - day-to-day timeline
    ══════════════════════════════════════════════════════════ */
 .ch-daily {
   display: grid; gap: 0; margin-top: 14px;
@@ -1254,7 +1254,7 @@ body[data-palette="neon"] .ch-h1 .neon::after, body[data-palette="neon"] .ch-h2 
 .ch-daily__p { font-size: 15px; line-height: 1.55; color: var(--ch-ink-soft); margin: 0; max-width: 54ch; }
 
 /* ══════════════════════════════════════════════════════════
-   CONTENT — parents FAQ (accordion)
+   CONTENT - parents FAQ (accordion)
    ══════════════════════════════════════════════════════════ */
 .ch-faq { display: grid; gap: 10px; margin-top: 14px; }
 .ch-faq__item {
