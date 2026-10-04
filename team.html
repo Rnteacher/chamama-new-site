@@ -8,6 +8,14 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;900&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="pages.css" />
+<style>
+  .team-intro { max-width: 820px; }
+  .team-intro .pg-p { margin-bottom: 14px; }
+  .team-intro__sign { font-weight: 700; margin-top: 18px; }
+  .team-founders { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px; margin-top: 32px; }
+  .team-founders .pg-member image-slot { height: 160px; }
+  .team-founders .pg-member__name { font-size: 18px; }
+</style>
 </head>
 <body>
 <header class="pg-header">
@@ -42,18 +50,51 @@
 
   <section class="pg-section">
     <div class="pg-wrap">
-      <div class="pg-team">
+      <div class="team-intro">
+        <p class="pg-p">יחד עם שותפי לדרך, התחלנו לבנות את תיכון החממה בשנת 2018, כאשר לנגד עיני עומד לי ניסיוני האישי כתלמיד וכמחנך בדבר חשיבות החופש והעצמאות של הלומדים.</p>
+        <p class="pg-p">למידה היא תהליך סובייקטיבי בו ישנה חשיבות מכרעת לתכונות כגון השתוממות, סקרנות, רצון, מסוגלות ומוכנות לאתגר.</p>
+        <p class="pg-p">למידה מתחילה בחלום וממשיכה בפריצה מעבר לידוע ולבטוח! בלמידה שכזו אנו מעוניינים!</p>
+        <p class="pg-p">כפי שפיאז'ה אמר: "כל פעם שאלמד את תלמידיי דבר כל שהוא, אמנע מהם את היכולת לגלות את הדבר בעצמם".</p>
+        <p class="pg-p">אנחנו בתיכון החממה רואים בכל אדם יצור מושלם שזקוק לכמה שפחות הפרעה בתהליך הלמידה.</p>
+        <p class="pg-p">אוטונומיה היא קריטית ביצירה אותנטית, אז אנחנו לא מלמדים כאן, אנחנו מייצרים מרחב בטוח בו יוכלו הלומדים להתפתח בליווי המבוגרים.</p>
+        <p class="pg-p">למידה בחממה, מסתיימת בביטוי מוחשי, ולא במספר בתעודה, ביטוי שמוסיף טוב לעצמנו, לחברה בה אנו חיים או לסביבה שלנו.</p>
+        <p class="pg-p">צוות תיכון החממה, הם שותפים מלאים לדרך, משלב עיצוב החזון ועד לפרקטיקות היומיומיות</p>
+        <p class="pg-p">ביחד אנחנו מאמינים שנוכל לאפשר לכלל הלומדות והלומדים בתיכון החממה, לבטא את הייחודיות שלהם בצבע עז ואותנטי.</p>
+        <p class="pg-p team-intro__sign">אמרי</p>
+      </div>
+    </div>
+  </section>
 
+  <section class="pg-section pg-section--band">
+    <div class="pg-wrap">
+      <h2 class="pg-h2">המייסדים</h2>
+      <div class="team-founders">
         <article class="pg-member">
-          <image-slot id="team-1" src="assets/uploads/team-1.webp" pany="10.4167" shape="rect" fit="cover" placeholder="תמונה - אימרי אביטן"></image-slot>
+          <image-slot id="founder-alhanan" src="assets/uploads/founder-alhanan-tzohar.jpeg" shape="rect" fit="cover" placeholder="תמונה - אלחנן צהר"></image-slot>
           <div class="pg-member__body">
-            <h3 class="pg-member__name">אימרי אביטן</h3>
-            <p class="pg-member__role">מנהל בית ספר · מלווה אקדמיה</p>
-            <p class="pg-member__row"><b>תחומי ליווי:</b> אוניברסיטה פתוחה, יעוץ ארגוני, השכלה פיננסית, מחקר אקדמי</p>
-            <p class="pg-member__row"><b>מה מעניין אותי:</b> איך הופכים שאלה אישית לפרויקט עם השפעה אמיתית.</p>
-            <p class="pg-member__quote">״אם את לא יודעת מאיפה להתחיל - נתחיל מזה שאת לא יודעת.״</p>
+            <h3 class="pg-member__name">אלחנן צהר</h3>
           </div>
         </article>
+        <article class="pg-member">
+          <image-slot id="founder-matan" src="assets/uploads/founder-matan-ran.jpeg" shape="rect" fit="cover" placeholder="תמונה - מתן רן"></image-slot>
+          <div class="pg-member__body">
+            <h3 class="pg-member__name">מתן רן</h3>
+          </div>
+        </article>
+        <article class="pg-member">
+          <image-slot id="founder-imry" src="assets/uploads/founder-imry-avitan.jpeg" shape="rect" fit="cover" placeholder="תמונה - אמרי אביטן"></image-slot>
+          <div class="pg-member__body">
+            <h3 class="pg-member__name">אמרי אביטן</h3>
+            <p class="pg-member__role">מנהל שותף · מלווה אקדמיה</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="pg-section">
+    <div class="pg-wrap">
+      <div class="pg-team">
 
         <article class="pg-member">
           <image-slot id="team-2" src="assets/uploads/team-2.webp" pany="-1.6667" shape="rect" fit="cover" placeholder="תמונה - נעה ספוז'ניק"></image-slot>
@@ -100,10 +141,10 @@
         </article>
 
         <article class="pg-member">
-          <image-slot id="team-6" src="assets/uploads/team-6.webp" pany="7.0833" shape="rect" fit="cover" placeholder="תמונה - עדית הנל"></image-slot>
+          <image-slot id="team-6" src="assets/uploads/staff-shai-li-ben-or.jpeg" shape="rect" fit="cover" placeholder="תמונה - שי-לי בן-אור"></image-slot>
           <div class="pg-member__body">
-            <h3 class="pg-member__name">עדית הנל</h3>
-            <p class="pg-member__role">רכזת רגשית · יועצת</p>
+            <h3 class="pg-member__name">שי-לי בן-אור</h3>
+            <p class="pg-member__role">יועצ.ת התיכון</p>
             <p class="pg-member__row"><b>תחומי ליווי:</b> ליווי רגשי, קבוצות שייכות, רגעים מורכבים.</p>
             <p class="pg-member__row"><b>מה מעניין אותי:</b> לוודא שאף חניך לא נשאר לבד עם מה שקשה לו.</p>
             <p class="pg-member__quote">״הדלת שלי פתוחה. גם כשנדמה לך שאין על מה לדבר.״</p>
@@ -202,7 +243,7 @@
           <image-slot id="team-15" src="assets/uploads/team-15.webp" pany="-6.6667" shape="rect" fit="cover" placeholder="תמונה - אורטל יצחק ברוך"></image-slot>
           <div class="pg-member__body">
             <h3 class="pg-member__name">אורטל יצחק ברוך</h3>
-            <p class="pg-member__role">רכזת מגמת המייקרס · מומחית תחום טקסטיל</p>
+            <p class="pg-member__role">רכזת מגמת העיצוב · מומחית תחום טקסטיל</p>
             <p class="pg-member__row"><b>תחום ליווי:</b> עיצוב, תפירה ואפיון מוצר</p>
             <p class="pg-member__row"><b>פרויקט שאהבתי ללוות:</b> חניכה שלקחה על עצמה לעצב מחוך, משימה קשה מאוד, ועמדה בה בהצלחה.</p>
             <p class="pg-member__quote">״סמני את המטרות שלך, ואל תרפי מהן, עד שתשיגי אותן.״</p>
@@ -213,7 +254,7 @@
           <image-slot id="team-16" src="assets/uploads/team-16.webp" pany="2.9167" shape="rect" fit="cover" placeholder="תמונה - ליאל קצב"></image-slot>
           <div class="pg-member__body">
             <h3 class="pg-member__name">ליאל קצב</h3>
-            <p class="pg-member__role">מאסטרית במגמת המייקרס · מומחית בעיצוב מוצר</p>
+            <p class="pg-member__role">מאסטרית במגמת העיצוב · מומחית בעיצוב מוצר</p>
             <p class="pg-member__row"><b>תחומי ליווי:</b> תכנון ועיצוב מוצר, עיצוב פנים</p>
             <p class="pg-member__row"><b>מה מעניין אותי:</b> לראות את הרגע שבו חניך שלא האמין שמסוגל לעשות משהו - מצליח לעשות אותו.</p>
             <p class="pg-member__quote">״חלומות לא משאירים במגירה.״</p>
@@ -238,6 +279,30 @@
             <p class="pg-member__role">מאסטרית במגמת הפקה · אנסמבל תיאטרון</p>
             <p class="pg-member__row"><b>תחומי ליווי:</b> משחק מול מצלמה, העמדה, בימוי, כתיבה, תיאטרון</p>
             <p class="pg-member__quote">״כל החממה במה וכולנו חניכים.״</p>
+          </div>
+        </article>
+
+        <article class="pg-member">
+          <image-slot id="staff-itay" src="assets/uploads/staff-itay-forman.jpeg" shape="rect" fit="cover" placeholder="תמונה - איתי פורמן"></image-slot>
+          <div class="pg-member__body">
+            <h3 class="pg-member__name">איתי פורמן</h3>
+            <p class="pg-member__role">מנטור שנה א' · מאסטר לאנגלית ולהתפתחות האדם</p>
+          </div>
+        </article>
+
+        <article class="pg-member">
+          <image-slot id="staff-boaz" src="assets/uploads/staff-boaz-kahan.jpeg" shape="rect" fit="cover" placeholder="תמונה - בועז יהונתן קאהן"></image-slot>
+          <div class="pg-member__body">
+            <h3 class="pg-member__name">בועז יהונתן קאהן</h3>
+            <p class="pg-member__role">מאסטר במגמת עיצוב · מומחה עיצוב מוצר ותבניות</p>
+          </div>
+        </article>
+
+        <article class="pg-member">
+          <image-slot id="staff-inbal" shape="rect" fit="cover" placeholder="תמונה - ענבל שליו"></image-slot>
+          <div class="pg-member__body">
+            <h3 class="pg-member__name">ענבל שליו</h3>
+            <p class="pg-member__role">רכזת תוכניות מיוחדות</p>
           </div>
         </article>
 
