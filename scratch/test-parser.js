@@ -2,7 +2,7 @@ const { parseCSV } = require('../netlify/functions/_csv');
 
 const testCSV = '\uFEFFslug,title,tags,published\r\n' +
   'open-evening,"ערב חשיפה ""בכיף"" בקמפוס","הרשמה|אירועים",TRUE\r\n' +
-  'another-slug,"פרויקט המשלב מתכת, עץ וזכוכית",מייקרס,FALSE\r\n' +
+  'another-slug,"פרויקט המשלב מתכת, עץ וזכוכית",עיצוב,FALSE\r\n' +
   'newline-field,"שורה ראשונה\nשורה שנייה",טיוטה,yes';
 
 console.log('--- START CSV PARSER TEST ---');
