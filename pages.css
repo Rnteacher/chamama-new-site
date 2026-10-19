@@ -58,10 +58,7 @@ body {
 .pg-brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
 .pg-brand img { height: 46px; width: auto; display: block; }
 .pg-brand span { display: none; }
-.pg-partner-logo {
-  height: 46px; width: auto; display: block; margin-inline-start: -4px;
-  filter: drop-shadow(0 0 2px rgba(244,240,231,0.95)) drop-shadow(0 0 5px rgba(244,240,231,0.7)) drop-shadow(0 0 9px rgba(244,240,231,0.45));
-}
+.pg-partner-logo { height: 46px; width: auto; display: block; margin-inline-start: -4px; }
 .pg-header-end { display: flex; align-items: center; gap: 16px; }
 .pg-nav { display: flex; gap: 2px; justify-self: center; flex-wrap: wrap; }
 .pg-nav a {
