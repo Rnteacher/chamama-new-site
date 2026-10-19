@@ -334,7 +334,7 @@ function SectionJoin({ idx, ctaText }) {
         </div>
         <span className="ch-footer-partners">
           <img src="assets/logos/partner-ministry-of-labor.png" alt="משרד העבודה" />
-          <img src="assets/logos/partner-amal.png" alt="רשת עמל" />
+          <img src="assets/logos/partner-amal.webp" alt="רשת עמל" />
           <img src="assets/logos/partner-hod-hasharon.png" alt="עיריית הוד השרון" />
         </span>
       </div>

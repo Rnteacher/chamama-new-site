@@ -24,7 +24,7 @@ const NAV = [
   { href: "team.html",     label: "צוות" },
   { href: "social.html",   label: "ברשת" },
   { href: "press.html",    label: "אמרו עלינו" },
-  { href: "join.html",     label: "הצטרפות" },
+  { href: "join.html",     label: "צרו קשר" },
 ];
 
 /* Fixed site configuration - no tweaks panel in production */
