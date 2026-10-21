@@ -76,6 +76,7 @@ function Header({ onJumpTo, progressRef }) {
       <header className={`ch-header ${menuOpen ? "is-menu-open" : ""}`}>
         <a href="index.html" className="ch-header__brand" onClick={handleNavClick}>
           <img className="ch-header__brand-logo" src="assets/logos/logo-full.png" alt="תיכון החממה - תיכון יוטוגוגי, עמל הוד השרון" />
+          <img className="ch-header__partner-logo" src="assets/logos/partner-amal.webp" alt="רשת עמל" />
         </a>
         <button
           className={`ch-header__burger ${menuOpen ? "is-active" : ""}`}

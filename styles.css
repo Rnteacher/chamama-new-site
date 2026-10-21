@@ -84,6 +84,7 @@ body {
 .ch-header > * { pointer-events: auto; }
 .ch-header__brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
 .ch-header__brand-logo { height: 52px; width: auto; display: block; }
+.ch-header__partner-logo { height: 52px; width: auto; display: block; margin-inline-start: -4px; }
 .ch-header__brand-emblem { height: 34px; width: 34px; }
 .ch-header__brand-text {
   font-family: "FbElectron Condensed", system-ui, sans-serif;
@@ -142,6 +143,7 @@ body {
     pointer-events: auto;
   }
   .ch-header__brand-logo { height: 42px; }
+  .ch-header__partner-logo { height: 42px; margin-inline-start: -4px; }
   .ch-header__cta { display: none; }
   .ch-header__burger {
     display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 5px;
