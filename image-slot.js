@@ -284,7 +284,11 @@
       });
       // naturalWidth/Height aren't known until load - re-apply so the cover
       // baseline is computed from real dimensions, not the 100%×100% fallback.
-      this._img.addEventListener('load', () => this._applyView());
+      // Clamp first: before load, _clampView() no-ops (geometry unknown), so
+      // a raw panx/pany/zoom attribute can sit outside this image's valid
+      // range until something else re-renders - that's the "wrong size/
+      // position until refresh" glitch.
+      this._img.addEventListener('load', () => { this._clampView(); this._applyView(); });
       // Gated on editable + fit=cover so share links and contain/fill slots
       // stay static.
       this.addEventListener('dblclick', (e) => {
